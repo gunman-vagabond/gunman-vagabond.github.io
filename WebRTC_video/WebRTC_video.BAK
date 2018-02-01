@@ -1,0 +1,31 @@
+<html>
+<head>
+<script type="text/javascript" src="./ccv.js"></script>
+<script type="text/javascript" src="./face.js"></script>
+</head>
+
+<body>
+<video id="video" autoplay></video>
+<canvas id="canvas"></canvas>
+<script type="text/javascript">
+  video = docment.getElementById("video");
+  canvas = docment.getElementById("canvas");
+
+  navigator.getUserMedia( { audio: false, video: {} } )
+  .then( 
+    function(stream) {
+      video.src = window.URL.createObjectURL(stream);
+    }
+  );
+
+  video.addEventListener("loadedmetadata",
+    function(e) {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+    }
+  );
+
+</script>
+</body>
+</html>

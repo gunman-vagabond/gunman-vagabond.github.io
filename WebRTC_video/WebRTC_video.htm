@@ -52,7 +52,7 @@
       paint.setStyle(Style.STROKE);
       for(var i=0;i < comp.length;i++) {
 //        context2.drawImage(image,comp[i].x-30,comp[i].y-30,comp[i].width+60,comp[i].height+60);
-          ctx.drawRect(comp[i].x,comp[i].y,comp[i].width,comp[i].height, paint);
+          ctx.strokeRect(comp[i].x,comp[i].y,comp[i].width,comp[i].height);
       }
 
     }

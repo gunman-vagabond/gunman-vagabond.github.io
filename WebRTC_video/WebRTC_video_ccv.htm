@@ -52,7 +52,24 @@
 
             for(var i=0;i < comp.length;i++) {
 //              context2.drawImage(image,comp[i].x-30,comp[i].y-30,comp[i].width+60,comp[i].height+60);
-                ctx.strokeRect(comp[i].x,comp[i].y,comp[i].width,comp[i].height);
+//                ctx.strokeRect(comp[i].x,comp[i].y,comp[i].width,comp[i].height);
+
+              $('.face').remove();
+
+              $('<image>', {
+                'class':'face',
+                'src':'./GunFace.transparent.png',
+                'css': {
+                  'position': 'absolute',
+                  'left':     faces[i].x + 'px',
+                  'top':      faces[i].y + 'px',
+                  'width':    faces[i].width  + 'px',
+                  'height':   faces[i].height + 'px'
+                }
+              })
+              .insertAfter(video);
+  
+
             }
 
             requestAnimationFrame(animation);

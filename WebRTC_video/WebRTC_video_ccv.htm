@@ -6,7 +6,7 @@
 
 <body>
 <!--<video id="video" autoplay playsinline style="display:none"></video>-->
-<video id="video" autoplay playsinline></video>
+<!--<video id="video" autoplay playsinline></video>-->
 <canvas id="canvas"></canvas>
 <style>
   #video {
@@ -19,7 +19,8 @@
   }
 </style>
 <script type="text/javascript">
-  video = document.getElementById("video");
+//  video = document.getElementById("video");
+  video = document.createElement("video");
   canvas = document.getElementById("canvas");
 
   navigator.mediaDevices.getUserMedia( { audio: false, video: true } )
@@ -36,12 +37,13 @@
       canvas.height = video.videoHeight;
 
       var ctx = canvas.getContext("2d");
-      setInterval(
-        function(e) {
+
+
+      (function animation() {
             ctx.drawImage(video,0,0,canvas.width,canvas.height);
 
             var comp = ccv.detect_objects(
-              { "canvas" : ccv.grayscale(canvas),
+              { "canvas" : ccv.pre(canvas),
                 "cascade" : cascade,
                 "interval" : 5,
                 "min_neighbors" : 1 
@@ -53,10 +55,9 @@
                 ctx.strokeRect(comp[i].x,comp[i].y,comp[i].width,comp[i].height);
             }
 
-        }
-//        ,33
-        ,200
-      );
+            requestAnimationFrame(animation);
+
+      })();
 
 
     }

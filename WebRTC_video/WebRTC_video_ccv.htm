@@ -67,10 +67,10 @@
 
               image.style.cssText = 
                  "position:absolute;"
-                +"left:"+faces[i].x+"px;"
-                +"top:"+faces[i].y+"px;"
-                +"width:"+faces[i].width+"px;"
-                +"heigh:"+faces[i].height+"px";
+                +"left:"+ (faces[i].x - (faces[i].width  * 0.5)) +"px;"
+                +"top:" + (faces[i].y - (faces[i].height * 0.35)) +"px;"
+                +"width:"+ (faces[i].width  * 2.1 ) +"px;"
+                +"heigh:"+ (faces[i].height * 2.1 ) +"px";
 
               document.body.appendChild(image);
 
@@ -88,6 +88,19 @@
 //              })
 //              .insertAfter(video);
   
+
+          $('<div>', {
+            'class':'face',
+            'css': {
+              'position': 'absolute',
+              'left':     faces[i].x + 'px',
+              'top':      faces[i].y + 'px',
+              'width':    faces[i].width  + 'px',
+              'height':   faces[i].height + 'px'
+            }
+          })
+          .insertAfter(video);
+
 
             }
 

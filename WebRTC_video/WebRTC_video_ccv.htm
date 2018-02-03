@@ -9,6 +9,24 @@
 <!--<video id="video" autoplay playsinline style="display:none"></video>-->
 <video id="video" autoplay playsinline></video>
 <canvas id="canvas" style="display:none"></canvas>
+
+<hr>
+Å°debug  log
+
+<p>
+<textarea id="mydebug" rows="20" cols="80"></textarea>
+</p>
+
+<script>
+var debugmsg = "";
+
+function mydebug(data){
+    debugmsg+=data+"\n";
+    $("#mydebug").text(debugmsg);         
+}
+</script>
+
+
 <style>
   #video {
     display: block;
@@ -42,6 +60,8 @@
 
   video.addEventListener("loadedmetadata",
     function(e) {
+
+try {
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
 
@@ -107,6 +127,9 @@
 
       })();
 
+} catch (e) {
+mydebug(e);
+}
 
     }
 

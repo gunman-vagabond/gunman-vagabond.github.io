@@ -8,6 +8,23 @@
 <!--<video id="video" autoplay playsinline style="display:none"></video>-->
 <video id="video" autoplay playsinline></video>
 <!--<canvas id="canvas"></canvas>-->
+
+<hr>
+Å°debug  log
+
+<p>
+<textarea id="mydebug" rows="20" cols="80"></textarea>
+</p>
+
+<script>
+var debugmsg = "";
+
+function mydebug(data){
+    debugmsg+=data+"\n";
+    $("#mydebug").text(debugmsg);         
+}
+</script>
+
 <style>
 #video {
   display: block;
@@ -48,6 +65,7 @@
   function detection() {
     $("#video").faceDetection({
       complete: function (faces) {
+try {
 //        console.log(faces);
         $('.face').remove();
         for (var i = 0, l = faces.length; i < l; i++) {
@@ -74,6 +92,10 @@
 //          })
 //          .insertAfter(video);
         }
+
+} catch (e) {
+mydebug(e);
+}
       },
       error: function (code, message) {
         alert('Error: ' + message);

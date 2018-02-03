@@ -29,12 +29,16 @@
     }
   );
 
-  video.addEventListener("loadedmetadata",
-    function(e) {
+//  video.addEventListener("loadedmetadata",
+//    function(e) {
+//      setInterval(detection, 200 );
+//    }
+//  );
 
-      setInterval(detection, 200 );
-    }
-  );
+  (function animation() {
+    detection();
+    requestAnimationFrame(animation);
+  })();
 
   function detection() {
     $("#video").faceDetection({

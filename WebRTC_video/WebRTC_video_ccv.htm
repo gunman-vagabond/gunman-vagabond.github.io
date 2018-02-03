@@ -1,0 +1,69 @@
+<html>
+<head>
+<script type="text/javascript" src="./ccv.js"></script>
+<script type="text/javascript" src="./face.js"></script>
+</head>
+
+<body>
+<!--<video id="video" autoplay playsinline style="display:none"></video>-->
+<video id="video" autoplay playsinline></video>
+<canvas id="canvas"></canvas>
+<style>
+  #video {
+    display: block;
+    width: 100%;
+  }
+  #canvas {
+    display: block;
+    width: 100%;
+  }
+</style>
+<script type="text/javascript">
+  video = document.getElementById("video");
+  canvas = document.getElementById("canvas");
+
+  navigator.mediaDevices.getUserMedia( { audio: false, video: true } )
+  .then( 
+    function(stream) {
+//      video.src = window.URL.createObjectURL(stream);
+      video.srcObject = stream;
+    }
+  );
+
+  video.addEventListener("loadedmetadata",
+    function(e) {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      var ctx = canvas.getContext("2d");
+      setInterval(
+        function(e) {
+            ctx.drawImage(video,0,0,canvas.width,canvas.height);
+
+            var comp = ccv.detect_objects(
+              { "canvas" : ccv.grayscale(canvas),
+                "cascade" : cascade,
+                "interval" : 5,
+                "min_neighbors" : 1 
+              }
+            );
+
+            for(var i=0;i < comp.length;i++) {
+//              context2.drawImage(image,comp[i].x-30,comp[i].y-30,comp[i].width+60,comp[i].height+60);
+                ctx.strokeRect(comp[i].x,comp[i].y,comp[i].width,comp[i].height);
+            }
+
+        }
+//        ,33
+        ,200
+      );
+
+
+    }
+
+
+  );
+
+</script>
+</body>
+</html>

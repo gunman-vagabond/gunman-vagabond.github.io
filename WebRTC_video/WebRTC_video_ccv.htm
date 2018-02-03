@@ -6,7 +6,7 @@
 
 <body>
 <!--<video id="video" autoplay playsinline style="display:none"></video>-->
-<!--<video id="video" autoplay playsinline></video>-->
+<video id="video" autoplay playsinline></video>
 <canvas id="canvas"></canvas>
 <style>
   #video {
@@ -19,8 +19,8 @@
   }
 </style>
 <script type="text/javascript">
-//  video = document.getElementById("video");
-  video = document.createElement("video");
+  video = document.getElementById("video");
+//  video = document.createElement("video");
   canvas = document.getElementById("canvas");
 
   navigator.mediaDevices.getUserMedia( { audio: false, video: true } )

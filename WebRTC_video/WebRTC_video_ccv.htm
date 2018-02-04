@@ -46,6 +46,8 @@ function mydebug(data){
   video = document.getElementById("video");
 //  video = document.createElement("video");
   canvas = document.getElementById("canvas");
+  video.width = $(window).width();
+
 
   var image = new Image();
   image.src = "./GunFace.transparent.png";
@@ -62,8 +64,16 @@ function mydebug(data){
     function(e) {
 
 try {
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
+
+  var widthRatio = video.width / video.videoWidth;
+//  video.videoWidth = video.videoWidth * widthRatio;
+//  video.videoHeight = video.videoHeight * widthRatio;
+
+      canvas.width = video.videoWidth * widthRatio;
+      canvas.height = video.videoHeight * widthRatio;
+
+//      canvas.width = video.videoWidth;
+//      canvas.height = video.videoHeight;
 
       var ctx = canvas.getContext("2d");
 
@@ -86,7 +96,7 @@ try {
 
               image.style.cssText = 
                  "position:absolute;"
-                +"left:"+ (faces[i].x - (faces[i].width  * 0.55)) +"px;"
+                +"left:"+ (video.width - (faces[i].width * 2.25) - (faces[i].x - (faces[i].width  * 0.68))) +"px;"
                 +"top:" + (faces[i].y - (faces[i].height * 0.4)) +"px;"
                 +"width:"+ (faces[i].width  * 2.25 ) +"px;"
                 +"heigh:"+ (faces[i].height * 2.25 ) +"px";

@@ -6,7 +6,9 @@
 
 <body>
 <!--<video id="video" autoplay playsinline style="display:none"></video>-->
-<video id="video" autoplay playsinline></video>
+<!--<video id="video" autoplay playsinline></video>-->
+<video id="video" autoplay playsinline style="-webkit-transform: scaleX(-1);"></video>
+
 <!--<canvas id="canvas"></canvas>-->
 
 <hr>
@@ -37,6 +39,7 @@ function mydebug(data){
 </style>
 <script type="text/javascript">
   video = document.getElementById("video");
+  video.width = $(window).width();
 
   var image = new Image();
   image.src = "./GunFace.transparent.png";
@@ -70,12 +73,20 @@ try {
         $('.face').remove();
         for (var i = 0, l = faces.length; i < l; i++) {
 
+//              image.style.cssText = 
+//                 "position:absolute;"
+//                +"left:"+ (faces[i].x - (faces[i].width  * 0.55)) +"px;"
+//                +"top:" + (faces[i].y - (faces[i].height * 0.4)) +"px;"
+//                +"width:"+ (faces[i].width  * 2.25 ) +"px;"
+//                +"heigh:"+ (faces[i].height * 2.25 ) +"px";
+
               image.style.cssText = 
                  "position:absolute;"
-                +"left:"+ (faces[i].x - (faces[i].width  * 0.55)) +"px;"
+                +"left:"+ (video.width - (faces[i].width * 2.25) - (faces[i].x - (faces[i].width  * 0.68))) +"px;"
                 +"top:" + (faces[i].y - (faces[i].height * 0.4)) +"px;"
                 +"width:"+ (faces[i].width  * 2.25 ) +"px;"
                 +"heigh:"+ (faces[i].height * 2.25 ) +"px";
+
 
               document.body.appendChild(image);
 

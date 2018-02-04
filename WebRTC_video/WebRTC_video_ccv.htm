@@ -11,7 +11,7 @@
 <canvas id="canvas" style="display:none"></canvas>
 
 <hr>
-Å°debug  log
+[debug  log]
 
 <p>
 <textarea id="mydebug" rows="20" cols="80"></textarea>
@@ -50,7 +50,7 @@ function mydebug(data){
   var image = new Image();
   image.src = "./GunFace.transparent.png";
 
-  navigator.mediaDevices.getUserMedia( { audio: false, video: true } )
+  navigator.mediaDevices.getUserMedia( { audio: false, video: { frameRate: { ideal: 5, max: 10 } } } )
   .then( 
     function(stream) {
 //      video.src = window.URL.createObjectURL(stream);
@@ -86,10 +86,10 @@ try {
 
               image.style.cssText = 
                  "position:absolute;"
-                +"left:"+ (faces[i].x - (faces[i].width  * 0.5)) +"px;"
-                +"top:" + (faces[i].y - (faces[i].height * 0.35)) +"px;"
-                +"width:"+ (faces[i].width  * 2.1 ) +"px;"
-                +"heigh:"+ (faces[i].height * 2.1 ) +"px";
+                +"left:"+ (faces[i].x - (faces[i].width  * 0.55)) +"px;"
+                +"top:" + (faces[i].y - (faces[i].height * 0.4)) +"px;"
+                +"width:"+ (faces[i].width  * 2.25 ) +"px;"
+                +"heigh:"+ (faces[i].height * 2.25 ) +"px";
 
               document.body.appendChild(image);
 

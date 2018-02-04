@@ -52,9 +52,12 @@ function mydebug(data){
     }
   );
 
+  var widthRatio;
   video.addEventListener("loadedmetadata",
     function(e) {
 //      setInterval(detection, 200 );
+
+      widthRatio = video.width / video.videoWidth;
 
       (function animation() {
         detection();
@@ -79,6 +82,12 @@ try {
 //                +"top:" + (faces[i].y - (faces[i].height * 0.4)) +"px;"
 //                +"width:"+ (faces[i].width  * 2.25 ) +"px;"
 //                +"heigh:"+ (faces[i].height * 2.25 ) +"px";
+
+faces[i].x *= widthRatio;
+faces[i].y *= widthRatio;
+faces[i].width *= widthRatio;
+faces[i].height *= widthRatio;
+
 
               image.style.cssText = 
                  "position:absolute;"

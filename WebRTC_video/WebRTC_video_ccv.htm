@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="./ccv.js"></script>
 <script type="text/javascript" src="./face.js"></script>
@@ -11,7 +12,7 @@
 <canvas id="canvas" style="display:none"></canvas>
 
 <button id="button_camera_switch" style="position:absolute; left:15pt; top:15pt" onclick="camera_switch()">
-ƒJƒƒ‰Ø‘Ö‚¦
+ã‚«ãƒ¡ãƒ©åˆ‡æ›¿ãˆ
 </button>
 
 <hr>
@@ -47,6 +48,14 @@ function mydebug(data){
 
 </style>
 <script type="text/javascript">
+
+var camera_switch_flag = false;
+function camera_switch() {
+  camera_switch_flag = ! camera_switch_flag;
+  mydebug("camera_switch_flag=" + camera_switch_flag);
+}
+
+
   video = document.getElementById("video");
 //  video = document.createElement("video");
   canvas = document.getElementById("canvas");
@@ -149,12 +158,6 @@ mydebug(e);
     }
 
   );
-
-var camera_switch_flag = false;
-function camera_switch() {
-  camera_switch_flag = ! camera_switch_flag;
-  mydebug("camera_switch_flag=" + camera_switch_flag);
-}
 
 </script>
 </body>

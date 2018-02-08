@@ -11,7 +11,7 @@
 <video id="video" autoplay playsinline style="-webkit-transform: scaleX(-1);"></video>
 <canvas id="canvas" style="display:none"></canvas>
 
-<button id="button_camera_switch" style="position:absolute; left:15pt; top:15pt" onclick="camera_switch()">
+<button id="button_camera_switch" style="position:absolute; left:15pt; top:15pt; font-size:1.4em; font-weight:bold; padding:2px 2px; background-color:#cccccc" onclick="camera_switch()">
 カメラ切替え
 </button>
 
@@ -54,6 +54,7 @@ function camera_switch() {
   camera_switch_flag = ! camera_switch_flag;
   mydebug("camera_switch_flag=" + camera_switch_flag);
   set_camera();
+  $("#button_camera_switch").css("background-color", (camera_switch_flag ? "yellow": "#cccccc") );
 }
 
 function set_camera() {

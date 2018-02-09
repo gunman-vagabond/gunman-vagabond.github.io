@@ -93,6 +93,8 @@ mydebug("animation() start. : " + (frameCount++) );
 
 
   function detection() {
+mydebug("faceDetection() start. : " + (frameCount) );
+
     $("#video").faceDetection({
       complete: function (faces) {
 try {
@@ -136,7 +138,7 @@ faces[i].height *= widthRatio;
               })
               .insertAfter(video);
 
-mydebug("faceDetection() end. : " + (frameCount) );
+mydebug("faceDetection() success. : " + (frameCount) );
 
 
 //          $('<div>', {
@@ -160,6 +162,7 @@ mydebug(e);
         alert('Error: ' + message);
       }
     });
+mydebug("faceDetection() end. : " + (frameCount) );
   }
 
 </script>

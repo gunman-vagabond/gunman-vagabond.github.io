@@ -82,7 +82,7 @@ function set_camera() {
       widthRatio = video.width / video.videoWidth;
 
       (function animation() {
-mydebug("animation() start. : " + frameCount );
+mydebug("animation() start. : " + (frameCount++) );
         detection();
         requestAnimationFrame(animation);
 //        window.setTimeout(animation, 100);
@@ -136,6 +136,7 @@ faces[i].height *= widthRatio;
               })
               .insertAfter(video);
 
+mydebug("faceDetection() end. : " + (frameCount) );
 
 
 //          $('<div>', {

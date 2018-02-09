@@ -80,9 +80,11 @@ function set_camera() {
       widthRatio = video.width / video.videoWidth;
 
       (function animation() {
+for(i=0;i<500;i++){
         detection();
 //        requestAnimationFrame(animation);
-        window.setTimeout(animation, 100);
+//        window.setTimeout(animation, 100);
+}
       })();
 
     }

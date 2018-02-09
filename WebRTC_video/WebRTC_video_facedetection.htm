@@ -81,7 +81,8 @@ function set_camera() {
 
       (function animation() {
         detection();
-        requestAnimationFrame(animation);
+//        requestAnimationFrame(animation);
+        window.setTimeout(animation, 500);
       })();
 
     }

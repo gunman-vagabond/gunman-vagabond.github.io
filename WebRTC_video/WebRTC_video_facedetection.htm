@@ -27,7 +27,7 @@
 var debugmsg = "";
 
 function mydebug(data){
-    debugmsg+=data+"\n";
+    debugmsg=data+"\n"+debugmsg;
     $("#mydebug").text(debugmsg);         
 }
 </script>
@@ -72,6 +72,8 @@ function set_camera() {
 
   set_camera();
 
+  var frameCount=0;
+
   var widthRatio;
   video.addEventListener("loadedmetadata",
     function(e) {
@@ -80,6 +82,7 @@ function set_camera() {
       widthRatio = video.width / video.videoWidth;
 
       (function animation() {
+mydebug("animation() start. : " + frameCount );
         detection();
         requestAnimationFrame(animation);
 //        window.setTimeout(animation, 100);

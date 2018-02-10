@@ -161,7 +161,7 @@ faces[i].width *= widthRatio;
 faces[i].height *= widthRatio;
 
               if ( camera_switch_flag ) {
-                img_left   = (faces[i].x + (faces[i].width  * 0)) + 'px';
+                img_left   = (faces[i].x - (faces[i].width  * 0.68)) + 'px';
                 img_top    = (faces[i].y - (faces[i].height * 0.4)) + 'px';
                 img_width  = (faces[i].width  * 2.25 ) + 'px';
                 img_height = (faces[i].height * 1.8 ) + 'px';

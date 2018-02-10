@@ -78,7 +78,7 @@ mydebug("camera_num : " + camera_num);
 
 function set_camera() {
 
-  navigator.mediaDevices.getUserMedia( { audio: false, video: { width: {max:320}, height: {max:320}, frameRate: { ideal: 2, max: 5 }, facingMode: (camera_switch_flag? "environment" : "user" ) } } )
+  navigator.mediaDevices.getUserMedia( { audio: false, video: { width: {max:160}, height: {max:160}, frameRate: { ideal: 2, max: 5 }, facingMode: (camera_switch_flag? "environment" : "user" ) } } )
   .then( 
     function(stream) {
 //      video.src = window.URL.createObjectURL(stream);

@@ -58,18 +58,27 @@ function search_camera() {
   .then(function(devices) { // 成功時
    devices.forEach(function(device) {
     // デバイスごとの処理
-    camera_num++;
+    if ( device.kind == "videoinput" ) {
+      camera_num++;
+    }
    });
+
+   set_camera();
+mydebug("camera_num : " + camera_num);
+
   })
   .catch(function(err) { // エラー発生時
 //   console.error('enumerateDevide ERROR:', err);
    camera_num = 0;
+   set_camera();
+mydebug("camera_num : " + camera_num);
+
   });
 }
 
 function set_camera() {
 
-  navigator.mediaDevices.getUserMedia( { audio: false, video: { frameRate: { ideal: 2, max: 5 }, facingMode: (camera_switch_flag? "user" : "environment") } } )
+  navigator.mediaDevices.getUserMedia( { audio: false, video: { frameRate: { ideal: 2, max: 5 }, facingMode: (camera_switch_flag? "environment" : "user" ) } } )
   .then( 
     function(stream) {
 //      video.src = window.URL.createObjectURL(stream);
@@ -86,9 +95,8 @@ function set_camera() {
   image.src = "./GunFace.transparent.png";
 
   search_camera();
-mydebug("camera_num : " + camera_num);
 
-  set_camera();
+//  set_camera();
 
   var frameCount=0;
 

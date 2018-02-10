@@ -84,6 +84,11 @@ function set_camera() {
 //      video.src = window.URL.createObjectURL(stream);
       video.srcObject = stream;
     }
+  )
+  .catch(
+    function(e){
+mydebug("getUserMedia : exception : "+ e );
+    }
   );
 
 }

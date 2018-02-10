@@ -118,11 +118,11 @@ mydebug("getUserMedia : exception : "+ e );
 //      widthRatio = video.width / video.videoWidth;
 
       widthRatio = $(window).width() / video.videoWidth;
-//      var heightRatio = window.innerHeight / video.videoHeight;
-//      if ( widthRatio > heightRatio ) { 
-//        widthRatio = heightRatio;
-//      }
-//      video.width = video.videoWidth * widthRatio;
+      var heightRatio = window.innerHeight / video.videoHeight;
+      if ( widthRatio > heightRatio ) { 
+        widthRatio = heightRatio;
+      }
+      video.width = video.videoWidth * widthRatio;
 
 
       (function animation() {

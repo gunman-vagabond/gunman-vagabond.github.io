@@ -98,6 +98,8 @@ mydebug("getUserMedia : exception : "+ e );
 }
 
   video = document.getElementById("video");
+  video.width = $(window).width();
+
 
   var image = new Image();
   image.src = "./GunFace.transparent.png";
@@ -116,12 +118,11 @@ mydebug("getUserMedia : exception : "+ e );
 //      widthRatio = video.width / video.videoWidth;
 
       widthRatio = $(window).width() / video.videoWidth;
-      var heightRatio = $(window).height() / video.videoHeight;
-      if ( widthRatio < heightRatio ) { 
-        video.width = video.videoWidth * widthRatio;
-      } else {
-        video.width = video.videoWidth * heightRatio;
+      var heightRatio = window.innerHeight / video.videoHeight;
+      if ( widthRatio > heightRatio ) { 
+        widthRatio = heightRatio;
       }
+      video.width = video.videoWidth * widthRatio;
 
 
       (function animation() {

@@ -158,29 +158,18 @@ faces[i].y *= widthRatio;
 faces[i].width *= widthRatio;
 faces[i].height *= widthRatio;
 
-
-//              image.style.cssText = 
-//                 "position:absolute;"
-//                +"left:"+ (video.width - (faces[i].width * 2.25) - (faces[i].x - (faces[i].width  * 0.68))) +"px;"
-//                +"top:" + (faces[i].y - (faces[i].height * 0.4)) +"px;"
-//                +"width:"+ (faces[i].width  * 2.25 ) +"px;"
-//                +"heigh:"+ (faces[i].height * 2.25 ) +"px";
-//
-//
-//              document.body.appendChild(image);
-
-              $('<img>', {
-                'class':'face',
-                'src':'./GunFace.transparent.png',
-                'css': {
-                  'position': 'absolute',
-                  'left':     (video.width - (faces[i].width * 2.25) - (faces[i].x - (faces[i].width  * 0.68))) + 'px',
-                  'top':      (faces[i].y - (faces[i].height * 0.4)) + 'px',
-                  'width':    (faces[i].width  * 2.25 ) + 'px',
-                  'height':   (faces[i].height * 1.8 ) + 'px'
-                }
-              })
-              .insertAfter(video);
+//              $('<img>', {
+//                'class':'face',
+//                'src':'./GunFace.transparent.png',
+//                'css': {
+//                  'position': 'absolute',
+//                  'left':     (video.width - (faces[i].width * 2.25) - (faces[i].x - (faces[i].width  * 0.68))) + 'px',
+//                  'top':      (faces[i].y - (faces[i].height * 0.4)) + 'px',
+//                  'width':    (faces[i].width  * 2.25 ) + 'px',
+//                  'height':   (faces[i].height * 1.8 ) + 'px'
+//                }
+//              })
+//              .insertAfter(video);
 
 mydebug("faceDetection() success. : " + (frameCount) );
 

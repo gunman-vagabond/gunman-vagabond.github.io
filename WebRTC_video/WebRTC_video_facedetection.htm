@@ -115,6 +115,10 @@ mydebug("getUserMedia : exception : "+ e );
 //      setInterval(detection, 200 );
 
       widthRatio = video.width / video.videoWidth;
+      var heightRatio = video.height / video.videoHeight;
+      if ( widthRatio > heightRatio ) {
+        widthRatio = heightRatio
+      }
 
       (function animation() {
 mydebug("animation() start. : " + (++frameCount) );

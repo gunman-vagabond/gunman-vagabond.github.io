@@ -160,15 +160,27 @@ faces[i].y *= widthRatio;
 faces[i].width *= widthRatio;
 faces[i].height *= widthRatio;
 
+              if ( camera_switch_flag ) {
+                img_left   = (faces[i].x + (faces[i].width  * 0)) + 'px';
+                img_top    = (faces[i].y - (faces[i].height * 0.4)) + 'px';
+                img_width  = (faces[i].width  * 2.25 ) + 'px';
+                img_height = (faces[i].height * 1.8 ) + 'px';
+              } else {
+                img_left   = (video.width - (faces[i].width * 2.25) - (faces[i].x - (faces[i].width  * 0.68))) + 'px';
+                img_top    = (faces[i].y - (faces[i].height * 0.4)) + 'px';
+                img_width  = (faces[i].width  * 2.25 ) + 'px';
+                img_height = (faces[i].height * 1.8 ) + 'px';
+              }
+
               $('<img>', {
                 'class':'face',
                 'src':'./GunFace.transparent.png',
                 'css': {
                   'position': 'absolute',
-                  'left':     (video.width - (faces[i].width * 2.25) - (faces[i].x - (faces[i].width  * 0.68))) + 'px',
-                  'top':      (faces[i].y - (faces[i].height * 0.4)) + 'px',
-                  'width':    (faces[i].width  * 2.25 ) + 'px',
-                  'height':   (faces[i].height * 1.8 ) + 'px'
+                  'left'    : img_left,
+                  'top'     : img_top,
+                  'width'   : img_width,
+                  'height'  : img_height
                 }
               })
               .insertAfter(video);

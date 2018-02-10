@@ -83,6 +83,9 @@ function set_camera() {
   .then( 
     function(stream) {
 //      video.src = window.URL.createObjectURL(stream);
+      if ( camera_num > 1 ) {
+        video.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
+      }
       video.srcObject = stream;
     }
   )
@@ -114,7 +117,7 @@ mydebug("getUserMedia : exception : "+ e );
       widthRatio = video.width / video.videoWidth;
 
       (function animation() {
-mydebug("animation() start. : " + (frameCount++) );
+mydebug("animation() start. : " + (++frameCount) );
         detection();
         requestAnimationFrame(animation);
 //        window.setTimeout(animation, 100);

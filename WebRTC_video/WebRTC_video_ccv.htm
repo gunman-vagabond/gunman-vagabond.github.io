@@ -112,9 +112,16 @@ mydebug("getUserMedia : exception : "+ e );
   var image = new Image();
   image.src = "./GunFace.transparent.png";
 
-  search_camera();
+function set_video_file(URL) {
+  video.src = URL;
 
+}
+
+//  search_camera();
 //  set_camera();
+
+set_video_file("http://hakuhin.jp/download/js/video/sample_00.webm");
+
 
   video.addEventListener("loadedmetadata",
     function(e) {

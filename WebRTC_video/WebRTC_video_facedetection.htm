@@ -76,6 +76,11 @@ mydebug("camera_num : " + camera_num);
   });
 }
 
+function set_video_file(URL) {
+  video.src = URL;
+
+}
+
 function set_camera() {
 
 //  navigator.mediaDevices.getUserMedia( { audio: false, video: { facingMode: (camera_switch_flag? "environment" : "user" ) } } )
@@ -106,9 +111,11 @@ mydebug("getUserMedia : exception : "+ e );
   var image = new Image();
   image.src = "./GunFace.transparent.png";
 
-  search_camera();
+//  search_camera();
 
 //  set_camera();
+
+set_video_file("http://hakuhin.jp/download/js/video/sample_00.webm");
 
   var frameCount=0;
 
@@ -144,7 +151,6 @@ mydebug("faceDetection() start. : " + (frameCount) );
     $("#video").faceDetection({
       complete: function (faces) {
 try {
-//        console.log(faces);
         $('.face').remove();
         for (var i = 0, l = faces.length; i < l; i++) {
 
@@ -155,13 +161,13 @@ try {
 //                +"width:"+ (faces[i].width  * 2.25 ) +"px;"
 //                +"heigh:"+ (faces[i].height * 2.25 ) +"px";
 
-faces[i].x *= widthRatio;
-faces[i].y *= widthRatio;
-faces[i].width *= widthRatio;
-faces[i].height *= widthRatio;
+              faces[i].x *= widthRatio;
+              faces[i].y *= widthRatio;
+              faces[i].width *= widthRatio;
+              faces[i].height *= widthRatio;
 
               if ( camera_switch_flag ) {
-                img_left   = (faces[i].x - (faces[i].width  * 0.5)) + 'px';
+                img_left   = (faces[i].x - (faces[i].width  * 0.55)) + 'px';
                 img_top    = (faces[i].y - (faces[i].height * 0.4)) + 'px';
                 img_width  = (faces[i].width  * 2.25 ) + 'px';
                 img_height = (faces[i].height * 1.8 ) + 'px';

@@ -115,10 +115,10 @@ mydebug("getUserMedia : exception : "+ e );
   image.src = "./GunFace.transparent.png";
 
 function set_video_file(URL) {
-        var url = 'URL';
+//        var url = URL;
         $(document).ready(function(){
             $.ajax({
-                url:url,
+                url:URL,
                 type: 'GET',
                 cache: false,
                 success: function(res) {

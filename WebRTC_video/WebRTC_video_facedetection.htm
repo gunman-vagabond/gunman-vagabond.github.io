@@ -8,7 +8,7 @@
 <body>
 <!--<video id="video" autoplay playsinline style="display:none"></video>-->
 <!--<video id="video" autoplay playsinline></video>-->
-<video id="video" autoplay playsinline style="-webkit-transform: scaleX(-1);"></video>
+<video id="video" autoplay playsinline style="-webkit-transform: scaleX(-1);" crossorigin></video>
 
 <!--<canvas id="canvas"></canvas>-->
 
@@ -106,6 +106,7 @@ mydebug("getUserMedia : exception : "+ e );
 
   video = document.getElementById("video");
   video.width = $(window).width();
+  video.crossOrigin = "anonymous";
 
 
   var image = new Image();
@@ -115,7 +116,7 @@ mydebug("getUserMedia : exception : "+ e );
 
 //  set_camera();
 
-set_video_file("http://hakuhin.jp/download/js/video/sample_00.webm");
+set_video_file("https://hakuhin.jp/download/js/video/sample_00.webm");
 
   var frameCount=0;
 

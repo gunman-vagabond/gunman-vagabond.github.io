@@ -8,7 +8,7 @@
 
 <body>
 <!--<video id="video" autoplay playsinline style="display:none"></video>-->
-<video id="video" autoplay playsinline style="-webkit-transform: scaleX(-1);"></video>
+<video id="video" autoplay playsinline style="-webkit-transform: scaleX(-1);" crossorigin></video>
 <canvas id="canvas" style="display:none"></canvas>
 
 <button id="button_camera_switch" style="position:absolute; left:15pt; top:15pt; width:150px; height:150px; font-size:1.4em; font-weight:bold; padding:2px 2px; background-color:#cccccc" onclick="camera_switch()">
@@ -120,7 +120,7 @@ function set_video_file(URL) {
 //  search_camera();
 //  set_camera();
 
-set_video_file("http://hakuhin.jp/download/js/video/sample_00.webm");
+set_video_file("https://hakuhin.jp/download/js/video/sample_00.webm");
 
 
   video.addEventListener("loadedmetadata",
@@ -131,6 +131,8 @@ try {
   var widthRatio = video.width / video.videoWidth;
 //  video.videoWidth = video.videoWidth * widthRatio;
 //  video.videoHeight = video.videoHeight * widthRatio;
+
+    video.crossOrigin = "anonymous";
 
       canvas.width = video.videoWidth * widthRatio;
       canvas.height = video.videoHeight * widthRatio;

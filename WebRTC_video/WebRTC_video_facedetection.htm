@@ -86,15 +86,16 @@ function set_camera() {
 
 //  navigator.mediaDevices.getUserMedia( { audio: false, video: { facingMode: (camera_switch_flag? "environment" : "user" ) } } )
 //  navigator.mediaDevices.getUserMedia( { audio: false, video: { width:352, facingMode: (camera_switch_flag? "environment" : "user" ) } } )
-//  navigator.mediaDevices.getUserMedia( { audio: false, video: { frameRate: { ideal: 5, max: 10 }, facingMode: (camera_switch_flag? "environment" : "user" ) } } 
-  if ( ! camera_switch_flag ) {
-    navigator.mediaDevices.getUserMedia( { audio: false, video: { width:352, facingMode: "user" } } )
+//  navigator.mediaDevices.getUserMedia( { audio: false, video: { frameRate: { ideal: 5, max: 10 }, facingMode: (camera_switch_flag? "environment" : "user" ) } } // width: {max:160}, height: {max:160} 
+
+  var media ;
+  if ( ! camera_switch_flag || camera_num == 1 ) {
+    media = { audio: false, video: { width:352, facingMode: "user" } } ;
   } else {
-    navigator.mediaDevices.getUserMedia( { audio: false, video: { width:352, facingMode: {exact: "environment"} } } )
+    media = { audio: false, video: { width:352, facingMode: {exact: "environment"} } } ;
   }
 
-)
-// width: {max:160}, height: {max:160} 
+  navigator.mediaDevices.getUserMedia( media )
   .then( 
     function(stream) {
 //      video.src = window.URL.createObjectURL(stream);
@@ -157,6 +158,7 @@ mydebug("animation() start. : " + (++frameCount) );
   function detection() {
 mydebug("faceDetection() start. : " + (frameCount) );
 
+try {
     $("#video").faceDetection({
       complete: function (faces) {
 try {
@@ -224,6 +226,11 @@ mydebug(e);
         alert('Error: ' + message);
       }
     });
+
+} catch (e2) {
+mydebug(e2);
+}
+
 mydebug("faceDetection() end. : " + (frameCount) );
   }
 

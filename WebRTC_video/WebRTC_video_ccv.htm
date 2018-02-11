@@ -114,8 +114,18 @@ mydebug("getUserMedia : exception : "+ e );
   image.src = "./GunFace.transparent.png";
 
 function set_video_file(URL) {
-  video.src = URL;
-
+        var url = 'URL';
+        $(document).ready(function(){
+            $.ajax({
+                url:url,
+                type: 'GET',
+                cache: false,
+                success: function(res) {
+//                    console.log(res);
+                    video.src = URL;
+                }
+            });
+        });
 }
 
 //  search_camera();

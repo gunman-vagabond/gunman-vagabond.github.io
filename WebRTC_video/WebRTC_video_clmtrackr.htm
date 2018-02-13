@@ -4,7 +4,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <script src="./clmtrackr/clmtrackr.js"></script>
-<script src="./clmtrackr/models/model_pca_20_svm.js"></script>
+<!--<script src="./clmtrackr/models/model_pca_20_svm.js"></script>-->
 </head>
 
 <body>
@@ -39,6 +39,12 @@ function mydebug(data){
 #video {
   display: block;
   _width: 100%;
+}
+
+#canvas {
+  position: absolute;
+  left: 0px;
+  top: 0px;
 }
 
 .__face {
@@ -105,38 +111,7 @@ function set_camera() {
   .then( 
     function(stream) {
 //      video.src = window.URL.createObjectURL(stream);
-      if ( camera_num > 1 ) {
-        video.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
-      }
-      video.srcObject = stream;
-    }
-  )
-  .catch(
-    function(e){
-mydebug("getUserMedia : exception : "+ e );
-    }
-  );
 
-}
-
-  video = document.getElementById("video");
-  video.width = $(window).width();
-
-  var canvas = document.getElementById("canvas");
-  var ctx;
-
-  var image = new Image();
-  image.src = "./GunFace.transparent.png";
-
-  search_camera();
-
-//  set_camera();
-
-//set_video_file("https://hakuhin.jp/download/js/video/sample_00.webm");
-
-  var frameCount=0;
-
-  var widthRatio;
   video.addEventListener("loadedmetadata",
     function(e) {
 //      setInterval(detection, 200 );
@@ -172,11 +147,44 @@ mydebug("animation() start. : " + (++frameCount) );
   );
 
 
+      if ( camera_num > 1 ) {
+        video.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
+      }
+      video.srcObject = stream;
+    }
+  )
+  .catch(
+    function(e){
+mydebug("getUserMedia : exception : "+ e );
+    }
+  );
+
+}
+
+  video = document.getElementById("video");
+  video.width = $(window).width();
+
+  var canvas = document.getElementById("canvas");
+  var ctx;
+
+  var image = new Image();
+  image.src = "./GunFace.transparent.png";
+
+  search_camera();
+
+//  set_camera();
+
+//set_video_file("https://hakuhin.jp/download/js/video/sample_00.webm");
+
+  var frameCount=0;
+
+  var widthRatio;
+
+
   function detection() {
-    var positions = tracker.getCurrentPosition();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 //    ctx.strokeRect(0, 0, canvas.width, canvas.height);
-    if (positions) {
+    if (tracker.getCurrentPosition()) {
       tracker.draw(canvas);
     }
   }

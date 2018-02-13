@@ -101,10 +101,10 @@ function set_camera() {
   var media ;
   if ( ! camera_switch_flag || camera_num == 1 ) {
 //    media = { audio: false, video: { width:352, facingMode: "user" } } ;
-    media = { audio: false, video: { facingMode: "user" } } ;
+    media = { audio: false, video: { facingMode: "user",  frameRate: { ideal: 5, max: 10 } } } ;
   } else {
 //    media = { audio: false, video: { width:352, facingMode: {exact: "environment"} } } ;
-    media = { audio: false, video: { facingMode: {exact: "environment"} } } ;
+    media = { audio: false, video: { facingMode: {exact: "environment"},  frameRate: { ideal: 5, max: 10 } } } ;
   }
 
   navigator.mediaDevices.getUserMedia( media )

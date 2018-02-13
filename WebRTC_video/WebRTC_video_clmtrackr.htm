@@ -123,6 +123,7 @@ function set_camera() {
         widthRatio = heightRatio;
       }
       video.width = video.videoWidth * widthRatio;
+      video.height = video.videoHeight * widthRatio;
 
       canvas.width = video.videoWidth * widthRatio;
       canvas.height = video.videoHeight * widthRatio;

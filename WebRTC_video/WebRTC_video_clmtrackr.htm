@@ -111,6 +111,42 @@ function set_camera() {
   .then( 
     function(stream) {
 
+      if ( camera_num > 1 ) {
+        video.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
+      }
+//      video.srcObject = stream;
+      video.src = URL.createObjectURL(stream);
+
+    }
+  )
+  .catch(
+    function(e){
+mydebug("getUserMedia : exception : "+ e );
+    }
+  );
+
+}
+
+  video = document.getElementById("video");
+  video.width = $(window).width();
+
+  var canvas = document.getElementById("canvas");
+  var ctx;
+
+  var image = new Image();
+  image.src = "./GunFace.transparent.png";
+
+  search_camera();
+
+//  set_camera();
+
+//set_video_file("https://hakuhin.jp/download/js/video/sample_00.webm");
+
+  var frameCount=0;
+
+  var widthRatio;
+
+
   video.addEventListener("loadedmetadata",
     function(e) {
 //      setInterval(detection, 200 );
@@ -147,40 +183,6 @@ mydebug("animation() start. : " + (++frameCount) );
   );
 
 
-      if ( camera_num > 1 ) {
-        video.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
-      }
-//      video.srcObject = stream;
-      video.src = URL.createObjectURL(stream);
-
-    }
-  )
-  .catch(
-    function(e){
-mydebug("getUserMedia : exception : "+ e );
-    }
-  );
-
-}
-
-  video = document.getElementById("video");
-  video.width = $(window).width();
-
-  var canvas = document.getElementById("canvas");
-  var ctx;
-
-  var image = new Image();
-  image.src = "./GunFace.transparent.png";
-
-  search_camera();
-
-//  set_camera();
-
-//set_video_file("https://hakuhin.jp/download/js/video/sample_00.webm");
-
-  var frameCount=0;
-
-  var widthRatio;
 
 
   function detection() {

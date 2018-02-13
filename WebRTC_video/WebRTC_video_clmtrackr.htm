@@ -1,0 +1,266 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script src="./clmtrackr/clmtrackr.js"></script>
+<script src="./clmtrackr/models/model_pca_20_svm.js"></script>
+</head>
+
+<body>
+<!--<video id="video" autoplay playsinline style="display:none"></video>-->
+<!--<video id="video" autoplay playsinline></video>-->
+<video id="video" autoplay playsinline style="-webkit-transform: scaleX(-1);" crossorigin></video>
+
+<canvas id="canvas"></canvas>
+
+<!--<button id="button_camera_switch" style="position:absolute; left:15pt; top:15pt; width:150px; height:150px; font-size:1.4em; font-weight:bold; padding:2px 2px; background-color:#cccccc" onclick="camera_switch()">-->
+<button id="button_camera_switch" style="width:150px; height:150px; font-size:1.4em; font-weight:bold; padding:2px 2px; background-color:#cccccc" onclick="camera_switch()">
+カメラ切替え
+</button>
+
+<hr>
+[debug  log]
+
+<p>
+<textarea id="mydebug" rows="20" cols="80"></textarea>
+</p>
+
+<script>
+var debugmsg = "";
+
+function mydebug(data){
+    debugmsg=data+"\n"+debugmsg;
+    $("#mydebug").text(debugmsg);         
+}
+</script>
+
+<style>
+#video {
+  display: block;
+  _width: 100%;
+}
+
+.__face {
+  border: 2px solid #FFF;
+}
+</style>
+<script type="text/javascript">
+
+var tracker = new clm.tracker();
+
+var camera_switch_flag = false;
+function camera_switch() {
+  camera_switch_flag = ! camera_switch_flag;
+  mydebug("camera_switch_flag=" + camera_switch_flag);
+  set_camera();
+  $("#button_camera_switch").css("background-color", (camera_switch_flag ? "yellow": "#cccccc") );
+}
+
+var camera_num = 0;
+function search_camera() {
+  navigator.mediaDevices.enumerateDevices()
+  .then(function(devices) { // 成功時
+   devices.forEach(function(device) {
+    // デバイスごとの処理
+    if ( device.kind == "videoinput" ) {
+      camera_num++;
+    }
+   });
+
+   set_camera();
+mydebug("camera_num : " + camera_num);
+
+  })
+  .catch(function(err) { // エラー発生時
+//   console.error('enumerateDevide ERROR:', err);
+   camera_num = 0;
+   set_camera();
+mydebug("camera_num : " + camera_num);
+
+  });
+}
+
+function set_video_file(URL) {
+  video.src = URL;
+
+}
+
+function set_camera() {
+
+//  navigator.mediaDevices.getUserMedia( { audio: false, video: { facingMode: (camera_switch_flag? "environment" : "user" ) } } )
+//  navigator.mediaDevices.getUserMedia( { audio: false, video: { width:352, facingMode: (camera_switch_flag? "environment" : "user" ) } } )
+//  navigator.mediaDevices.getUserMedia( { audio: false, video: { frameRate: { ideal: 5, max: 10 }, facingMode: (camera_switch_flag? "environment" : "user" ) } } // width: {max:160}, height: {max:160} 
+
+  var media ;
+  if ( ! camera_switch_flag || camera_num == 1 ) {
+//    media = { audio: false, video: { width:352, facingMode: "user" } } ;
+    media = { audio: false, video: { facingMode: "user" } } ;
+  } else {
+//    media = { audio: false, video: { width:352, facingMode: {exact: "environment"} } } ;
+    media = { audio: false, video: { facingMode: {exact: "environment"} } } ;
+  }
+
+  navigator.mediaDevices.getUserMedia( media )
+  .then( 
+    function(stream) {
+//      video.src = window.URL.createObjectURL(stream);
+      if ( camera_num > 1 ) {
+        video.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
+      }
+      video.srcObject = stream;
+    }
+  )
+  .catch(
+    function(e){
+mydebug("getUserMedia : exception : "+ e );
+    }
+  );
+
+}
+
+  video = document.getElementById("video");
+  video.width = $(window).width();
+
+  var canvas = document.getElementById("canvas");
+  var ctx;
+
+  var image = new Image();
+  image.src = "./GunFace.transparent.png";
+
+  search_camera();
+
+//  set_camera();
+
+//set_video_file("https://hakuhin.jp/download/js/video/sample_00.webm");
+
+  var frameCount=0;
+
+  var widthRatio;
+  video.addEventListener("loadedmetadata",
+    function(e) {
+//      setInterval(detection, 200 );
+
+//      widthRatio = video.width / video.videoWidth;
+
+      widthRatio = $(window).width() / video.videoWidth;
+      var heightRatio = window.innerHeight / video.videoHeight;
+      if ( widthRatio > heightRatio ) { 
+        widthRatio = heightRatio;
+      }
+      video.width = video.videoWidth * widthRatio;
+
+      canvas.width = video.videoWidth * widthRatio;
+      canvas.height = video.videoHeight * widthRatio;
+
+      ctx = canvas.getContext("2d");
+
+
+      (function animation() {
+        requestAnimationFrame(animation);
+mydebug("animation() start. : " + (++frameCount) );
+        detection();
+//        window.setTimeout(animation, 100);
+      })();
+
+
+//      tracker.init(pModel);
+      tracker.init();
+      tracker.start(video);
+
+    }
+  );
+
+
+  function detection() {
+    var positions = tracker.getCurrentPosition();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+//    ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    if (positions) {
+      tracker.draw(canvas);
+    }
+  }
+
+
+  function _detection() {
+mydebug("faceDetection() start. : " + (frameCount) );
+
+try {
+    $("#video").faceDetection({
+      complete: function (faces) {
+try {
+        $('.face').remove();
+        for (var i = 0, l = faces.length; i < l; i++) {
+
+//              image.style.cssText = 
+//                 "position:absolute;"
+//                +"left:"+ (faces[i].x - (faces[i].width  * 0.55)) +"px;"
+//                +"top:" + (faces[i].y - (faces[i].height * 0.4)) +"px;"
+//                +"width:"+ (faces[i].width  * 2.25 ) +"px;"
+//                +"heigh:"+ (faces[i].height * 2.25 ) +"px";
+
+              faces[i].x *= widthRatio;
+              faces[i].y *= widthRatio;
+              faces[i].width *= widthRatio;
+              faces[i].height *= widthRatio;
+
+              if ( camera_switch_flag ) {
+                img_left   = (faces[i].x - (faces[i].width  * 0.55)) + 'px';
+                img_top    = (faces[i].y - (faces[i].height * 0.4)) + 'px';
+                img_width  = (faces[i].width  * 2.25 ) + 'px';
+                img_height = (faces[i].height * 1.8 ) + 'px';
+              } else {
+                img_left   = (video.width - (faces[i].width * 2.25) - (faces[i].x - (faces[i].width  * 0.68))) + 'px';
+                img_top    = (faces[i].y - (faces[i].height * 0.4)) + 'px';
+                img_width  = (faces[i].width  * 2.25 ) + 'px';
+                img_height = (faces[i].height * 1.8 ) + 'px';
+              }
+
+              $('<img>', {
+                'class':'face',
+                'src':'./GunFace.transparent.png',
+                'css': {
+                  'position': 'absolute',
+                  'left'    : img_left,
+                  'top'     : img_top,
+                  'width'   : img_width,
+                  'height'  : img_height
+                }
+              })
+              .insertAfter(video);
+
+mydebug("faceDetection() success. : " + (frameCount) );
+
+
+//          $('<div>', {
+//            'class':'face',
+//            'css': {
+//              'position': 'absolute',
+//              'left':     faces[i].x + 'px',
+//              'top':      faces[i].y + 'px',
+//              'width':    faces[i].width  + 'px',
+//              'height':   faces[i].height + 'px'
+//            }
+//          })
+//          .insertAfter(video);
+        }
+
+} catch (e) {
+mydebug(e);
+}
+      },
+      error: function (code, message) {
+        alert('Error: ' + message);
+      }
+    });
+
+} catch (e2) {
+mydebug(e2);
+}
+
+mydebug("faceDetection() end. : " + (frameCount) );
+  }
+
+</script>
+</body>
+</html>

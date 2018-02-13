@@ -110,7 +110,6 @@ function set_camera() {
   navigator.mediaDevices.getUserMedia( media )
   .then( 
     function(stream) {
-//      video.src = window.URL.createObjectURL(stream);
 
   video.addEventListener("loadedmetadata",
     function(e) {
@@ -150,7 +149,9 @@ mydebug("animation() start. : " + (++frameCount) );
       if ( camera_num > 1 ) {
         video.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
       }
-      video.srcObject = stream;
+//      video.srcObject = stream;
+      video.src = URL.createObjectURL(stream);
+
     }
   )
   .catch(

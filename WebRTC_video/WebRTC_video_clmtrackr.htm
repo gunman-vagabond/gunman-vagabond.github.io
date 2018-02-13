@@ -113,6 +113,7 @@ function set_camera() {
 
       if ( camera_num > 1 ) {
         video.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
+        canvas.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
       }
 //      video.srcObject = stream;
       video.src = URL.createObjectURL(stream);

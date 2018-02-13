@@ -113,8 +113,7 @@ function set_camera() {
 
       if ( camera_num > 1 ) {
         video.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
-        canvas.transform(-1,0,0,1,0,0);
-//        canvas.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
+//       canvas.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
       }
       video.srcObject = stream;
 //      video.src = URL.createObjectURL(stream);
@@ -167,6 +166,7 @@ mydebug("getUserMedia : exception : "+ e );
       canvas.height = video.videoHeight * widthRatio;
 
       ctx = canvas.getContext("2d");
+      ctx.scale(-1, 1);
 
 
       (function animation() {

@@ -166,7 +166,7 @@ mydebug("getUserMedia : exception : "+ e );
       canvas.height = video.videoHeight * widthRatio;
 
       ctx = canvas.getContext("2d");
-      ctx.scale(-1, 1);
+      ctx.transform(-1, 0, 0, 1, canvas.width, 0);
 
 
       (function animation() {

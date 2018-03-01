@@ -167,6 +167,7 @@ mydebug("getUserMedia : exception : "+ e );
 
       ctx = canvas.getContext("2d");
 //      ctx.transform(-1, 0, 0, 1, canvas.width, 0);
+      ctx.translate(canvas.width, 0);
       ctx.scale(-1, 1);
 
 

@@ -204,13 +204,13 @@ mydebug("animation() start. : " + (++frameCount) );
 
 
   function detection() {
-//    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 //    ctx.strokeRect(0, 0, canvas.width, canvas.height);
     var positions = tracker.getCurrentPosition();
 
     if (positions) {
       tracker.draw(canvas);
-      _faceDeformer.draw(positions);
+//      _faceDeformer.draw(positions);
     }
   }
 

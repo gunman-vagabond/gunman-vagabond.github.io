@@ -171,6 +171,9 @@ mydebug("getUserMedia : exception : "+ e );
       canvas.width = video.videoWidth * widthRatio;
       canvas.height = video.videoHeight * widthRatio;
 
+      fdcanvas.width = canvas.width;
+      fdcanvas.height = canvas.height;
+
       ctx = canvas.getContext("2d");
 //      ctx.transform(-1, 0, 0, 1, canvas.width, 0);
       ctx.translate(canvas.width, 0);

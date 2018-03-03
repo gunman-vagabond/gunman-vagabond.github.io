@@ -136,6 +136,8 @@ mydebug("getUserMedia : exception : "+ e );
 
   var canvas = document.getElementById("canvas");
   var ctx;
+  var fdcanvas = document.getElementById("fdcanvas");
+  var fdcanvasctx;
 
   var image = new Image();
   image.src = "./GunFace.transparent.png";
@@ -189,6 +191,7 @@ mydebug("animation() start. : " + (++frameCount) );
       _faceDeformer.init(fdcanvas);
 //  var masking = document.getElementById("gunman");
       _faceDeformer.load(image, masks["gunman"], pModel);
+      fdcanvasctx = fdcanvas.getContext("2d");
 
       tracker.init(pModel);
       tracker.start(video);

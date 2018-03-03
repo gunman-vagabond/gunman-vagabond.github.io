@@ -56,6 +56,7 @@ function mydebug(data){
 </style>
 <script type="text/javascript">
 
+var tracker = new clm.tracker();
 var _faceDeformer = new faceDeformer();
 
 var camera_switch_flag = false;
@@ -152,7 +153,6 @@ mydebug("getUserMedia : exception : "+ e );
 
   var widthRatio;
 
-  var tracker = new clm.tracker();
 
   video.addEventListener("loadedmetadata",
     function(e) {

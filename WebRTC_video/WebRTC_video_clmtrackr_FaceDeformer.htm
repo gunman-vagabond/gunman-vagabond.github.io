@@ -182,7 +182,7 @@ mydebug("getUserMedia : exception : "+ e );
       _faceDeformer.init(fdcanvas);
 //  var masking = document.getElementById("gunman");
       _faceDeformer.load(image, masks["gunman"], pModel);
-      fdcanvasctx = fdcanvas.getContext("2d");
+//      fdcanvasctx = fdcanvas.getContext("2d");
 
 
       (function animation() {
@@ -204,7 +204,7 @@ mydebug("animation() start. : " + (++frameCount) );
 
 
   function detection() {
-    fdcanvasctx.clearRect(0, 0, canvas.width, canvas.height);
+//    ctx.clearRect(0, 0, canvas.width, canvas.height);
 //    ctx.strokeRect(0, 0, canvas.width, canvas.height);
     var positions = tracker.getCurrentPosition();
 

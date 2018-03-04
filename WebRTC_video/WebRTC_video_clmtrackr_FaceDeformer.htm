@@ -226,13 +226,13 @@ mydebug("animation() start. : " + (++frameCount) );
     if (positions) {
 //      tracker.draw(canvas);
       _faceDeformer.draw(positions);
-      face_komekami_x = positions[0][0];
-      face_komekami_y = positions[0][1];
-      face_komekami_x = positions[14][0];
-      face_komekami_y = positions[14][1];
+      face_komekami_1_x = positions[0][0];
+      face_komekami_1_y = positions[0][1];
+      face_komekami_2_x = positions[14][0];
+      face_komekami_2_y = positions[14][1];
       face_ago_x      = positions[7][0]
       face_ago_y      = positions[7][1]
-      ctx.strokeRect(face_komekami_x, face_komekami_y, face_komekami_x, face_ago_y);
+      ctx.strokeRect(face_komekami_1_x, face_komekami_1_y, face_komekami_2_x - face_komekami_1_x , face_ago_y);
 
     }
     ctx.drawImage(fdcanvas, 0, 0);

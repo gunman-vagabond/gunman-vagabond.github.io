@@ -254,13 +254,13 @@ mydebug("animation() start. : " + (++frameCount) );
       ctx.strokeRect(face_komekami_1_x, face_komekami_1_y, face_width , face_height );
 
       theta = Math.atan2((face_komekami_2_y - face_komekami_1_y), (face_komekami_2_x - face_komekami_1_x));
+      ctx_gunhat.rotate(theta);
 
       canvas_gunhat.style.left = face_komekami_1_x;
       canvas_gunhat.style.top = face_komekami_1_y;
       canvas_gunhat.width = face_width;
       canvas_gunhat.height = face_height;
 
-      ctx_gunhat.rotate(theta);
       ctx_gunhat.clearRect(0, 0, canvas_gunhat.width, canvas_gunhat.height);
       ctx_gunhat.drawImage(image, 0, 0, face_width , face_height );
 

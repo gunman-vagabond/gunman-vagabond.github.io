@@ -14,6 +14,7 @@
 <!--<video id="video" autoplay playsinline crossorigin></video>-->
 
 <canvas id="canvas"></canvas>
+<canvas id="canvas_gunhat"></canvas>
 <canvas id="fdcanvas"></canvas>
 
 <!--<button id="button_camera_switch" style="position:absolute; left:15pt; top:15pt; width:150px; height:150px; font-size:1.4em; font-weight:bold; padding:2px 2px; background-color:#cccccc" onclick="camera_switch()">-->
@@ -41,14 +42,20 @@ function mydebug(data){
 #video {
   display: block;
   _width: 100%;
-  z-index: 2;
+  _z-index: 2;
 }
 
 #canvas {
   position: absolute;
   left: 0px;
   top: 0px;
-  z-index: 3;
+  _z-index: 3;
+}
+
+#canvas_gunhat {
+  position: absolute;
+  left: 0px;
+  top: 0px;
 }
 
 #fdcanvas {
@@ -56,7 +63,7 @@ function mydebug(data){
   left: 0px;
   top: 0px;
   _visibility: hidden;
-  z-index: 1;
+  _z-index: 1;
 }
 
 .__face {
@@ -146,6 +153,8 @@ mydebug("getUserMedia : exception : "+ e );
 
   var canvas = document.getElementById("canvas");
   var ctx;
+  var canvas_gunhat = document.getElementById("canvas_gunhat");
+  var ctx_gunhat;
   var fdcanvas = document.getElementById("fdcanvas");
   var fdcanvasctx;
 
@@ -192,6 +201,8 @@ mydebug("getUserMedia : exception : "+ e );
         ctx.scale(-1, 1);
       }
 
+      ctx_gunhat = canvas.getContext("2d");
+
       var masks = {
     "gunman" : [[108,284],[124,317],[139,354],[160,389],[189,419],[220,440],[262,462],[324,477],[382,458],[426,423],[445,398],[464,369],[482,337],[501,301],[517,246],[444,219],[407,186],[349,186],[324,224],[159,253],[182,216],[229,207],[271,235],[175,280],[206,246],[244,270],[212,290],[210,269],[431,246],[381,227],[356,259],[394,269],[389,250],[297, 249],[269,332],[258,346],[279,372],[310,364],[340,367],[354,338],[342,320],[301,288],[295,369],[324,367],[246,396],[265,389],[291,382],[312,383],[333,377],[359,377],[384,382],[378,405],[364,432],[322,453],[275,447],[256,426],[279,426],[316,438],[355,418],[342,414],[313,417],[284,419],[308,338],[182,257],[228,253],[232,281],[192,286],[408,237],[366,243],[375,269],[414,259]]
       };
@@ -232,11 +243,21 @@ mydebug("animation() start. : " + (++frameCount) );
       face_komekami_2_y = positions[14][1];
       face_ago_x      = positions[7][0]
       face_ago_y      = positions[7][1]
-      ctx.strokeRect(face_komekami_1_x, face_komekami_1_y, face_komekami_2_x - face_komekami_1_x , face_ago_y - face_komekami_1_y );
+
+      face_width = face_komekami_2_x - face_komekami_1_x;
+      face_height = face_ago_y - face_komekami_1_y;
+
+      ctx.strokeRect(face_komekami_1_x, face_komekami_1_y, face_width , face_height );
 
       theta = Math.atan2((face_komekami_2_y - face_komekami_1_y), (face_komekami_2_x - face_komekami_1_x));
 
-      ctx.drawImage(image, face_komekami_1_x, face_komekami_1_y, face_komekami_2_x - face_komekami_1_x, face_ago_y - face_komekami_1_y );      ctx.rotate(theta);
+      ctx_gunhat.width = face_width;
+      ctx_gunhat.height = face_height;
+      ctx_gunhat.clearRect(0, 0, canvas.width, canvas.height);
+
+
+      ctx_gunhat.drawImage(image, face_komekami_1_x, face_komekami_1_y, face_width , face_height );
+      ctx_gunhat.rotate(theta);
 
     }
     ctx.drawImage(fdcanvas, 0, 0);

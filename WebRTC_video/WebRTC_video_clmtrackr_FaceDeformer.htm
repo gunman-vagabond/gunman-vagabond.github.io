@@ -260,11 +260,9 @@ mydebug("animation() start. : " + (++frameCount) );
       canvas_gunhat.width = face_width;
       canvas_gunhat.height = face_height;
 
-      ctx_gunhat.clearRect(0, 0, canvas_gunhat.width, canvas_gunhat.height);
-
-
-      ctx_gunhat.drawImage(image, 0, 0, face_width , face_height );
       ctx_gunhat.rotate(theta);
+      ctx_gunhat.clearRect(0, 0, canvas_gunhat.width, canvas_gunhat.height);
+      ctx_gunhat.drawImage(image, 0, 0, face_width , face_height );
 
     }
     ctx.drawImage(fdcanvas, 0, 0);

@@ -236,7 +236,7 @@ mydebug("animation() start. : " + (++frameCount) );
 
       theta = Math.atan2((face_komekami_2_y - face_komekami_1_y), (face_komekami_2_x - face_komekami_1_x));
 
-      ctx.drawImage(image, face_komekami_1_x, face_komekami_1_y, face_komekami_2_x - face_komekami_1_x, face_ago_y - face_komekami_1_y );
+      ctx.drawImage(image, face_komekami_1_x, face_komekami_1_y, face_komekami_2_x - face_komekami_1_x, face_ago_y - face_komekami_1_y );      ctx.rotate(theta);
 
     }
     ctx.drawImage(fdcanvas, 0, 0);

@@ -53,6 +53,7 @@ function mydebug(data){
   position: absolute;
   left: 0px;
   top: 0px;
+  visibility: hidden;
 }
 
 .__face {
@@ -178,7 +179,7 @@ mydebug("getUserMedia : exception : "+ e );
 
       fdcanvas.width = canvas.width;
       fdcanvas.height = canvas.height;
-      fdcanvas.style.display = "none";
+//      fdcanvas.style.display = "none";
 
       ctx = canvas.getContext("2d");
       ctx.translate(canvas.width, 0);

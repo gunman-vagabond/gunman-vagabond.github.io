@@ -1,0 +1,361 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script src="./clmtrackr/clmtrackr.min.js"></script>
+<script src="./clmtrackr/models/model_pca_20_svm.js"></script>
+<script src="./clmtrackr/face_deformer.js"></script>
+</head>
+
+<body>
+<video id="video" autoplay playsinline style="-webkit-transform: scaleX(-1);" crossorigin></video>
+<!--<video id="video" autoplay playsinline crossorigin></video>-->
+
+<canvas id="canvas"></canvas>
+<canvas id="canvas_gunhat"></canvas>
+<canvas id="fdcanvas"></canvas>
+
+<!--<button id="button_camera_switch" style="position:absolute; left:15pt; top:15pt; width:150px; height:150px; font-size:1.4em; font-weight:bold; padding:2px 2px; background-color:#cccccc" onclick="camera_switch()">-->
+<button id="button_camera_switch" style="width:150px; height:150px; font-size:1.4em; font-weight:bold; padding:2px 2px; background-color:#cccccc" onclick="camera_switch()">
+カメラ切替え
+</button>
+
+<hr>
+[debug  log]
+
+<p>
+<textarea id="mydebug" rows="20" cols="80"></textarea>
+</p>
+
+<script>
+var debugmsg = "";
+
+function mydebug(data){
+    debugmsg=data+"\n"+debugmsg;
+    $("#mydebug").text(debugmsg);         
+}
+</script>
+
+<style>
+#video {
+  display: block;
+  _width: 100%;
+  _z-index: 2;
+}
+
+#canvas {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  _z-index: 3;
+}
+
+#canvas_gunhat {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+#fdcanvas {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  _visibility: hidden;
+  _z-index: 1;
+}
+
+.__face {
+  border: 2px solid #FFF;
+}
+</style>
+<script type="text/javascript">
+
+var tracker = new clm.tracker();
+var _faceDeformer = new faceDeformer();
+
+var camera_switch_flag = false;
+function camera_switch() {
+  camera_switch_flag = ! camera_switch_flag;
+  mydebug("camera_switch_flag=" + camera_switch_flag);
+  set_camera();
+  $("#button_camera_switch").css("background-color", (camera_switch_flag ? "yellow": "#cccccc") );
+}
+
+var camera_num = 0;
+function search_camera() {
+  navigator.mediaDevices.enumerateDevices()
+  .then(function(devices) { // 成功時
+   devices.forEach(function(device) {
+    // デバイスごとの処理
+    if ( device.kind == "videoinput" ) {
+      camera_num++;
+    }
+   });
+
+   set_camera();
+mydebug("camera_num : " + camera_num);
+
+  })
+  .catch(function(err) { // エラー発生時
+//   console.error('enumerateDevide ERROR:', err);
+   camera_num = 0;
+   set_camera();
+mydebug("camera_num : " + camera_num);
+
+  });
+}
+
+function set_video_file(URL) {
+  video.src = URL;
+
+}
+
+function set_camera() {
+
+//  navigator.mediaDevices.getUserMedia( { audio: false, video: { facingMode: (camera_switch_flag? "environment" : "user" ) } } )
+//  navigator.mediaDevices.getUserMedia( { audio: false, video: { width:352, facingMode: (camera_switch_flag? "environment" : "user" ) } } )
+//  navigator.mediaDevices.getUserMedia( { audio: false, video: { frameRate: { ideal: 5, max: 10 }, facingMode: (camera_switch_flag? "environment" : "user" ) } } // width: {max:160}, height: {max:160} 
+
+  var media ;
+  if ( ! camera_switch_flag || camera_num == 1 ) {
+//    media = { audio: false, video: { width:352, facingMode: "user" } } ;
+    media = { audio: false, video: { facingMode: "user",  frameRate: { ideal: 2, max: 10 } } } ;
+  } else {
+//    media = { audio: false, video: { width:352, facingMode: {exact: "environment"} } } ;
+    media = { audio: false, video: { facingMode: {exact: "environment"},  frameRate: { ideal: 2, max: 10 } } } ;
+  }
+
+  navigator.mediaDevices.getUserMedia( media )
+  .then( 
+    function(stream) {
+
+      if ( camera_num > 1 ) {
+        video.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
+//       canvas.style.cssText = "-webkit-transform: scaleX(" + (camera_switch_flag ? "1" : "-1") + ");"
+      }
+      video.srcObject = stream;
+//      video.src = URL.createObjectURL(stream);
+
+    }
+  )
+  .catch(
+    function(e){
+mydebug("getUserMedia : exception : "+ e );
+    }
+  );
+
+}
+
+  video = document.getElementById("video");
+  video.width = $(window).width();
+
+  var canvas = document.getElementById("canvas");
+  var ctx;
+  var canvas_gunhat = document.getElementById("canvas_gunhat");
+  var ctx_gunhat;
+  var fdcanvas = document.getElementById("fdcanvas");
+  var fdcanvasctx;
+
+  var image = new Image();
+  image.src = "./GunFace.transparent.640x600.png";
+
+  var image_gunhat = new Image();
+  image_gunhat.src = "./GunFace.transparent.gunhat.png";
+
+  search_camera();
+
+//  set_camera();
+
+//set_video_file("https://hakuhin.jp/download/js/video/sample_00.webm");
+
+  var frameCount=0;
+
+  var widthRatio;
+
+
+  video.addEventListener("loadedmetadata",
+    function(e) {
+//      setInterval(detection, 200 );
+
+//      widthRatio = video.width / video.videoWidth;
+
+      widthRatio = $(window).width() / video.videoWidth;
+      var heightRatio = window.innerHeight / video.videoHeight;
+      if ( widthRatio > heightRatio ) { 
+        widthRatio = heightRatio;
+      }
+      video.width = video.videoWidth * widthRatio;
+      video.height = video.videoHeight * widthRatio;
+
+      canvas.width = video.videoWidth * widthRatio;
+      canvas.height = video.videoHeight * widthRatio;
+
+      fdcanvas.width = canvas.width;
+      fdcanvas.height = canvas.height;
+      fdcanvas.style.left = -canvas.width;
+//      fdcanvas.style.top = canvas.height;
+//      fdcanvas.style.display = "none";
+
+      ctx = canvas.getContext("2d");
+      if ( ! camera_switch_flag ) {
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+      }
+
+      ctx_gunhat = canvas_gunhat.getContext("2d");
+//      if ( ! camera_switch_flag ) {
+//        ctx_gunhat.translate(canvas.width, 0);
+//        ctx_gunhat.scale(-1, 1);
+//      }
+
+      var masks_orig = {
+    "gunman" : [[108,284],[124,317],[139,354],[160,389],[189,419],[220,440],[262,462],[324,477],[382,458],[426,423],[445,398],[464,369],[482,337],[501,301],[517,246],[444,219],[407,186],[349,186],[324,224],[159,253],[182,216],[229,207],[271,235],[175,280],[206,246],[244,270],[212,290],[210,269],[431,246],[381,227],[356,259],[394,269],[389,250],[297, 249],[269,332],[258,346],[279,372],[310,364],[340,367],[354,338],[342,320],[301,288],[295,369],[324,367],[246,396],[265,389],[291,382],[312,383],[333,377],[359,377],[384,382],[378,405],[364,432],[322,453],[275,447],[256,426],[279,426],[316,438],[355,418],[342,414],[313,417],[284,419],[308,338],[182,257],[228,253],[232,281],[192,286],[408,237],[366,243],[375,269],[414,259]]
+      };
+
+      var masks = {
+    "gunman" : [
+[108,284],//0
+[124,317],
+[139,354],
+[160,389],
+[189,419],
+[220,440],
+[262,462],
+[324,477],
+[382,458],
+[426,423],
+[445,398],
+[464,369],
+[482,337],
+[501,301],
+[517,246],
+[444,219],
+[407,186],
+[349,186],
+[324,224],
+[159,253],
+[182,216],
+[229,207],
+[271,235],
+[175,280],
+[206,246],
+[244,270],
+[212,290],
+[210,269],
+[431,246],
+[381,227],
+[356,259],
+[394,269],
+[389,250],
+[297, 249],
+[269,332],
+[258,346],
+[279,372],
+[310,364],
+[340,367],
+[354,338],
+[342,320],
+[301,288],
+[295,369],
+[324,367],
+[260,380],//[246,396],//44
+[270,410],//[265,389],//45
+[291,410],//[291,382],//46
+[312,410],//[312,383],//47
+[333,410],//[333,377],//48
+[359,410],//[359,377],//49
+[370,380],//[384,382],//50
+[365,410],//[378,405],//51
+[364,410],//[364,432],//52
+[322,410],//[322,453],//53
+[275,410],//[275,447],//54
+[265,410],//[256,426],//55
+[279,410],//[279,426],//56
+[316,410],//[316,438],//57
+[355,410],//[355,418],//58
+[342,410],//[342,414],//59
+[313,410],//[313,417],//60
+[284,410],//[284,419],//61
+[308,338],
+[182,257],
+[228,253],
+[232,281],
+[192,286],
+[408,237],
+[366,243],
+[375,269],
+[414,259]]
+      };
+
+
+      _faceDeformer.init(fdcanvas);
+//  var masking = document.getElementById("gunman");
+      _faceDeformer.load(image, masks["gunman"], pModel);
+//      fdcanvasctx = fdcanvas.getContext("2d");
+
+
+      (function animation() {
+        requestAnimationFrame(animation);
+mydebug("animation() start. : " + (++frameCount) );
+        detection();
+//        window.setTimeout(animation, 100);
+      })();
+
+
+
+      tracker.init(pModel);
+      tracker.start(video);
+
+    }
+  );
+
+
+
+
+  function detection() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var positions = tracker.getCurrentPosition();
+
+    if (positions) {
+//      tracker.draw(canvas);
+      _faceDeformer.draw(positions);
+      face_komekami_1_x = positions[0][0];
+      face_komekami_1_y = positions[0][1];
+      face_komekami_2_x = positions[14][0];
+      face_komekami_2_y = positions[14][1];
+      face_ago_x      = positions[7][0]
+      face_ago_y      = positions[7][1]
+
+      face_width = face_komekami_2_x - face_komekami_1_x;
+      face_height = face_ago_y - face_komekami_1_y;
+
+//      ctx.strokeRect(face_komekami_1_x, face_komekami_1_y, face_width , face_height );
+
+      theta = Math.atan2((face_komekami_2_y - face_komekami_1_y), (face_komekami_2_x - face_komekami_1_x));
+
+      canvas_gunhat.width = face_width * 1.8;
+      canvas_gunhat.height = face_height * 2.0;
+
+
+      if ( ! camera_switch_flag ) {
+        canvas_gunhat.style.left = canvas.width - (face_komekami_1_x + (face_width * 1.4)) ;
+      } else {
+        canvas_gunhat.style.left = face_komekami_1_x - (face_width * 0.4) ;
+      }
+      canvas_gunhat.style.top = face_komekami_1_y - (canvas_gunhat.height * 0.45) ;
+
+//      ctx_gunhat.rotate(-theta);
+      ctx_gunhat.clearRect(0, 0, canvas_gunhat.width, canvas_gunhat.height);
+      ctx_gunhat.drawImage(image_gunhat, 0, 0, canvas_gunhat.width , canvas_gunhat.height );
+
+    }
+    ctx.drawImage(fdcanvas, 0, 0);
+
+  }
+
+
+</script>
+</body>
+</html>

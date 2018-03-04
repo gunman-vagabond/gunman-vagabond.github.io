@@ -232,11 +232,11 @@ mydebug("animation() start. : " + (++frameCount) );
       face_komekami_2_y = positions[14][1];
       face_ago_x      = positions[7][0]
       face_ago_y      = positions[7][1]
-      ctx.strokeRect(face_komekami_1_x, face_komekami_1_y, face_komekami_2_x - face_komekami_1_x , face_ago_y - komekami_1_y );
+      ctx.strokeRect(face_komekami_1_x, face_komekami_1_y, face_komekami_2_x - face_komekami_1_x , face_ago_y - face_komekami_1_y );
 
       theta = Math.atan2((face_komekami_2_y - face_komekami_1_y), (face_komekami_2_x - face_komekami_1_x));
 
-      ctx.drawImages(image, face_komekami_1_x, face_komekami_1_y, face_komekami_2_x - face_komekami_1_x, face_ago_y - komekami_1_y );
+      ctx.drawImages(image, face_komekami_1_x, face_komekami_1_y, face_komekami_2_x - face_komekami_1_x, face_ago_y - face_komekami_1_y );
 
     }
     ctx.drawImage(fdcanvas, 0, 0);

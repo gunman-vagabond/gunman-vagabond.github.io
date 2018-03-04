@@ -264,7 +264,7 @@ mydebug("animation() start. : " + (++frameCount) );
       canvas_gunhat.style.left = canvas.width - (face_komekami_1_x + (face_width * 1.4)) ;
       canvas_gunhat.style.top = face_komekami_1_y - (canvas_gunhat.height * 0.45) ;
 
-      ctx_gunhat.rotate(theta);
+      ctx_gunhat.rotate(-theta);
       ctx_gunhat.clearRect(0, 0, canvas_gunhat.width, canvas_gunhat.height);
       ctx_gunhat.drawImage(image_gunhat, 0, 0, canvas_gunhat.width , canvas_gunhat.height );
 

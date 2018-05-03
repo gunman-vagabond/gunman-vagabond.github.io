@@ -203,7 +203,8 @@ try {
                  img_left   : img_left,
                  img_top    : img_top,
                  img_width  : img_width,
-                 img_height : img_height
+                 img_height : img_height,
+                 disp_count : 3
               };
               new_faces_set.add(new_face);
 
@@ -228,7 +229,9 @@ mydebug("faceDetection() success. : " + (frameCount) );
         for (var pre_i=0; pre_i < pre_faces.length; pre_i++) {
 
             if ( ! pre_faces_deleted_index.has(pre_i) ) {
-                new_faces_set.add(pre_faces[pre_i]);
+                if ( pre_faces[pre_i].disp_count-- > 0 ) {
+                    new_faces_set.add(pre_faces[pre_i]);
+                }
             }
 
         }

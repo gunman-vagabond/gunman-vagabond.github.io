@@ -189,15 +189,15 @@ try {
               faces[i].height *= widthRatio;
 
               if ( camera_switch_flag ) {
-                img_left   = (faces[i].x - (faces[i].width  * 0.55)) + 'px';
-                img_top    = (faces[i].y - (faces[i].height * 0.4)) + 'px';
-                img_width  = (faces[i].width  * 2.25 ) + 'px';
-                img_height = (faces[i].height * 1.8 ) + 'px';
+                img_left   = (faces[i].x - (faces[i].width  * 0.55));
+                img_top    = (faces[i].y - (faces[i].height * 0.4));
+                img_width  = (faces[i].width  * 2.25 );
+                img_height = (faces[i].height * 1.8 );
               } else {
-                img_left   = (video.width - (faces[i].width * 2.25) - (faces[i].x - (faces[i].width  * 0.68))) + 'px';
-                img_top    = (faces[i].y - (faces[i].height * 0.4)) + 'px';
-                img_width  = (faces[i].width  * 2.25 ) + 'px';
-                img_height = (faces[i].height * 1.8 ) + 'px';
+                img_left   = (video.width - (faces[i].width * 2.25) - (faces[i].x - (faces[i].width  * 0.68)));
+                img_top    = (faces[i].y - (faces[i].height * 0.4));
+                img_width  = (faces[i].width  * 2.25 );
+                img_height = (faces[i].height * 1.8 );
               }
 
               var new_face = {
@@ -248,10 +248,10 @@ mydebug("faceDetection() success. : " + (frameCount) );
                 'src':'./GunFace.transparent.png',
                 'css': {
                   'position': 'absolute',
-                  'left'    : new_faces[i].img_left,
-                  'top'     : new_faces[i].img_top,
-                  'width'   : new_faces[i].img_width,
-                  'height'  : new_faces[i].img_height
+                  'left'    : new_faces[i].img_left   + 'px',
+                  'top'     : new_faces[i].img_top    + 'px',
+                  'width'   : new_faces[i].img_width  + 'px',
+                  'height'  : new_faces[i].img_height + 'px'
                 }
               })
               .insertAfter(video);

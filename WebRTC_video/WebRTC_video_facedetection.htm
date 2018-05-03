@@ -118,6 +118,7 @@ mydebug("getUserMedia : exception : "+ e );
   video.width = $(window).width();
   video.crossOrigin = "anonymous";
 
+  var pre_faces = {};
 
   var image = new Image();
   image.src = "./GunFace.transparent.png";
@@ -158,23 +159,28 @@ mydebug("animation() start. : " + (++frameCount) );
 
   function detection() {
 mydebug("faceDetection() start. : " + (frameCount) );
+    new_faces_set = new Set();
 
 try {
     $("#video").faceDetection({
       complete: function (faces) {
 try {
-        if ( faces.length > 0 ) {
-            $('.face').remove();
-        }
-        for (var i = 0, l = faces.length; i < l; i++) {
-//            $('.face').remove();
 
-//              image.style.cssText = 
-//                 "position:absolute;"
-//                +"left:"+ (faces[i].x - (faces[i].width  * 0.55)) +"px;"
-//                +"top:" + (faces[i].y - (faces[i].height * 0.4)) +"px;"
-//                +"width:"+ (faces[i].width  * 2.25 ) +"px;"
-//                +"heigh:"+ (faces[i].height * 2.25 ) +"px";
+        if ( faces.length == pre_faces.length ) {
+            for (var pre_i=0; pre_i < pre_faces.length; pre_i++) {
+
+                $('#face_' + pre_i).remove();
+            }
+
+            pre_faces = new Set();
+        }
+
+//        pre_faces_set = new Set(pre_faces);
+        var pre_faces_deleted_index = new Set();
+
+        for (var i = 0, l = faces.length; i < l; i++) {
+
+//            $('.face').remove();
 
               faces[i].x *= widthRatio;
               faces[i].y *= widthRatio;
@@ -182,45 +188,78 @@ try {
               faces[i].height *= widthRatio;
 
               if ( camera_switch_flag ) {
-                img_left   = (faces[i].x - (faces[i].width  * 0.55)) + 'px';
-                img_top    = (faces[i].y - (faces[i].height * 0.4)) + 'px';
-                img_width  = (faces[i].width  * 2.25 ) + 'px';
-                img_height = (faces[i].height * 1.8 ) + 'px';
+                img_left   = (faces[i].x - (faces[i].width  * 0.55));
+                img_top    = (faces[i].y - (faces[i].height * 0.4));
+                img_width  = (faces[i].width  * 2.25 );
+                img_height = (faces[i].height * 1.8 );
               } else {
-                img_left   = (video.width - (faces[i].width * 2.25) - (faces[i].x - (faces[i].width  * 0.68))) + 'px';
-                img_top    = (faces[i].y - (faces[i].height * 0.4)) + 'px';
-                img_width  = (faces[i].width  * 2.25 ) + 'px';
-                img_height = (faces[i].height * 1.8 ) + 'px';
+                img_left   = (video.width - (faces[i].width * 2.25) - (faces[i].x - (faces[i].width  * 0.68)));
+                img_top    = (faces[i].y - (faces[i].height * 0.4));
+                img_width  = (faces[i].width  * 2.25 );
+                img_height = (faces[i].height * 1.8 );
               }
+
+              var new_face = {
+                 img_left   : img_left,
+                 img_top    : img_top,
+                 img_width  : img_width,
+                 img_height : img_height,
+                 disp_count : 3
+              };
+              new_faces_set.add(new_face);
+
+              for (var pre_i=0; pre_i < pre_faces.length; pre_i++) {
+
+                var diff_img_left = pre_faces[pre_i].img_left - img_left;
+                var diff_img_top = pre_faces[pre_i].img_top - img_top;
+
+                if ( diff_img_left > -30 && diff_img_left < 30
+                  && diff_img_top > -30 && diff_img_top < 30 
+                ) {
+                    pre_faces_deleted_index.add(pre_i);
+//                    $('#face_'+pre_i).remove();
+                }
+              }
+
+
+mydebug("faceDetection() success. : " + (frameCount) );
+
+        }
+
+        for (var pre_i=0; pre_i < pre_faces.length; pre_i++) {
+            $('#face_'+pre_i).remove();
+
+            if ( ! pre_faces_deleted_index.has(pre_i) ) {
+                if ( pre_faces[pre_i].disp_count-- > 0 ) {
+                    new_faces_set.add(pre_faces[pre_i]);
+                } else {
+//                    $('#face_'+pre_i).remove();
+                }
+            }
+
+        }
+
+        var new_faces = Array.from(new_faces_set);
+
+        for (var i = 0, l = new_faces.length; i < l; i++) {
 
               $('<img>', {
                 'class':'face',
+                'id':'face_'+i,
                 'src':'./GunFace.transparent.png',
                 'css': {
                   'position': 'absolute',
-                  'left'    : img_left,
-                  'top'     : img_top,
-                  'width'   : img_width,
-                  'height'  : img_height
+                  'left'    : new_faces[i].img_left   + 'px',
+                  'top'     : new_faces[i].img_top    + 'px',
+                  'width'   : new_faces[i].img_width  + 'px',
+                  'height'  : new_faces[i].img_height + 'px'
                 }
               })
               .insertAfter(video);
 
-mydebug("faceDetection() success. : " + (frameCount) );
-
-
-//          $('<div>', {
-//            'class':'face',
-//            'css': {
-//              'position': 'absolute',
-//              'left':     faces[i].x + 'px',
-//              'top':      faces[i].y + 'px',
-//              'width':    faces[i].width  + 'px',
-//              'height':   faces[i].height + 'px'
-//            }
-//          })
-//          .insertAfter(video);
         }
+
+        pre_faces = new_faces;
 
 } catch (e) {
 mydebug(e);

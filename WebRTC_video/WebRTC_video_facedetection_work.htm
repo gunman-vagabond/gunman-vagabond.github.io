@@ -166,9 +166,14 @@ try {
       complete: function (faces) {
 try {
 
-//        if ( faces.length > 0 ) {
-//            $('.face').remove();
-//        }
+        if ( faces.length == pre_faces.length ) {
+            for (var pre_i=0; pre_i < pre_faces.length; pre_i++) {
+
+                $('#face_' + pre_i).remove();
+            }
+
+            pre_faces = new Set();
+        }
 
 //        pre_faces_set = new Set(pre_faces);
         var pre_faces_deleted_index = new Set();
@@ -217,6 +222,14 @@ try {
 
 
 mydebug("faceDetection() success. : " + (frameCount) );
+
+        }
+
+        for (var pre_i=0; pre_i < pre_faces.length; pre_i++) {
+
+            if ( ! pre_faces_deleted_index.has(pre_i) ) {
+                new_faces_set.add(pre_faces(pre_i));
+            }
 
         }
 

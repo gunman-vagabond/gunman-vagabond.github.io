@@ -200,10 +200,12 @@ try {
                 img_height = (faces[i].height * 1.8 ) + 'px';
               }
 
-              new_face.img_left   = img_left;
-              new_face.img_top    = img_top;
-              new_face.img_width  = img_width;
-              new_face.img_height = img_height;
+              var new_face = {
+                 img_left   : img_left,
+                 img_top    : img_top,
+                 img_width  : img_width,
+                 img_height : img_height
+              };
               new_faces_set.add(new_face);
 
               for (var pre_i=0; pre_i < pre_faces.length; pre_i++) {

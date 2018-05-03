@@ -231,6 +231,8 @@ mydebug("faceDetection() success. : " + (frameCount) );
             if ( ! pre_faces_deleted_index.has(pre_i) ) {
                 if ( pre_faces[pre_i].disp_count-- > 0 ) {
                     new_faces_set.add(pre_faces[pre_i]);
+                } else {
+                    $('#face_'+pre_i).remove();
                 }
             }
 

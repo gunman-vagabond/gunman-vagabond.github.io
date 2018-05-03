@@ -217,7 +217,7 @@ try {
                   && diff_img_top > -30 && diff_img_top < 30 
                 ) {
                     pre_faces_deleted_index.add(pre_i);
-                    $('#face_'+pre_i).remove();
+//                    $('#face_'+pre_i).remove();
                 }
               }
 
@@ -227,12 +227,13 @@ mydebug("faceDetection() success. : " + (frameCount) );
         }
 
         for (var pre_i=0; pre_i < pre_faces.length; pre_i++) {
+            $('#face_'+pre_i).remove();
 
             if ( ! pre_faces_deleted_index.has(pre_i) ) {
                 if ( pre_faces[pre_i].disp_count-- > 0 ) {
                     new_faces_set.add(pre_faces[pre_i]);
                 } else {
-                    $('#face_'+pre_i).remove();
+//                    $('#face_'+pre_i).remove();
                 }
             }
 

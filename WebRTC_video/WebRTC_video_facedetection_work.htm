@@ -170,18 +170,12 @@ try {
 //            $('.face').remove();
 //        }
 
-        pre_faces_set = new Set(pre_faces);
+//        pre_faces_set = new Set(pre_faces);
+        var pre_faces_deleted_index new Set();
 
         for (var i = 0, l = faces.length; i < l; i++) {
 
 //            $('.face').remove();
-
-//              image.style.cssText = 
-//                 "position:absolute;"
-//                +"left:"+ (faces[i].x - (faces[i].width  * 0.55)) +"px;"
-//                +"top:" + (faces[i].y - (faces[i].height * 0.4)) +"px;"
-//                +"width:"+ (faces[i].width  * 2.25 ) +"px;"
-//                +"heigh:"+ (faces[i].height * 2.25 ) +"px";
 
               faces[i].x *= widthRatio;
               faces[i].y *= widthRatio;
@@ -216,7 +210,7 @@ try {
                 if ( diff_img_left > -30 && diff_img_left < 30
                   && diff_img_top > -30 && diff_img_top < 30 
                 ) {
-                    pre_faces_set.del();
+                    pre_faces_deleted_index.add(pre_i);
                     $('#face'+pre_i).remove();
                 }
               }
@@ -224,18 +218,6 @@ try {
 
 mydebug("faceDetection() success. : " + (frameCount) );
 
-
-//          $('<div>', {
-//            'class':'face',
-//            'css': {
-//              'position': 'absolute',
-//              'left':     faces[i].x + 'px',
-//              'top':      faces[i].y + 'px',
-//              'width':    faces[i].width  + 'px',
-//              'height':   faces[i].height + 'px'
-//            }
-//          })
-//          .insertAfter(video);
         }
 
         var new_faces = Array.from(new_faces_set);

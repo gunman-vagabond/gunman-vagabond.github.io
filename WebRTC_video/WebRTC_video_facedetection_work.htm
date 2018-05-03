@@ -209,6 +209,10 @@ try {
               new_faces_set.add(new_face);
 
               for (var pre_i=0; pre_i < pre_faces.length; pre_i++) {
+
+                var abs_img_left = Math.abs(pre_faces[pre_i].img_left - img_left);
+                var abs_img_top = Math.abs(pre_faces[pre_i].img_top - img_top);
+
                 if ( ( Math.abs(pre_faces[pre_i].img_left - img_left) < 30 )
                   && ( Math.abs(pre_faces[pre_i].img_top - img_top) < 30 )
                 ) {

@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>jQuery ƒKƒ“ƒ}ƒ“(‰ñ“])</title>
+
+<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="GunClock.jQuery.js"></script>
+
+<script type="text/javascript">
+setInterval(rotateClock, 500);
+function rotateClock(){
+  var t = new Date();
+  var sec = t.getSeconds();
+  var degree = Math.floor(360 * ( sec / 60 ) );
+//  $("rotate").style.webkitTransform = "rotate(" + degree + "deg)";
+//  $("rotate").style.transform = "rotate(45deg)";
+  $("#rotate").css('transform', "rotate(" + degree + "deg)");
+  $("#rotate").css('-ms-transform', "rotate(" + degree + "deg)");
+  $("#rotate").css('-webkit-transform', "rotate(" + degree + "deg)");
+//  $("rotate").css('-webkit-transform', "rotate(" + degree + "deg)");
+//  $("rotate").css("-webkit-transform", "rotate(" + degree + "deg)");
+//  $("rotate").css('webkitTransform', "rotate(" + degree + "deg)");
+}
+</script>
+
+<meta http-equiv="Content-type"
+         content="text/html; charset=Shift_JIS">
+</head>
+
+
+
+<body bgcolor="#000000"  text="#ffffff" link="#ff7d00" vlink="#ff0000" alink="#82c900">
+<center>
+<hr width=80%>
+<h1><font color="#ffff00">jQuery ƒKƒ“ƒ}ƒ“(‰ñ“])</font></h1>
+<hr width=80%>
+<p>
+jQuery”ÅƒKƒ“ƒ}ƒ“‚Å‚·B1•ª‚Å1‰ñ“]‚µ‚Ü‚·B<p>
+<hr width=80%>
+
+<p>
+
+<div id="rotate">
+<pre id="GunClock"></pre>
+</div>
+
+<p>
+
+<form>
+clockSize : 
+<input type="text" size="2" id="clockSize" name="clockSize" value="25">
+</form>
+
+<hr width=80%>
+
+[ <a href="../index.html">ƒKƒ“ƒ}ƒ“‚Ìƒy[ƒW‚Ö–ß‚é</a> ]
+
+</center>
+</body>
+</html>

@@ -25,15 +25,15 @@
 window.addEventListener("deviceorientation", handleOrientation, true);
 
 function handleOrientation(event){
-    var absolute = event.absolute;
+//    var absolute = event.absolute;
     var alpha    = event.alpha;
     var beta     = event.beta;
-    var ganma    = event.ganma;
+    var gamma    = event.gamma;
 
-    document.getElementById('absolute').value = absolute;
+//    document.getElementById('absolute').value = absolute;
     document.getElementById('alpha').value = alpha;
     document.getElementById('beta').value = beta;
-    document.getElementById('ganma').value = ganma;
+    document.getElementById('gamma').value = gamma;
 
 }
 </script>
@@ -63,10 +63,12 @@ clockSize :
 </form>
 
 <p>
+<!--
 absolute: <input type="text" size="5" id="absolute" value="0">
+-->
 alpha: <input type="text" size="5" id="alpha" value="0">
 beta: <input type="text" size="5" id="beta" value="0">
-ganma: <input type="text" size="5" id="ganma" value="0">
+gamma: <input type="text" size="5" id="gamma" value="0">
 
 <hr width=80%>
 

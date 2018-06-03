@@ -14,29 +14,34 @@
     "prefer_related_applications": false,
     "icons": [
 {
-src: "gun_eyes.48x48.jpg",
-type: "image/jpg",
+src: "icon/gun_eyes.48x48.png",
+type: "image/png",
 sizes: "48x48"
 },
 {
-src: "gun_eyes.72x72.jpg",
-type: "image/jpg",
+src: "icon/gun_eyes.72x72.png",
+type: "image/png",
 sizes: "72x72"
 },
 {
-src: "gun_eyes.114x114.jpg",
-type: "image/jpg",
+src: "icon/gun_eyes.114x114.png",
+type: "image/png",
 sizes: "114x114"
 },
 {
-src: "gun_eyes.120x120.jpg",
-type: "image/jpg",
+src: "icon/gun_eyes.120x120.png",
+type: "image/png",
 sizes: "120x120"
 },
 {
-src: "gun_eyes.144x144.jpg",
-type: "image/jpg",
+src: "icon/gun_eyes.144x144.png",
+type: "image/png",
 sizes: "144x144"
 },
+{
+src: "icon/gun_eyes.192x192.png",
+type: "image/png",
+sizes: "192x192"
+}
     ]
 }

@@ -20,6 +20,24 @@
 <link rel="apple-touch-icon" href="icon/gun_eyes.144x144.png" sizes="144x144">
 <link rel="apple-touch-icon" href="icon/gun_eyes.192x192.png" sizes="192x192">
 
+
+<script type="text/javascript">
+window.addEventListener("deviceorientation", handleOrientation, true);
+
+function handleOrientation(event){
+    var absolute = event.absolute;
+    var alpha    = event.alpha;
+    var beta     = event.beta;
+    var ganma    = event.ganma;
+
+    document.getElementById('absolute').value = absolute;
+    document.getElementById('alpha').value = alpha;
+    document.getElementById('beta').value = beta;
+    document.getElementById('ganma').value = ganma;
+
+}
+</script>
+
 </head>
 
 <body bgcolor="#000000"  text="#ffffff" link="#ff7d00" vlink="#ff0000" alink="#82c900">
@@ -29,7 +47,8 @@
 <hr width=80%>
 <p>
 jQuery版ガンマンを、<br>
-PWA(Progressive Web Application)化したものです。<p>
+PWA化したものです。<p>
+ホーム画面に追加をしてみてください。<p>
 <hr width=80%>
 
 <p>
@@ -42,6 +61,12 @@ PWA(Progressive Web Application)化したものです。<p>
 clockSize : 
 <input type="text" size="2" id="clockSize" name="clockSize" value="25">
 </form>
+
+<p>
+absolute: <inpt type="text" size="5" id="absolute">
+alpha: <inpt type="text" size="5" id="alpha">
+beta: <inpt type="text" size="5" id="beta">
+ganma: <inpt type="text" size="5" id="ganma">
 
 <hr width=80%>
 

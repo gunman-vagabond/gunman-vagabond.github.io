@@ -3,7 +3,7 @@
     "lang": "ja",
     "name": "gunclock",
     "scope": "/PWA/GunClock.jQuery.htm",
-    "display": "browser",
+    "display": "standalone",
     "start_url": "https://gunman-vagabond.github.io/PWA/GunClock.jQuery.htm",
     "short_name": "gunclock",
     "theme_color": "transparent",

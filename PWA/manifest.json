@@ -12,5 +12,31 @@
     "background_color": "transparent",
     "related_applications": [],
     "prefer_related_applications": false,
-    "icons": []
+    "icons": [
+{
+src: "gun_eyes.48x48.jpg",
+type: "image/jpg",
+sizes: "48x48"
+},
+{
+src: "gun_eyes.72x72.jpg",
+type: "image/jpg",
+sizes: "72x72"
+},
+{
+src: "gun_eyes.114x114.jpg",
+type: "image/jpg",
+sizes: "114x114"
+},
+{
+src: "gun_eyes.120x120.jpg",
+type: "image/jpg",
+sizes: "120x120"
+},
+{
+src: "gun_eyes.144x144.jpg",
+type: "image/jpg",
+sizes: "144x144"
+},
+    ]
 }

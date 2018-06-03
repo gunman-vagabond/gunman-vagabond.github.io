@@ -35,6 +35,11 @@ function handleOrientation(event){
     document.getElementById('beta').value = beta;
     document.getElementById('gamma').value = gamma;
 
+    var degree = alpha;
+    $("#rotate").css('transform', "rotate(" + degree + "deg)");
+    $("#rotate").css('-ms-transform', "rotate(" + degree + "deg)");
+    $("#rotate").css('-webkit-transform', "rotate(" + degree + "deg)");
+
 }
 </script>
 
@@ -53,7 +58,9 @@ PWA化したものです。<p>
 
 <p>
 
+<div id="rotate">
 <pre id="GunClock"></pre>
+</div>
 
 <p>
 

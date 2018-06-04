@@ -37,9 +37,11 @@ function handleOrientation(event){
 
     var degree = (-1) * gamma;
 
-    $("#rotate").css('transform', "rotate(" + degree + "deg)");
-    $("#rotate").css('-ms-transform', "rotate(" + degree + "deg)");
-    $("#rotate").css('-webkit-transform', "rotate(" + degree + "deg)");
+//    $("#rotate").css('transform', "rotate(" + degree + "deg)");
+    $("#rotate").css('transform', "rotateX(" + (180+beta) + "deg) rotateY(" + (180+gamma) + "deg) rotateZ(" + alpha + "deg)");
+//    $("#rotate").css('-ms-transform', "rotate(" + degree + "deg)");
+//    $("#rotate").css('-webkit-transform', "rotate(" + degree + "deg)");
+    $("#rotate").css('-webkit-transform', "rotateX(" + (180+beta) + "deg) rotateY(" + (180+gamma) + "deg) rotateZ(" + alpha + "deg)");
 
 }
 </script>

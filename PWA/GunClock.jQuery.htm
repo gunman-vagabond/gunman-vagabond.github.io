@@ -35,7 +35,8 @@ function handleOrientation(event){
     document.getElementById('beta').value = beta;
     document.getElementById('gamma').value = gamma;
 
-    var degree = gamma;
+    var degree = (-1) * gamma;
+
     $("#rotate").css('transform', "rotate(" + degree + "deg)");
     $("#rotate").css('-ms-transform', "rotate(" + degree + "deg)");
     $("#rotate").css('-webkit-transform', "rotate(" + degree + "deg)");

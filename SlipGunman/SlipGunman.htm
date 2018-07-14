@@ -3,6 +3,9 @@
 <title>Slip ガンマン</title>
 
 <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="enchant.min.js"></script>
+<script type="text/javascript" src="three.min.js"></script>
+
 <link rel="manifest" href="manifest.json"></link>
 <!--<script src="pwabuilder-sw-register.js"></script>-->
 
@@ -17,8 +20,6 @@
 <link rel="apple-touch-icon" href="icon/gun_eyes.120x120.png" sizes="120x120">
 <link rel="apple-touch-icon" href="icon/gun_eyes.144x144.png" sizes="144x144">
 <link rel="apple-touch-icon" href="icon/gun_eyes.192x192.png" sizes="192x192">
-
-
 
 <script>
 var cv_width;
@@ -61,6 +62,7 @@ function handleOrientation(event){
 
 }
 </script>
+
 
 <style>
 body {
@@ -160,6 +162,10 @@ $(window).resize(function(e)
 alpha: <input type="text" size="5" id="alpha" value="0">
 beta: <input type="text" size="5" id="beta" value="0">
 gamma: <input type="text" size="5" id="gamma" value="0">
+<p>
+<textarea id="debug" rows="2" cols="50">
+debug
+</textarea>
 
 <hr width=80%>
 
@@ -169,5 +175,185 @@ gamma: <input type="text" size="5" id="gamma" value="0">
 [ <a href="http://fc.jpn.org/ryuba/gunman/index.html">ガンマンのページへ戻る</a> ]
 
 </center>
+
+
+<script type="text/javascript">
+
+	function init() {
+		container = document.createElement( 'div' );
+		document.body.appendChild( container );
+
+		camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.position.z = 10;
+
+		// scene
+
+		scene = new THREE.Scene();
+
+		var ambient = new THREE.AmbientLight( 0x444444 );
+		scene.add( ambient );
+
+		var directionalLight = new THREE.DirectionalLight( 0xffeedd );
+		directionalLight.position.set( 100, -100, 200).normalize();
+		scene.add( directionalLight );
+
+		renderer = new THREE.WebGLRenderer();
+		renderer.setPixelRatio( window.devicePixelRatio );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.setClearColor( 0x888888 );
+//                                renderer.setFaceCulling (true);
+		container.appendChild( renderer.domElement );
+
+//				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		window.addEventListener( 'resize', onWindowResize, false );
+
+		onWindowResize()
+
+	}
+
+	function onWindowResize() {
+
+		windowHalfX = window.innerWidth / 2;
+		windowHalfY = window.innerHeight / 2;
+
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+
+		renderer.setSize( window.innerWidth, window.innerHeight );
+
+	}
+
+	function createCube(scene, sx, sy, sz, x, y, z, color) {
+		var geometry = new THREE.CubeGeometry(sx, sy, sz);
+//				var material = new THREE.MeshBasicMaterial({color: 0x333333, wireframe: true});
+		var material = new THREE.MeshBasicMaterial({color: color} );
+		var cube = new THREE.Mesh(geometry, material);
+		cube.position.x = x;
+		cube.position.y = y;
+		cube.position.z = z;
+		scene.add(cube);
+
+		cubes[cubeNum++] = cube;
+
+		var geometry = new THREE.CubeGeometry(sx, sy, sz);
+//				var material = new THREE.MeshBasicMaterial({color: 0x333333, wireframe: true});
+//				var material = new THREE.MeshBasicMaterial({color: (0xffffff - color), wireframe:true} );
+		var material = new THREE.MeshBasicMaterial({color: (0x444444), wireframe:true} );
+		var cube2 = new THREE.Mesh(geometry, material);
+		cube2.position.x = x;
+		cube2.position.y = y;
+		cube2.position.z = z;
+		scene.add(cube2);
+
+		cubes[cubeNum++] = cube2;
+
+	}
+
+	function moveCubes(x,y,z) {
+		var i;
+		for ( i=0; i<cubeNum; i++ ) {
+			cubes[i].position.x += x;
+			cubes[i].position.y += y;
+			cubes[i].position.z += z;
+
+			if ( cubes[i].position.x <= -25 ) {
+				cubes[i].position.x += 40;
+			}
+		}
+	}
+
+	function render() {
+//             	camera.position.x = 10;
+//            	camera.position.y = 2;
+//             	camera.position.z = 10;
+
+            	camera.position.x = 10;
+             	camera.position.y = 10;
+             	camera.position.z = 0;
+
+//		camera.lookAt( {x: scene.position.x + 3 , y: scene.position.y, z: scene.position.z} );
+		camera.lookAt( {x: 0 , y: 0, z: 0} );
+		renderer.render( scene, camera );
+	}
+
+
+	cubeData = [
+		[
+			 [1,1,0,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+		],
+		[
+			 [1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+		]
+	];
+
+	enchant();
+
+	var cubes  = new Array(500);
+	var cubeNum = 0;
+ 	var camera, scene, renderer;
+
+	init();
+
+	var game = new Game(window.innerWidth, window.innerHeight);
+
+	game.fps = 60;
+	game.onload = function(){
+	        var gunmanSprite = new Sprite(179, 230);
+
+		for (i=0; i<cubeData[0].length; i++) {
+			for (j=0; j<cubeData[0][i].length; j++) {
+//			        createCube(scene, 1,1,1, i    , -1.5 ,0, 0x884444);
+//				createCube(scene, 1,1,1, (i+1), -1.5 ,0, 0x444488);
+				if ( cubeData[0][i][j] == 1 ) {
+					x = -cubeData[0].length + i;
+					y = 0;
+					z = cubeData[0][i].length/2 -j;
+					if ( (i + j) % 2 == 0 ) {
+						createCube(scene, 1,1,1, x,y,z, 0x884444);
+					} else {
+						createCube(scene, 1,1,1, x,y,z, 0x444488);
+					}
+				}
+			}
+		}
+
+		gunmanSprite.addEventListener(enchant.Event.ENTER_FRAME, function(){
+
+			try {
+				moveCubes(0.01, 0, 0);
+				render();
+			} catch (exception) {
+				document.getElementById('debug').value = exception;
+			}
+		});
+ 
+	        game.rootScene.addChild(gunmanSprite);
+	};
+
+	game.start();
+
+
+</script>
+
+
 </body>
 </html>

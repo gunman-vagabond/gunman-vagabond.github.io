@@ -442,7 +442,7 @@ function handleOrientation(event){
 //    moveCubes(diffX, 0, diffZ);
 	moveCubes(pre_diffX2 + pre_diffX + diffX, 0,  pre_diffZ2 + pre_diffZ + diffZ);
 
-	var rotateY = Math.atan2(diffX, diffZ);
+	var rotateY = Math.atan2(diffX, diffZ) + Math.PI;
 	gunman.rotation.set(0, rotateY,  0);
 
 	pre_diffX2 = pre_diffX;

@@ -42,7 +42,7 @@ function redrawArrow(alpha, beta, gamma){
 //  ctx.moveTo(100,100);
 //  ctx.lineTo(200,200);
   ctx.moveTo(baseX,baseY);
-  ctx.lineTo(baseX + (50 * Math.sin(gamma)) , baseY + (50 * Math.sin(alpha)) );
+  ctx.lineTo(baseX + (50 * Math.sin(gamma * 2 * Math.PI / 360 )) , baseY + (50 * Math.sin(beta * 2 * Math.PI / 360 )) );
 
   ctx.stroke();
 }

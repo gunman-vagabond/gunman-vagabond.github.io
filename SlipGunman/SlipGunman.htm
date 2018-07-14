@@ -31,16 +31,18 @@ window.addEventListener("deviceorientation", handleOrientation, true);
 function redrawArrow(alpha, beta, gamma){
   var cvs = document.getElementById("cv");
   var ctx = cvs.getContext("2d");
-  ctx.beginPath();
-
-//  ctx.moveTo(100,100);
-//  ctx.lineTo(200,200);
 
   var baseX = cv_width/2;
   var baseY = cv_height*0.8;
 
+  ctx.clearRect(0,0,cv_width,cv_height);
+
+  ctx.beginPath();
+
+//  ctx.moveTo(100,100);
+//  ctx.lineTo(200,200);
   ctx.moveTo(baseX,baseY);
-  ctx.lineTo(baseX + (50 * Math.sin(alpha)) , baseY + (50 * Math.sin(alpha)) );
+  ctx.lineTo(baseX + (50 * Math.sin(gamma)) , baseY + (50 * Math.sin(alpha)) );
 
   ctx.stroke();
 }

@@ -179,13 +179,16 @@ gamma: <input type="text" size="5" id="gamma" value="0">
 	var mmdHelper = new THREE.MMDHelper(renderer); // MMDHelper作成
 	// MMDデータの読み込み・オブジェクト生成・シーンへの配置
 	mmdLoader.setDefaultTexturePath('MMD/');
-	var model;
+	var gunman;
 	mmdLoader.loadModel('MMD/Gunman.HatsuneVer2.pmd', function(object) {
-		object.scale.set(0.2, 0.2, 0.2);
+		object.scale.set(0.1, 0.1, 0.1);
 		object.castShadow = true;
 		scene.add(object);
+
 		mmdHelper.add(object); // メッシュオブジェクトをヘルパーに登録
-	   	model = object;
+	   	gunman = object;
+		gunman.position.set(-0.5, 1.1, 0);
+		gunman.rotation.set(0, -Math.PI/2,  0);
 	});	
 
 //	// アニメーション処理

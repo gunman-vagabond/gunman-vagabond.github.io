@@ -178,7 +178,7 @@ gamma: <input type="text" size="5" id="gamma" value="0">
 	var mmdLoader = new THREE.MMDLoader(); // MMDLoader作成 
 	var mmdHelper = new THREE.MMDHelper(renderer); // MMDHelper作成
 	// MMDデータの読み込み・オブジェクト生成・シーンへの配置
-	mmdLoader.setDefaultTexturePath('MMD/');
+//	mmdLoader.setDefaultTexturePath('MMD/');
 	var gunman;
 	mmdLoader.loadModel('MMD/Gunman.HatsuneVer2.pmd', function(object) {
 		object.scale.set(0.1, 0.1, 0.1);
@@ -384,10 +384,17 @@ gamma: <input type="text" size="5" id="gamma" value="0">
 //		createSphere(scene, 0.5, -1, 1, 0, 0xff0000);
 		createCylinder(scene, 0.5,0.1, -0.5,1,0, 0xff0000);
 
+//		var pre_rotateY = -Math.PI/2;
+
 		gunmanSprite.addEventListener(enchant.Event.ENTER_FRAME, function(){
 
 			try {
 //				moveCubes(0, 0, 0);
+
+//				rotateY = (pre_rotateY + 0.01);
+//				gunman.rotation.set(0, rotateY,  0);
+//				pre_rotateY = rotateY
+
 				render();
 			} catch (exception) {
 				document.getElementById('debug').value = exception;
@@ -412,33 +419,37 @@ window.addEventListener("deviceorientation", handleOrientation, true);
 
 var pre_diffX = 0, pre_diffX2 = 0;
 var pre_diffZ = 0, pre_diffZ2 = 0;
+
 function handleOrientation(event){
 
-    var alpha    = event.alpha;
-    var beta     = event.beta;
-    var gamma    = event.gamma;
+	var alpha    = event.alpha;
+	var beta     = event.beta;
+	var gamma    = event.gamma;
 
-    if ( alpha_ini == -1 ) { alpha_ini = alpha; }
-    if ( beta_ini == -1 ) { beta_ini = beta; }
-    if ( gamma_ini == -1 ) { gamma_ini = gamma; }
+	if ( alpha_ini == -1 ) { alpha_ini = alpha; }
+	if ( beta_ini == -1 ) { beta_ini = beta; }
+	if ( gamma_ini == -1 ) { gamma_ini = gamma; }
 
-    document.getElementById('alpha').value = alpha;
-    document.getElementById('beta').value = beta;
-    document.getElementById('gamma').value = gamma;
+	document.getElementById('alpha').value = alpha;
+	document.getElementById('beta').value = beta;
+	document.getElementById('gamma').value = gamma;
 
 //    redrawArrow(alpha,beta,gamma);
 
-    var diffX = (-1) *  Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 10 ;
-    var diffZ = Math.sin( (gamma - gamma_ini) * 2 * Math.PI /360) / 10 ;
+	var diffX = (-1) *  Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 10 ;
+	var diffZ = Math.sin( (gamma - gamma_ini) * 2 * Math.PI /360) / 10 ;
 
 //    moveCubes(diffX, 0, diffZ);
-    moveCubes(pre_diffX2 + pre_diffX + diffX, 0,  pre_diffZ2 + pre_diffZ + diffZ);
+	moveCubes(pre_diffX2 + pre_diffX + diffX, 0,  pre_diffZ2 + pre_diffZ + diffZ);
 
-    pre_diffX2 = pre_diffX;
-    pre_diffZ2 = pre_diffZ;
+	var rotateY = Math.atan2(diffX, diffZ);
+	gunman.rotation.set(0, rotateY,  0);
 
-    pre_diffX = diffX;
-    pre_diffZ = diffZ;
+	pre_diffX2 = pre_diffX;
+	pre_diffZ2 = pre_diffZ;
+
+	pre_diffX = diffX;
+	pre_diffZ = diffZ;
 
 }
 </script>

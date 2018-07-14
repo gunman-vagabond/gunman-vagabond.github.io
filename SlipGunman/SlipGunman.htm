@@ -214,6 +214,7 @@ debug
 		// called when loading has errors
 		function ( error ) {
 			console.log( 'An error happened' );
+			document.getElementById('debug').value = error;
 		}
 	);
 

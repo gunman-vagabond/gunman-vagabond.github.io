@@ -140,7 +140,7 @@ debug
 
 		var directionalLight = new THREE.DirectionalLight( 0xffeedd );
 //		directionalLight.position.set( 100, 100, 200).normalize();
-		directionalLight.position.set( -10, 20, 10);
+		directionalLight.position.set( -1, 10, 3);
 		scene.add( directionalLight );
 
 		renderer = new THREE.WebGLRenderer();
@@ -169,6 +169,25 @@ debug
 
 	}
 
+
+	function createCylinder(scene, size,height, x, y, z, color ) {
+		cylinder = new THREE.Mesh(
+			//球のジオメトリ(size:半径, 垂直分割数:20, 水平分割数:20)
+			new THREE.CylinderGeometry(size, size, height, 20, 20),
+			//マテリアル （材質）
+			new THREE.MeshPhongMaterial({
+				//色（１６進数）
+				color: color,
+				metal: true,
+				shininess: 30
+			})
+		);
+		cylinder.castShadow = true;
+		cylinder.receiveShadow = true;
+		scene.add(cylinder);
+		cylinder.position.set(x, y, z);
+	}
+
 	function createSphere(scene, size , x, y, z, color ) {
 		sphere = new THREE.Mesh(
 			//球のジオメトリ(size:半径, 垂直分割数:20, 水平分割数:20)
@@ -185,9 +204,7 @@ debug
 		sphere.castShadow = true;
 		//影の設定　　　　　　　　
 		sphere.receiveShadow = true;
-		//sceneに追加               
 		scene.add(sphere);                           
-		// 位置設定                                                
 		sphere.position.set(x, y, z);
 	}
 
@@ -312,7 +329,8 @@ debug
 			}
 		}
 
-		createSphere(scene, 0.5, -1, 1, 0, 0xff0000);
+//		createSphere(scene, 0.5, -1, 1, 0, 0xff0000);
+		createCylinder(scene, 0.5,0.1, -0.5,1,0, 0xff0000);
 
 		gunmanSprite.addEventListener(enchant.Event.ENTER_FRAME, function(){
 

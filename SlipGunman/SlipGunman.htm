@@ -134,11 +134,13 @@ debug
 
 		scene = new THREE.Scene();
 
-		var ambient = new THREE.AmbientLight( 0x444444 );
+//		var ambient = new THREE.AmbientLight( 0x444444 );
+		var ambient = new THREE.AmbientLight( 0x888888 );
 		scene.add( ambient );
 
 		var directionalLight = new THREE.DirectionalLight( 0xffeedd );
-		directionalLight.position.set( 100, -100, 200).normalize();
+//		directionalLight.position.set( 100, 100, 200).normalize();
+		directionalLight.position.set( -10, 20, 10);
 		scene.add( directionalLight );
 
 		renderer = new THREE.WebGLRenderer();
@@ -180,9 +182,9 @@ debug
 			})
 		);
 		//影の設定
-//		sphere.castShadow = true;
+		sphere.castShadow = true;
 		//影の設定　　　　　　　　
-//		sphere.receiveShadow = true;
+		sphere.receiveShadow = true;
 		//sceneに追加               
 		scene.add(sphere);                           
 		// 位置設定                                                
@@ -190,13 +192,22 @@ debug
 	}
 
 	function createCube(scene, sx, sy, sz, x, y, z, color) {
+//		var geometry = new THREE.BoxGeometry(sx, sy, sz);
 		var geometry = new THREE.CubeGeometry(sx, sy, sz);
 //				var material = new THREE.MeshBasicMaterial({color: 0x333333, wireframe: true});
-		var material = new THREE.MeshBasicMaterial({color: color} );
+//		var material = new THREE.MeshBasicMaterial({color: color} );
+//		var material = new THREE.MeshPhongMaterial({color: color, metal: true, shininess:30} );
+//		var material = new THREE.MeshLambertMaterial({color: color, metal: true, shininess:30, transparent: true} );
+		var material = new THREE.MeshLambertMaterial({color: color} );
 		var cube = new THREE.Mesh(geometry, material);
 		cube.position.x = x;
 		cube.position.y = y;
 		cube.position.z = z;
+		//影の設定
+		cube.castShadow = true;
+		//影の設定　　　　　　　　
+		cube.receiveShadow = true;
+
 		scene.add(cube);
 
 		cubes[cubeNum++] = cube;
@@ -209,9 +220,9 @@ debug
 		cube2.position.x = x;
 		cube2.position.y = y;
 		cube2.position.z = z;
-		scene.add(cube2);
+//		scene.add(cube2);
 
-		cubes[cubeNum++] = cube2;
+//		cubes[cubeNum++] = cube2;
 
 	}
 
@@ -246,8 +257,8 @@ debug
 	cubeData = [
 		[
 			 [1,1,1,1,1,1,1,1,1,1]
-			,[1,1,0,1,1,1,1,1,1,1]
-			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,0,0,1,1,1,1,1,1]
+			,[1,1,0,0,1,1,1,1,1,1]
 			,[1,1,1,1,1,1,1,1,1,1]
 			,[1,1,1,1,1,1,1,1,1,1]
 			,[1,1,1,1,1,1,1,1,1,1]

@@ -169,18 +169,20 @@ debug
 
 	function createSphere(scene, size , x, y, z, color ) {
 		sphere = new THREE.Mesh(
-			//球のジオメトリ(size:半径)
-			new THREE.SphereGeometry(size),
+			//球のジオメトリ(size:半径, 垂直分割数:20, 水平分割数:20)
+			new THREE.SphereGeometry(size, 20, 20),
 			//マテリアル （材質）
 			new THREE.MeshPhongMaterial({
 				//色（１６進数）
-				color: color
+				color: color,
+				metal: true,
+				shininess: 30
 			})
 		);
 		//影の設定
-		sphere.castShadow = true;　
+//		sphere.castShadow = true;
 		//影の設定　　　　　　　　
-		sphere.receiveShadow = true;         
+//		sphere.receiveShadow = true;
 		//sceneに追加               
 		scene.add(sphere);                           
 		// 位置設定                                                
@@ -299,7 +301,7 @@ debug
 			}
 		}
 
-		createSphere(scene, 0.5, -1, 1, 0, 0xffffff);
+		createSphere(scene, 0.5, -1, 1, 0, 0xff0000);
 
 		gunmanSprite.addEventListener(enchant.Event.ENTER_FRAME, function(){
 

@@ -180,7 +180,7 @@ gamma: <input type="text" size="5" id="gamma" value="0">
 	// MMDデータの読み込み・オブジェクト生成・シーンへの配置
 	mmdLoader.setDefaultTexturePath('MMD/');
 	var model;
-	mmdLoader.loadModel('MMD/Gunman.HatsuneVer2.pmx', function(object) {
+	mmdLoader.loadModel('MMD/Gunman.HatsuneVer2.pmd', function(object) {
 		object.scale.set(0.2, 0.2, 0.2);
 		object.castShadow = true;
 		scene.add(object);
@@ -192,7 +192,7 @@ gamma: <input type="text" size="5" id="gamma" value="0">
 //	(function render() {
 //		requestAnimationFrame(render);
   
-	    trackballControls.update(); // フレームごとにトラックボールコントロールを更新
+//	    trackballControls.update(); // フレームごとにトラックボールコントロールを更新
 
 		mmdHelper.render(scene, camera); // HHDHelperから呼び出す（ラッパーメソッド）
 //	})();

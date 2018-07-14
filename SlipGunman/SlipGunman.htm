@@ -5,6 +5,8 @@
 <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="enchant.min.js"></script>
 <script type="text/javascript" src="three.min.js"></script>
+<script type="text/javascript" src="MMDLoader.js"></script>
+
 
 <link rel="manifest" href="manifest.json"></link>
 <!--<script src="pwabuilder-sw-register.js"></script>-->
@@ -141,6 +143,7 @@ debug
 		var directionalLight = new THREE.DirectionalLight( 0xffeedd );
 //		directionalLight.position.set( 100, 100, 200).normalize();
 		directionalLight.position.set( -1, 10, 3);
+		directionalLight.castShadow = true;
 		scene.add( directionalLight );
 
 		renderer = new THREE.WebGLRenderer();
@@ -168,6 +171,51 @@ debug
 		renderer.setSize( window.innerWidth, window.innerHeight );
 
 	}
+
+//	var renderer = new THREE.WebGLRenderer({antialias: true}); // アンチエイリアスを適用
+//	var mmdLoader = new THREE.MMDLoader(); // MMDLoader作成 
+//	var mmdHelper = new THREE.MMDHelper(renderer); // MMDHelper作成
+  	
+	
+//	// MMDデータの読み込み・オブジェクト生成・シーンへの配置
+//	mmdLoader.setDefaultTexturePath('MMD/');
+//	var model;
+//	mmdLoader.loadModel('MMD/Gunman.HatsuneVer2.pmx', function(object) {
+//		object.scale.set(0.2, 0.2, 0.2);
+//		object.castShadow = true;
+//		scene.add(object);
+//		mmdHelper.add(object); // メッシュオブジェクトをヘルパーに登録
+//	   	model = object;
+//	});	
+
+//	// アニメーション処理
+//	(function render() {
+//		requestAnimationFrame(render);
+  
+//	    trackballControls.update(); // フレームごとにトラックボールコントロールを更新
+
+//		mmdHelper.render(scene, camera); // HHDHelperから呼び出す（ラッパーメソッド）
+//	})();
+
+	var loader = new THREE.MMDLoader();
+
+	// Load a MMD model
+	loader.load(
+		// path to PMD/PMX file
+		'MMD/Gunman.HatsuneVer2.pmx',
+		// called when the resource is loaded
+		function ( mesh ) {	
+			scene.add( mesh );
+		},
+		// called when loading is in progresses
+		function ( xhr ) {
+			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+		},
+		// called when loading has errors
+		function ( error ) {
+			console.log( 'An error happened' );
+		}
+	);
 
 
 	function createCylinder(scene, size,height, x, y, z, color ) {

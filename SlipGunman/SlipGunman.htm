@@ -63,7 +63,7 @@ function handleOrientation(event){
     var diffX = Math.sin(beta * 2 * Math.PI /360) / 10 ;
     var diffZ = Math.sin(gamma * 2 * Math.PI /360) / 10 ;
 
-    moveCubes(diffX, 0, -diffZ);
+    moveCubes(-diffX, 0, diffZ);
 
 }
 </script>

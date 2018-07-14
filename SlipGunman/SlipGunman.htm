@@ -322,6 +322,10 @@ debug
 </script>
 
 <script>
+var alpha_ini = -1;
+var beta_ini = -1;
+var gamma_ini = -1;
+
 window.addEventListener("deviceorientation", handleOrientation, true);
 
 function handleOrientation(event){
@@ -330,14 +334,18 @@ function handleOrientation(event){
     var beta     = event.beta;
     var gamma    = event.gamma;
 
+    if ( alpha_ini == -1 ) { alpha_ini = alpha; }
+    if ( beta_ini == -1 ) { beta_ini = beta; }
+    if ( gamma_ini == -1 ) { gamma_ini = gamma; }
+
     document.getElementById('alpha').value = alpha;
     document.getElementById('beta').value = beta;
     document.getElementById('gamma').value = gamma;
 
 //    redrawArrow(alpha,beta,gamma);
 
-    var diffX = Math.sin(beta * 2 * Math.PI /360) / 10 ;
-    var diffZ = Math.sin(gamma * 2 * Math.PI /360) / 10 ;
+    var diffX = Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 10 ;
+    var diffZ = Math.sin( (gamma - gamma_ini) * 2 * Math.PI /360) / 10 ;
 
     moveCubes(-diffX, 0, diffZ);
 

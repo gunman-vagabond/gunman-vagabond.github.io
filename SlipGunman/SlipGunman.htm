@@ -357,6 +357,9 @@ var gamma_ini = -1;
 
 window.addEventListener("deviceorientation", handleOrientation, true);
 
+
+var pre_diffX = 0, pre_diffX2 = 0;
+var pre_diffZ = 0, pre_diffZ2 = 0;
 function handleOrientation(event){
 
     var alpha    = event.alpha;
@@ -373,10 +376,17 @@ function handleOrientation(event){
 
 //    redrawArrow(alpha,beta,gamma);
 
-    var diffX = Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 10 ;
+    var diffX = (-1) *  Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 10 ;
     var diffZ = Math.sin( (gamma - gamma_ini) * 2 * Math.PI /360) / 10 ;
 
-    moveCubes(-diffX, 0, diffZ);
+//    moveCubes(diffX, 0, diffZ);
+    moveCubes(pre_diffX2 + pre_diffX + diffX, 0,  pre_diffZ2 + pre_diffZ + diffZ);
+
+    pre_diffX2 = pre_diffX;
+    pre_diffZ2 = pre_diffZ;
+
+    pre_diffX = diffX;
+    pre_diffZ = diffZ;
 
 }
 </script>

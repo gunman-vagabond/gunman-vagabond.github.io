@@ -1,0 +1,47 @@
+{
+    "dir": "ltr",
+    "lang": "ja",
+    "name": "gunclock",
+    "scope": "/PWA/GunClock.PWA.htm",
+    "display": "standalone",
+    "start_url": "https://gunman-vagabond.github.io/PWA/GunClock.PWA.htm?PWA=on",
+    "short_name": "gunclock",
+    "theme_color": "transparent",
+    "description": "gunclock",
+    "orientation": "any",
+    "background_color": "transparent",
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "icons": [
+{
+"src": "icon/gun_eyes.48x48.png",
+"type": "image/png",
+"sizes": "48x48"
+},
+{
+"src": "icon/gun_eyes.72x72.png",
+"type": "image/png",
+"sizes": "72x72"
+},
+{
+"src": "icon/gun_eyes.114x114.png",
+"type": "image/png",
+"sizes": "114x114"
+},
+{
+"src": "icon/gun_eyes.120x120.png",
+"type": "image/png",
+"sizes": "120x120"
+},
+{
+"src": "icon/gun_eyes.144x144.png",
+"type": "image/png",
+"sizes": "144x144"
+},
+{
+"src": "icon/gun_eyes.192x192.png",
+"type": "image/png",
+"sizes": "192x192"
+}
+    ]
+}

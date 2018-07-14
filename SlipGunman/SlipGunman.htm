@@ -27,45 +27,6 @@ var cv_height;
 </script>
 
 <script type="text/javascript">
-window.addEventListener("deviceorientation", handleOrientation, true);
-
-function redrawArrow(alpha, beta, gamma){
-  var cvs = document.getElementById("cv");
-  var ctx = cvs.getContext("2d");
-
-  var baseX = cv_width/2;
-  var baseY = cv_height*0.8;
-
-  ctx.clearRect(0,0,cv_width,cv_height);
-
-  ctx.beginPath();
-
-//  ctx.moveTo(100,100);
-//  ctx.lineTo(200,200);
-  ctx.moveTo(baseX,baseY);
-  ctx.lineTo(baseX + (50 * Math.sin(gamma * 2 * Math.PI / 360 )) , baseY + (50 * Math.sin(beta * 2 * Math.PI / 360 )) );
-
-  ctx.stroke();
-}
-
-function handleOrientation(event){
-
-    var alpha    = event.alpha;
-    var beta     = event.beta;
-    var gamma    = event.gamma;
-
-    document.getElementById('alpha').value = alpha;
-    document.getElementById('beta').value = beta;
-    document.getElementById('gamma').value = gamma;
-
-//    redrawArrow(alpha,beta,gamma);
-
-    var diffX = Math.sin(beta * 2 * Math.PI /360) / 10 ;
-    var diffZ = Math.sin(gamma * 2 * Math.PI /360) / 10 ;
-
-    moveCubes(-diffX, 0, diffZ);
-
-}
 </script>
 
 
@@ -137,31 +98,7 @@ if ( p == "on" ) {
 }
 </script>
 
-
-<p>
-<!--<canvas id="cv" width="300" height="300"></canvas>
-
-<script>
-
-function myResize(){
-
-  cv_width = $(window).width();
-  $("#cv").attr("width",  cv_width  );
-  cv_height = $(window).width() * 0.6;
-  $("#cv").attr("height", cv_height);
-
-}
-
-myResize();
-
-$(window).resize(function(e)
-{
-   myResize();
-
-});
-</script>
--->
-
+<div id="div"></div>
 <p>
 alpha: <input type="text" size="5" id="alpha" value="0">
 beta: <input type="text" size="5" id="beta" value="0">
@@ -184,8 +121,10 @@ debug
 <script type="text/javascript">
 
 	function init() {
-		container = document.createElement( 'div' );
-		document.body.appendChild( container );
+//		container = document.createElement( 'div' );
+//		document.body.appendChild( container );
+
+		container = document.getElementById('div')
 
 		camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
 		camera.aspect = window.innerWidth / window.innerHeight;
@@ -358,6 +297,28 @@ debug
 
 </script>
 
+<script>
+window.addEventListener("deviceorientation", handleOrientation, true);
+
+function handleOrientation(event){
+
+    var alpha    = event.alpha;
+    var beta     = event.beta;
+    var gamma    = event.gamma;
+
+    document.getElementById('alpha').value = alpha;
+    document.getElementById('beta').value = beta;
+    document.getElementById('gamma').value = gamma;
+
+//    redrawArrow(alpha,beta,gamma);
+
+    var diffX = Math.sin(beta * 2 * Math.PI /360) / 10 ;
+    var diffZ = Math.sin(gamma * 2 * Math.PI /360) / 10 ;
+
+    moveCubes(-diffX, 0, diffZ);
+
+}
+</script>
 
 </body>
 </html>

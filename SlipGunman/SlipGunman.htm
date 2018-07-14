@@ -167,6 +167,26 @@ debug
 
 	}
 
+	function createSphere(scene, size , x, y, z, color ) {
+		sphere = new THREE.Mesh(
+			//球のジオメトリ(size:半径)
+			new THREE.SphereGeometry(size),
+			//マテリアル （材質）
+			new THREE.MeshPhongMaterial({
+				//色（１６進数）
+				color: color
+			})
+		);
+		//影の設定
+		sphere.castShadow = true;　
+		//影の設定　　　　　　　　
+		sphere.receiveShadow = true;         
+		//sceneに追加               
+		scene.add(sphere);                           
+		// 位置設定                                                
+		sphere.position.set(x, y, z);
+	}
+
 	function createCube(scene, sx, sy, sz, x, y, z, color) {
 		var geometry = new THREE.CubeGeometry(sx, sy, sz);
 //				var material = new THREE.MeshBasicMaterial({color: 0x333333, wireframe: true});
@@ -223,8 +243,8 @@ debug
 
 	cubeData = [
 		[
-			 [1,1,0,1,1,1,1,1,1,1]
-			,[1,1,1,1,1,1,1,1,1,1]
+			 [1,1,1,1,1,1,1,1,1,1]
+			,[1,1,0,1,1,1,1,1,1,1]
 			,[1,1,1,1,1,1,1,1,1,1]
 			,[1,1,1,1,1,1,1,1,1,1]
 			,[1,1,1,1,1,1,1,1,1,1]
@@ -278,6 +298,8 @@ debug
 				}
 			}
 		}
+
+		createSphere(scene, 0.5, -1, 1, 0, 0xffffff);
 
 		gunmanSprite.addEventListener(enchant.Event.ENTER_FRAME, function(){
 

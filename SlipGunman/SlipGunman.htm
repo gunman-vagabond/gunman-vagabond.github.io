@@ -61,9 +61,9 @@ function handleOrientation(event){
 //    redrawArrow(alpha,beta,gamma);
 
     var diffX = Math.sin(beta * 2 * Math.PI /360);
-    var diffY = Math.sin(gamma * 2 * Math.PI /360);
+    var diffZ = Math.sin(gamma * 2 * Math.PI /360);
 
-    moveCubes(diffX, diffY, 0);
+    moveCubes(diffX, 0, diffZ);
 
 }
 </script>

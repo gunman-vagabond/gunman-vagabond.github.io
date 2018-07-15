@@ -489,35 +489,38 @@ function handleOrientation(event){
 	if ( floor_gunman_X != floor_tmp_gunman_X ) {
 		//ブロックをまたがって移動
 		if ( cubeData[0][floor_tmp_gunman_X][floor_gunman_Z] == 9 ) {
-//			tot_diffX = 0;
-			_tot_diffX = floor_gunman_X - gunman_X;
-			diffX = _tot_diffX - pre_diffX2 - pre_diffX;
-			tot_diffX = _tot_diffX;
+			tot_diffX = 0;
+//			_tot_diffX = floor_gunman_X - gunman_X;
+//			diffX = _tot_diffX - pre_diffX2 - pre_diffX;
+//			tot_diffX = _tot_diffX;
 		}
 	}
 	if ( floor_gunman_Z != floor_tmp_gunman_Z ) {
 		//ブロックをまたがって移動
 		if ( cubeData[0][floor_gunman_X][floor_tmp_gunman_Z] == 9 ) {
-			_tot_diffZ = floor_gunman_Z - gunman_Z;
-			diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
-			tot_diffZ = _tot_diffZ;
+			tot_diffZ = 0;
+//			_tot_diffZ = floor_gunman_Z - gunman_Z;
+//			diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
+//			tot_diffZ = _tot_diffZ;
 		}
 	}
 
 	if ( ceil_gunman_X != ceil_tmp_gunman_X ) {
 		//ブロックをまたがって移動
 		if ( cubeData[0][ceil_tmp_gunman_X][ceil_gunman_Z] == 9 ) {
-			_tot_diffX = ceil_gunman_X - gunman_X;
-			diffX = _tot_diffX - pre_diffX2 - pre_diffX;
-			tot_diffX = _tot_diffX;
+			tot_diffX = 0;
+//			_tot_diffX = ceil_gunman_X - gunman_X;
+//			diffX = _tot_diffX - pre_diffX2 - pre_diffX;
+//			tot_diffX = _tot_diffX;
 		}
 	}
 	if ( ceil_gunman_Z != ceil_tmp_gunman_Z ) {
 		//ブロックをまたがって移動
 		if ( cubeData[0][ceil_gunman_X][ceil_tmp_gunman_Z] == 9 ) {
-			tot_diffZ = ceil_gunman_Z - gunman_Z;
-			diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
-			tot_diffZ = _tot_diffZ;
+			tot_diffZ = 0;
+//			tot_diffZ = ceil_gunman_Z - gunman_Z;
+//			diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
+//			tot_diffZ = _tot_diffZ;
 		}
 	}
 

@@ -475,11 +475,16 @@ function handleOrientation(event){
 	var tot_diffZ = pre_diffZ2 + pre_diffZ + diffZ;
 
 	var tmp_gunman_X = gunman_X - tot_diffX;
+	var tmp_gunman_Z = gunman_Z + tot_diffZ;
 	var floor_gunman_X = Math.floor(gunman_X);
 	var floor_tmp_gunman_X = Math.floor(tmp_gunman_X);
-	var tmp_gunman_Z = gunman_Z + tot_diffZ;
 	var floor_gunman_Z = Math.floor(gunman_Z);
 	var floor_tmp_gunman_Z = Math.floor(tmp_gunman_Z);
+
+	var ceil_gunman_X = Math.ceil(gunman_X);
+	var ceil_tmp_gunman_X = Math.ceil(tmp_gunman_X);
+	var ceil_gunman_Z = Math.ceil(gunman_Z);
+	var ceil_tmp_gunman_Z = Math.ceil(tmp_gunman_Z);
 
 	if ( floor_gunman_X != floor_tmp_gunman_X ) {
 		//ブロックをまたがって移動
@@ -493,6 +498,20 @@ function handleOrientation(event){
 			tot_diffZ = 0;
 		}
 	}
+
+	if ( ceil_gunman_X != ceil_tmp_gunman_X ) {
+		//ブロックをまたがって移動
+		if ( cubeData[0][ceil_tmp_gunman_X][ceil_gunman_Z] == 9 ) {
+			tot_diffX = 0;
+		}
+	}
+	if ( ceil_gunman_Z != ceil_tmp_gunman_Z ) {
+		//ブロックをまたがって移動
+		if ( cubeData[0][ceil_gunman_X][ceil_tmp_gunman_Z] == 9 ) {
+			tot_diffZ = 0;
+		}
+	}
+
 
 //    moveCubes(diffX, 0, diffZ);
 	moveCubes(tot_diffX, 0,  tot_diffZ);

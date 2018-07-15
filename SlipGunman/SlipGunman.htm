@@ -400,6 +400,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 					createCylinder(scene, 0.5,0.1, x,0.5,z, 0xff0000);
 					createGunman(scene, x,0.6,z);
 
+					//gunmanの座標。左上のボックスを(0,0)とする
 					gunman_X = i;
 					gunman_Z = j;
 					document.getElementById('gunman_X').value = gunman_X;
@@ -470,11 +471,35 @@ function handleOrientation(event){
 	var diffX = (-1) *  Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 10 ;
 	var diffZ = Math.sin( (gamma - gamma_ini) * 2 * Math.PI /360) / 10 ;
 
-//    moveCubes(diffX, 0, diffZ);
-	moveCubes(pre_diffX2 + pre_diffX + diffX, 0,  pre_diffZ2 + pre_diffZ + diffZ);
+	var tot_diffX = pre_diffX2 + pre_diffX + diffX;
+	var tot_diffZ = pre_diffZ2 + pre_diffZ + diffZ;
 
-	gunman_X -= (pre_diffX2 + pre_diffX + diffX);
-	gunman_Z -= (pre_diffZ2 + pre_diffZ + diffZ);
+	var tmp_gunman_X = gunman_X -= tot_diffX;
+	var tmp_gunman_Z = gunman_Z += tot_diffZ;
+	var floor_gunman_X = Math.floor(gunman_X);
+	var floor_tmp_gunman_X = Math.floor(tmp_gunman_X);
+	var floor_gunman_Z = Math.floor(gunman_Z);
+	var floor_tmp_gunman_Z = Math.floor(tmp_gunman_Z);
+
+	if ( floor_gunman_X != floor_tmp_gunman_X ) {
+		//ブロックをまたがって移動
+		if ( cubeData[floor_tmp_gunman_X][flool_gunman_Z] == 9 ) {
+			tot_diffX = 0;
+		}
+	}
+	if ( floor_gunman_Z != floor_tmp_gunman_Z ) {
+		//ブロックをまたがって移動
+		if ( cubeData[floor_gunman_X][flool_tmp_gunman_Z] == 9 ) {
+			tot_diffZ = 0;
+		}
+	}
+
+//    moveCubes(diffX, 0, diffZ);
+	moveCubes(tot_diffX, 0,  tot_diffZ);
+
+	//gunmanの座標。左上のボックスを(0,0)とする
+	gunman_X -= tot_diffX;
+	gunman_Z += tot_diffZ;
 
 	document.getElementById('gunman_X').value = gunman_X;
 	document.getElementById('gunman_Z').value = gunman_Z;

@@ -497,7 +497,7 @@ if ( diffX >= 0 )
 		}
 	}
 
-if ( diffZ >= 0 ) 
+if ( diffZ <= 0 ) 
 	if ( floor_gunman_Z != floor_tmp_gunman_Z ) {
 		//ブロックをまたがって移動
 		if ( cubeData[0][floor_gunman_X][floor_tmp_gunman_Z] == 9 ) {
@@ -519,7 +519,7 @@ if ( diffX < 0 )
 		}
 	}
 
-if ( diffZ < 0 ) 
+if ( diffZ > 0 ) 
 	if ( ceil_gunman_Z != ceil_tmp_gunman_Z ) {
 		//ブロックをまたがって移動
 		if ( cubeData[0][ceil_gunman_X][ceil_tmp_gunman_Z] == 9 ) {

@@ -483,13 +483,13 @@ function handleOrientation(event){
 
 	if ( floor_gunman_X != floor_tmp_gunman_X ) {
 		//ブロックをまたがって移動
-		if ( cubeData[floor_tmp_gunman_X][flool_gunman_Z] == 9 ) {
+		if ( cubeData[floor_tmp_gunman_X][floor_gunman_Z] == 9 ) {
 			tot_diffX = 0;
 		}
 	}
 	if ( floor_gunman_Z != floor_tmp_gunman_Z ) {
 		//ブロックをまたがって移動
-		if ( cubeData[floor_gunman_X][flool_tmp_gunman_Z] == 9 ) {
+		if ( cubeData[floor_gunman_X][floor_tmp_gunman_Z] == 9 ) {
 			tot_diffZ = 0;
 		}
 	}

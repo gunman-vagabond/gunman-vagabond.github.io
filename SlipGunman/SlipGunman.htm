@@ -397,10 +397,13 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 				if ( cubeData[0][i][j] == 8 ) {
 					//gunman Start Position
-					gunman_X = i;
-					gunman_Z = j;
 					createCylinder(scene, 0.5,0.1, x,0.5,z, 0xff0000);
 					createGunman(scene, x,0.6,z);
+
+					gunman_X = i;
+					gunman_Z = j;
+					document.getElementById('gunman_X').value = gunman_X;
+					document.getElementById('gunman_Z').value = gunman_Z;
 				}
 			}
 		}

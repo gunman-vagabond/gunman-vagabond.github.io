@@ -187,7 +187,7 @@ gamma: <input type="text" size="5" id="gamma" value="0">
 
 		mmdHelper.add(object); // メッシュオブジェクトをヘルパーに登録
 	   	gunman = object;
-		gunman.position.set(-0.5, 1.1, 0);
+		gunman.position.set(-1.5, 1.1, 0);
 		gunman.rotation.set(0, -Math.PI/2,  0);
 	});	
 
@@ -325,16 +325,18 @@ gamma: <input type="text" size="5" id="gamma" value="0">
 
 	cubeData = [
 		[
-			 [1,1,1,1,1,1,1,1,1,1]
-			,[1,1,0,0,1,1,1,1,1,1]
-			,[1,1,0,0,1,1,1,1,1,1]
-			,[1,1,1,1,1,1,1,1,1,1]
-			,[1,1,1,1,1,1,1,1,1,1]
-			,[1,1,1,1,1,1,1,1,1,1]
-			,[1,1,1,1,1,1,1,1,1,1]
-			,[1,1,1,1,1,1,1,1,1,1]
-			,[1,1,1,1,1,1,1,1,1,1]
-			,[1,1,1,1,1,1,1,1,1,1]
+			 [9,9,9,9,9,9,9,9,9,9,9,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,0,0,1,1,1,1,1,1,9]
+			,[9,1,1,0,0,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,9,9,9,9,9,9,9,9,9,9,9]
 		],
 		[
 			 [1,1,1,1,1,1,1,1,1,1]
@@ -368,21 +370,30 @@ gamma: <input type="text" size="5" id="gamma" value="0">
 			for (j=0; j<cubeData[0][i].length; j++) {
 //			        createCube(scene, 1,1,1, i    , -1.5 ,0, 0x884444);
 //				createCube(scene, 1,1,1, (i+1), -1.5 ,0, 0x444488);
+
+				x = -cubeData[0].length + i;
+				y = 0;
+				z = cubeData[0][i].length/2 -j;
+
 				if ( cubeData[0][i][j] == 1 ) {
-					x = -cubeData[0].length + i;
-					y = 0;
-					z = cubeData[0][i].length/2 -j;
 					if ( (i + j) % 2 == 0 ) {
 						createCube(scene, 1,1,1, x,y,z, 0x884444);
 					} else {
 						createCube(scene, 1,1,1, x,y,z, 0x444488);
 					}
 				}
+				else if ( cubeData[0][i][j] == 9 ) {
+					if ( (i + j) % 2 == 0 ) {
+						createCube(scene, 1,1.5,1, x,y,z, 0x884444);
+					} else {
+						createCube(scene, 1,1.5,1, x,y,z, 0x444488);
+					}
+				}
 			}
 		}
 
 //		createSphere(scene, 0.5, -1, 1, 0, 0xff0000);
-		createCylinder(scene, 0.5,0.1, -0.5,1,0, 0xff0000);
+		createCylinder(scene, 0.5,0.1, -1.5,1,0, 0xff0000);
 
 //		var pre_rotateY = -Math.PI/2;
 

@@ -473,8 +473,8 @@ function handleOrientation(event){
 //    moveCubes(diffX, 0, diffZ);
 	moveCubes(pre_diffX2 + pre_diffX + diffX, 0,  pre_diffZ2 + pre_diffZ + diffZ);
 
-	gunman_X += (pre_diffX2 + pre_diffX + diffX);
-	gunman_Z += (pre_diffZ2 + pre_diffZ + diffZ);
+	gunman_X -= (pre_diffX2 + pre_diffX + diffX);
+	gunman_Z -= (pre_diffZ2 + pre_diffZ + diffZ);
 
 	document.getElementById('gunman_X').value = gunman_X;
 	document.getElementById('gunman_Z').value = gunman_Z;

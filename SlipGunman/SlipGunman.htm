@@ -463,7 +463,7 @@ function handleOrientation(event){
 	gunman_Z += (pre_diffZ2 + pre_diffZ + diffZ);
 
 	document.getElementById('gunman_X').value = gunman_X;
-	document.getElementById('gunman_Y').value = gunman_Y;
+	document.getElementById('gunman_Z').value = gunman_Z;
 
 	var rotateY = Math.atan2(diffX, diffZ) + Math.PI;
 	gunman.rotation.set(0, rotateY,  0);

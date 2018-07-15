@@ -105,12 +105,15 @@ if ( p == "on" ) {
 debug
 </textarea>
 
-<div id="div"></div>
 <p>
 alpha: <input type="text" size="5" id="alpha" value="0">
 beta: <input type="text" size="5" id="beta" value="0">
 gamma: <input type="text" size="5" id="gamma" value="0">
 <p>
+gunman_X: <input type="text" size="5" id="gunman_X" value="0">
+gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
+<p>
+<div id="div"></div>
 
 <hr width=80%>
 
@@ -431,6 +434,9 @@ window.addEventListener("deviceorientation", handleOrientation, true);
 var pre_diffX = 0, pre_diffX2 = 0;
 var pre_diffZ = 0, pre_diffZ2 = 0;
 
+var gunman_X=0;
+var gunman_Z=0;
+
 function handleOrientation(event){
 
 	var alpha    = event.alpha;
@@ -452,6 +458,12 @@ function handleOrientation(event){
 
 //    moveCubes(diffX, 0, diffZ);
 	moveCubes(pre_diffX2 + pre_diffX + diffX, 0,  pre_diffZ2 + pre_diffZ + diffZ);
+
+	gunman_X += (pre_diffX2 + pre_diffX + diffX);
+	gunman_Z += (pre_diffZ2 + pre_diffZ + diffZ);
+
+	document.getElementById('gunman_X').value = gunman_X;
+	document.getElementById('gunman_Y').value = gunman_Y;
 
 	var rotateY = Math.atan2(diffX, diffZ) + Math.PI;
 	gunman.rotation.set(0, rotateY,  0);

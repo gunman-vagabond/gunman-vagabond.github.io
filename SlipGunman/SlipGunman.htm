@@ -180,49 +180,51 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 	var renderer = new THREE.WebGLRenderer({antialias: true}); // アンチエイリアスを適用
 	var mmdLoader = new THREE.MMDLoader(); // MMDLoader作成 
 	var mmdHelper = new THREE.MMDHelper(renderer); // MMDHelper作成
-	// MMDデータの読み込み・オブジェクト生成・シーンへの配置
-//	mmdLoader.setDefaultTexturePath('MMD/');
 	var gunman;
-	mmdLoader.loadModel('MMD/Gunman.HatsuneVer2.pmd', function(object) {
-		object.scale.set(0.1, 0.1, 0.1);
-		object.castShadow = true;
-		scene.add(object);
 
-		mmdHelper.add(object); // メッシュオブジェクトをヘルパーに登録
-	   	gunman = object;
-		gunman.position.set(-2, 0.6, 0);
-		gunman.rotation.set(0, -Math.PI/2,  0);
-	});	
+	function createGunman(scene, x, y, z ) {
+		// MMDデータの読み込み・オブジェクト生成・シーンへの配置
+//		mmdLoader.setDefaultTexturePath('MMD/');
+		mmdLoader.loadModel('MMD/Gunman.HatsuneVer2.pmd', function(object) {
+			object.scale.set(0.1, 0.1, 0.1);
+			object.castShadow = true;
+			scene.add(object);
 
-//	// アニメーション処理
-//	(function render() {
-//		requestAnimationFrame(render);
-  
-//	    trackballControls.update(); // フレームごとにトラックボールコントロールを更新
-
+			mmdHelper.add(object); // メッシュオブジェクトをヘルパーに登録
+		   	gunman = object;
+			gunman.position.set(x, y, z);
+			gunman.rotation.set(0, -Math.PI/2,  0);
+		});	
 		mmdHelper.render(scene, camera); // HHDHelperから呼び出す（ラッパーメソッド）
-//	})();
 
-//	var loader = new THREE.MMDLoader();
-//
-//	// Load a MMD model
-//	loader.load(
-//		// path to PMD/PMX file
-//		'MMD/Gunman.HatsuneVer2.pmd',
-//		// called when the resource is loaded
-//		function ( mesh ) {	
-//			scene.add( mesh );
-//		},
-//		// called when loading is in progresses
-//		function ( xhr ) {
-//			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-//		},
-//		// called when loading has errors
-//		function ( error ) {
-//			console.log( 'An error happened' );
-//			document.getElementById('debug').value = error;
-//		}
-//	);
+//		// アニメーション処理
+//		(function render() {
+//			requestAnimationFrame(render);
+//			trackballControls.update(); // フレームごとにトラックボールコントロールを更新
+//			mmdHelper.render(scene, camera); // HHDHelperから呼び出す（ラッパーメソッド）
+//		})();
+
+//		var loader = new THREE.MMDLoader();
+//		// Load a MMD model
+//		loader.load(
+//			// path to PMD/PMX file
+//			'MMD/Gunman.HatsuneVer2.pmd',
+//			// called when the resource is loaded
+//			function ( mesh ) {	
+//				scene.add( mesh );
+//			},
+//			// called when loading is in progresses
+//			function ( xhr ) {
+//				console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+//			},
+//			// called when loading has errors
+//			function ( error ) {
+//				console.log( 'An error happened' );
+//				document.getElementById('debug').value = error;
+//			}
+//		);
+
+	}
 
 
 	function createCylinder(scene, size,height, x, y, z, color ) {
@@ -338,7 +340,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 			,[9,1,1,1,1,1,1,1,1,1,1,9]
 			,[9,1,1,1,1,1,1,1,1,1,1,9]
 			,[9,1,1,1,1,1,1,1,1,1,1,9]
-			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,8,1,1,1,1,9]
 			,[9,9,9,9,9,9,9,9,9,9,9,9]
 		],
 		[
@@ -378,7 +380,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				y = 0;
 				z = cubeData[0][i].length/2 -j;
 
-				if ( cubeData[0][i][j] == 1 ) {
+				if ( cubeData[0][i][j] == 1 || cubeData[0][i][j] == 8 ) {
 					if ( (i + j) % 2 == 0 ) {
 						createCube(scene, 1,1,1, x,y,z, 0x884444);
 					} else {
@@ -392,11 +394,20 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 						createCube(scene, 1,1.2,1, x,y+0.2/2,z, 0x444488);
 					}
 				}
+
+				if ( cubeData[0][i][j] == 8 ) {
+					//gunman Start Position
+					gunman_X = i;
+					gunman_Z = j;
+					createCylinder(scene, 0.5,0.1, x,0.5,z, 0xff0000);
+					createGunman(scene, x,0.6,z);
+				}
 			}
 		}
 
 //		createSphere(scene, 0.5, -1, 1, 0, 0xff0000);
-		createCylinder(scene, 0.5,0.1, -2,0.5,0, 0xff0000);
+//		createCylinder(scene, 0.5,0.1, -2,0.5,0, 0xff0000);
+
 
 //		var pre_rotateY = -Math.PI/2;
 

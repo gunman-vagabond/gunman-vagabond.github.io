@@ -474,8 +474,8 @@ function handleOrientation(event){
 	var tot_diffX = pre_diffX2 + pre_diffX + diffX;
 	var tot_diffZ = pre_diffZ2 + pre_diffZ + diffZ;
 
-	var tmp_gunman_X = gunman_X -= tot_diffX;
-	var tmp_gunman_Z = gunman_Z += tot_diffZ;
+	var tmp_gunman_X = gunman_X - tot_diffX;
+	var tmp_gunman_Z = gunman_Z + tot_diffZ;
 	var floor_gunman_X = Math.floor(gunman_X);
 	var floor_tmp_gunman_X = Math.floor(tmp_gunman_X);
 	var floor_gunman_Z = Math.floor(gunman_Z);

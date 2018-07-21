@@ -412,9 +412,9 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				}
 				else if ( cubeData[0][i][j] == 9 ) {
 					if ( (i + j) % 2 == 0 ) {
-						createCube(scene, 1,1.4,1, x,y+0.4/2,z, 0x777777);
+						createCube(scene, 1,2.1,1, x,y+1.1/2,z, 0x777777);
 					} else {
-						createCube(scene, 1,1.4,1, x,y+0.4/2,z, 0x77cc77);
+						createCube(scene, 1,2.1,1, x,y+1.1/2,z, 0x77cc77);
 					}
 				}
 
@@ -488,7 +488,8 @@ function handleOrientation(event){
 
 //    redrawArrow(alpha,beta,gamma);
 
-	var diffX = (-1) *  Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 10 ;
+//	var diffX = (-1) *  Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 10 ;
+	var diffX = Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 10 ;
 	var diffZ = Math.sin( (gamma - gamma_ini) * 2 * Math.PI /360) / 10 ;
 
 	var tot_diffX = pre_diffX2 + pre_diffX + diffX;
@@ -561,7 +562,7 @@ if ( diffZ > 0 )
 	moveCubes(tot_diffX, 0,  tot_diffZ);
 
 	//gunmanの座標。左上のボックスを(0,0)とする
-	gunman_X -= tot_diffX;
+	gunman_X += tot_diffX;
 	gunman_Z += tot_diffZ;
 
 	document.getElementById('gunman_X').value = gunman_X;

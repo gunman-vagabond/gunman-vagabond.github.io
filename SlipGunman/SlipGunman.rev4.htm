@@ -397,14 +397,28 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 		for (i=0; i<cubeData[0].length; i++) {
 			for (j=0; j<cubeData[0][i].length; j++) {
+				if ( cubeData[0][i][j] == 8 ) {
+					//gunman Start Position
+					//gunmanの座標。左上のボックスを(0,0)とする
+					gunman_X = i;
+					gunman_Z = j;
+				}
+			}
+		}
+
+		for (i=0; i<cubeData[0].length; i++) {
+			for (j=0; j<cubeData[0][i].length; j++) {
 
 				//THREE.js の座標軸(x,y,z)に換算。
 				//  x : 縦軸。下方向がプラス
 				//  y : 画面に垂直な軸。手前がプラス
 				//  z : 横軸。右方向がプラス
-				x = -cubeData[0].length + i;
+//				x = -cubeData[0].length + i;
+//				y = 0;
+//				z = cubeData[0][i].length/2 -j;
+				x = -gunman_X + i;
 				y = 0;
-				z = cubeData[0][i].length/2 -j;
+				z = gunman_Z -j;
 
 				if ( cubeData[0][i][j] == 1 || cubeData[0][i][j] == 8 ) {
 					if ( (i + j) % 2 == 0 ) {

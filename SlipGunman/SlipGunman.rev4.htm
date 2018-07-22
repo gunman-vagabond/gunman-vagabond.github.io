@@ -170,10 +170,13 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		windowHalfX = window.innerWidth / 2;
 		windowHalfY = window.innerHeight / 2;
 
-		camera.aspect = window.innerWidth / window.innerHeight;
+		var width = window.innerWidth;
+		var height = window.innerHeight/2;
+
+		camera.aspect = width / height ;
 		camera.updateProjectionMatrix();
 
-		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.setSize( width, height );
 
 	}
 
@@ -386,7 +389,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 	init();
 
-	var game = new Game(window.innerWidth, window.innerHeight);
+	var game = new Game(window.innerWidth, window.innerHeight / 2 );
 
 	game.fps = 60;
 	game.onload = function(){
@@ -455,6 +458,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		var time_label = new Label("aaa");
 		time_label.x = 3;
 		time_label.y = 3;
+		time_label.font = "16px monospace";
 		time_label.addEventListener(enchant.Event.ENTER_FRAME, function(){
 			var progress_time = parseInt(game.frame/game.fps);
 			var limit_time_str = 10000 - progress_time + "";

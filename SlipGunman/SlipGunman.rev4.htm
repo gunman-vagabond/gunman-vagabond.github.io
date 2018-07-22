@@ -113,7 +113,14 @@ gamma: <input type="text" size="5" id="gamma" value="0">
 gunman_X: <input type="text" size="5" id="gunman_X" value="0">
 gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 <p>
-<div id="div"></div>
+<style>
+#div {height:50px; background-color:#00ff00; font-weight:bold; position:relative }
+span.time_label {color:#ff0000; position:absolute; top:10px; left:10px }
+</style>
+<div id="div">
+<span class="time_label"><input type="text" size="20" id="time_limit"></span>
+</div>
+
 
 <hr width=80%>
 
@@ -461,6 +468,10 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 //				gunman.rotation.set(0, rotateY,  0);
 //				pre_rotateY = rotateY
 
+				var progress_time = parseInt(game.frame/game.fps);
+				var limit_time_str = 10000 - progress_time + "";
+				document.getElementById('time_limit').value = "time_limit: " + limit_time_str;
+
 				render();
 			} catch (exception) {
 				document.getElementById('debug').value = exception;
@@ -469,16 +480,17 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
  
 	        game.rootScene.addChild(gunmanSpriteDummy);
 
-		var time_label = new Label("aaa");
-		time_label.x = 3;
-		time_label.y = 3;
-		time_label.font = "16px monospace";
-		time_label.addEventListener(enchant.Event.ENTER_FRAME, function(){
-			var progress_time = parseInt(game.frame/game.fps);
-			var limit_time_str = 10000 - progress_time + "";
-			this.text = "time_limit: " + limit_time_str;
-		});
-		game.rootScene.addChild(time_label);
+//		var time_label = new Label("aaa");
+//		time_label.x = 3;
+//		time_label.y = 3;
+//		time_label.font = "16px monospace";
+//		time_label.addEventListener(enchant.Event.ENTER_FRAME, function(){
+//			var progress_time = parseInt(game.frame/game.fps);
+//			var limit_time_str = 10000 - progress_time + "";
+////			this.text = "time_limit: " + limit_time_str;
+//			document.getElementById('time_limit').value = "time_limit: " + limit_time_str;
+//		});
+//		game.rootScene.addChild(time_label);
 
 	};
 

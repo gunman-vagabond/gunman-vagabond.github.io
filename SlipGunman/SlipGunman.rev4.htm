@@ -453,14 +453,14 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 	        game.rootScene.addChild(gunmanSpriteDummy);
 
 		var time_label = new Label();
-		time_label.x = 10;
-		time_label.y = 10;
+		time_label.x = 3;
+		time_label.y = 3;
 		time_label.addEventListener(enchant.Event.ENTER_FRAME, function(){
 			var progress_time = parseInt(game.frame/game.fps);
 			var limit_time_str = 10000 - progress_time + "";
 			this.text = "time_limit: " + limit_time_str;
 		});
-		game.rootScene.addChile(time_label);
+		game.rootScene.addChild(time_label);
 
 	};
 

@@ -110,7 +110,9 @@ if ( p == "on" ) {
 span.time_label {position:absolute; top:10px; left:10px }
 </style>
 <div id="div">
+<!--
 <span class="time_label" id="time_label" style="display:none;"><input type="text" size="20" id="time_limit"></span>
+-->
 </div>
 
 <p>
@@ -439,7 +441,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 	game.fps = 60;
 	game.onload = function(){
-		document.getElementById("time_label").style.display="block";
+//		document.getElementById("time_label").style.display="block";
 
 	        var gunmanSpriteDummy = new Sprite(10, 10);
 

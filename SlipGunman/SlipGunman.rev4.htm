@@ -110,9 +110,7 @@ if ( p == "on" ) {
 span.time_label {position:absolute; top:10px; left:10px }
 </style>
 <div id="div">
-<!--
 <span class="time_label" id="time_label" style="display:none;"><input type="text" size="20" id="time_limit"></span>
--->
 </div>
 
 <p>
@@ -321,13 +319,13 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 	function moveGunman(x,y,z) {
 
-		if ( gunman ) {
+		if ( gunman != null ) {
 			gunman.position.x += x;
 			gunman.position.y += y;
 			gunman.position.z += z;
 		}
 
-		if ( cylinder ) {
+		if ( cylinder != null ) {
 			cylinder.position.x += x;
 			cylinder.position.y += y;
 			cylinder.position.z += z;
@@ -349,7 +347,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 	function render() {
 
-		if ( gunman ) {
+		if ( gunman != null ) {
 	            	camera.position.x = gunman.position.x + 10;
 	             	camera.position.y = gunman.position.y + 10;
 	             	camera.position.z = 0;

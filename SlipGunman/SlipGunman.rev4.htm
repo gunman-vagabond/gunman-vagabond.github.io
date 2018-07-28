@@ -101,6 +101,20 @@ if ( p == "on" ) {
   document.getElementById("ttt2").style.display="none";
 }
 </script>
+
+<p>
+
+<style>
+#__div {height:50px; background-color:#00ff00; font-weight:bold; position:relative }
+#div {position:relative }
+span.time_label {position:absolute; top:10px; left:10px }
+</style>
+<div id="div">
+<span class="time_label" id="time_label" style="display:none;"><input type="text" size="20" id="time_limit"></span>
+</div>
+
+<p>
+
 <textarea id="debug" rows="2" cols="50">
 debug
 </textarea>
@@ -113,15 +127,6 @@ gamma: <input type="text" size="5" id="gamma" value="0">
 gunman_X: <input type="text" size="5" id="gunman_X" value="0">
 gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 <p>
-<style>
-#__div {height:50px; background-color:#00ff00; font-weight:bold; position:relative }
-#div {position:relative }
-span.time_label {position:absolute; top:10px; left:10px }
-</style>
-<div id="div">
-<span class="time_label"><input type="text" size="20" id="time_limit"></span>
-</div>
-
 
 <hr width=80%>
 
@@ -311,6 +316,12 @@ span.time_label {position:absolute; top:10px; left:10px }
 
 	}
 
+	function moveGunman(x,y,z) {
+		gunman.position.x += x;
+		gunman.position.y += y;
+		gunman.position.z += z;
+	}
+
 	function moveCubes(x,y,z) {
 		var i;
 		for ( i=0; i<cubeNum; i++ ) {
@@ -401,6 +412,8 @@ span.time_label {position:absolute; top:10px; left:10px }
 
 	game.fps = 60;
 	game.onload = function(){
+		document.getElementById("time_label").style.display="block";
+
 	        var gunmanSpriteDummy = new Sprite(10, 10);
 
 		for (i=0; i<cubeData[0].length; i++) {
@@ -469,8 +482,12 @@ span.time_label {position:absolute; top:10px; left:10px }
 //				gunman.rotation.set(0, rotateY,  0);
 //				pre_rotateY = rotateY
 
-				var progress_time = parseInt(game.frame/game.fps);
-				var limit_time_str = 10000 - progress_time + "";
+//				var progress_time = parseInt(game.frame/game.fps);
+//				var limit_time_str = (10000 - progress_time + "");
+//				var progress_time = game.frame/game.fps;
+//				var limit_time_str = (10000 - progress_time + "").slice(0,-11);   //9999.1xxxxxxxxxxx
+				var progress_time = game.frame/game.fps;
+				var limit_time_str = (10000 - progress_time).toFixed(3);   //9999.12xxxxxxxxxx
 				document.getElementById('time_limit').value = "time_limit: " + limit_time_str;
 
 				render();
@@ -497,7 +514,6 @@ span.time_label {position:absolute; top:10px; left:10px }
 
 	game.start();
 
-
 </script>
 
 <script>
@@ -515,6 +531,114 @@ var gunman_X=0;
 var gunman_Z=0;
 
 function handleOrientation(event){
+
+	var alpha    = event.alpha;
+	var beta     = event.beta;
+	var gamma    = event.gamma;
+
+	if ( alpha_ini == -1 ) { alpha_ini = alpha; }
+	if ( beta_ini == -1 ) { beta_ini = beta; }
+	if ( gamma_ini == -1 ) { gamma_ini = gamma; }
+
+	document.getElementById('alpha').value = alpha;
+	document.getElementById('beta').value = beta;
+	document.getElementById('gamma').value = gamma;
+
+//    redrawArrow(alpha,beta,gamma);
+
+	var diffX = (-1) *  Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 5 ;
+	var diffZ = Math.sin( (gamma - gamma_ini) * 2 * Math.PI /360) / 5 ;
+
+	var tot_diffX = pre_diffX2 + pre_diffX + diffX;
+	var tot_diffZ = pre_diffZ2 + pre_diffZ + diffZ;
+
+	var tmp_gunman_X = gunman_X - tot_diffX;
+	var tmp_gunman_Z = gunman_Z + tot_diffZ;
+	var floor_gunman_X = Math.floor(gunman_X);
+	var floor_tmp_gunman_X = Math.floor(tmp_gunman_X);
+	var floor_gunman_Z = Math.floor(gunman_Z);
+	var floor_tmp_gunman_Z = Math.floor(tmp_gunman_Z);
+
+	var ceil_gunman_X = Math.ceil(gunman_X);
+	var ceil_tmp_gunman_X = Math.ceil(tmp_gunman_X);
+	var ceil_gunman_Z = Math.ceil(gunman_Z);
+	var ceil_tmp_gunman_Z = Math.ceil(tmp_gunman_Z);
+
+if ( diffX >= 0 ) //上に行く
+	if ( floor_gunman_X != floor_tmp_gunman_X ) {
+		//ブロックをまたがって移動
+		if ( cubeData[0][floor_tmp_gunman_X][floor_gunman_Z] == 9 
+		  || cubeData[0][floor_tmp_gunman_X][ceil_gunman_Z] == 9
+		) {
+			tot_diffX = 0;
+//			_tot_diffX = floor_gunman_X - gunman_X;
+//			diffX = _tot_diffX - pre_diffX2 - pre_diffX;
+//			tot_diffX = _tot_diffX;
+		}
+	}
+
+if ( diffZ <= 0 ) //左に行く
+	if ( floor_gunman_Z != floor_tmp_gunman_Z ) {
+		//ブロックをまたがって移動
+		if ( cubeData[0][floor_gunman_X][floor_tmp_gunman_Z] == 9
+		  || cubeData[0][ceil_gunman_X][floor_tmp_gunman_Z] == 9
+		) {
+			tot_diffZ = 0;
+//			_tot_diffZ = floor_gunman_Z - gunman_Z;
+//			diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
+//			tot_diffZ = _tot_diffZ;
+		}
+	}
+
+if ( diffX < 0 ) //下に行く
+	if ( ceil_gunman_X != ceil_tmp_gunman_X ) {
+		//ブロックをまたがって移動
+		if ( cubeData[0][ceil_tmp_gunman_X][ceil_gunman_Z] == 9
+		  || cubeData[0][ceil_tmp_gunman_X][floor_gunman_Z] == 9
+		) {
+			tot_diffX = 0;
+//			_tot_diffX = ceil_gunman_X - gunman_X;
+//			diffX = _tot_diffX - pre_diffX2 - pre_diffX;
+//			tot_diffX = _tot_diffX;
+		}
+	}
+
+if ( diffZ > 0 ) //右に行く
+	if ( ceil_gunman_Z != ceil_tmp_gunman_Z ) {
+		//ブロックをまたがって移動
+		if ( cubeData[0][ceil_gunman_X][ceil_tmp_gunman_Z] == 9
+		  || cubeData[0][floor_gunman_X][ceil_tmp_gunman_Z] == 9
+		) {
+			tot_diffZ = 0;
+//			tot_diffZ = ceil_gunman_Z - gunman_Z;
+//			diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
+//			tot_diffZ = _tot_diffZ;
+		}
+	}
+
+//	moveCubes(tot_diffX, 0,  tot_diffZ);
+
+	moveGunman(-1 * tot_diffX, 0, -1 * tot_diffZ);
+
+	//gunmanの座標。左上のボックスを(0,0)とする。diffXの方向と逆になってる。
+	gunman_X -= tot_diffX;
+	gunman_Z += tot_diffZ;
+
+	document.getElementById('gunman_X').value = gunman_X;
+	document.getElementById('gunman_Z').value = gunman_Z;
+
+	var rotateY = Math.atan2(diffX, diffZ) + Math.PI;
+	gunman.rotation.set(0, rotateY,  0);
+
+	pre_diffX2 = pre_diffX;
+	pre_diffZ2 = pre_diffZ;
+
+	pre_diffX = diffX;
+	pre_diffZ = diffZ;
+
+}
+
+function __handleOrientation(event){
 
 	var alpha    = event.alpha;
 	var beta     = event.beta;
@@ -619,6 +743,7 @@ if ( diffZ > 0 ) //右に行く
 	pre_diffZ = diffZ;
 
 }
+
 </script>
 
 </body>

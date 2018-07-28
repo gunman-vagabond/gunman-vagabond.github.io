@@ -353,8 +353,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 		if ( gunman != null ) {
 	            	camera.position.x = gunman.position.x + 10;
-	             	camera.position.y = gunman.position.y + 10;
-	             	camera.position.z = 0;
+	             	camera.position.y = 10;
+	             	camera.position.z = gunman.position.z + 0;
 			camera.lookAt( {x: gunman.position.x , y: 0, z: gunman.position.z} );
 		} else {
 	            	camera.position.x = 10;
@@ -383,20 +383,6 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 	cubeData = [
 		[
-			 [9,9,9,9,9,9,9,9,9,9,9,9]
-			,[9,1,1,1,1,1,1,1,1,1,1,9]
-			,[9,1,1,0,0,1,1,1,1,1,1,9]
-			,[9,1,1,0,0,1,1,1,1,1,1,9]
-			,[9,1,1,1,1,1,1,1,1,1,1,9]
-			,[9,1,1,1,1,1,1,1,1,1,1,9]
-			,[9,1,1,1,1,1,1,9,1,1,1,9]
-			,[9,1,1,1,1,1,1,1,9,1,1,9]
-			,[9,1,1,1,1,1,1,1,1,1,1,9]
-			,[9,1,1,1,1,1,1,1,1,1,1,9]
-			,[9,1,1,1,1,1,8,1,1,1,1,9]
-			,[9,9,9,9,9,9,9,9,9,9,9,9]
-		],
-		[
 			 [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]
 			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
 			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
@@ -416,6 +402,20 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
 			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
 			,[9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]
+		],
+		[
+			 [9,9,9,9,9,9,9,9,9,9,9,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,0,0,1,1,1,1,1,1,9]
+			,[9,1,1,0,0,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,9,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,8,1,1,1,1,9]
+			,[9,9,9,9,9,9,9,9,9,9,9,9]
 		],
 		[
 			 [1,1,1,1,1,1,1,1,1,1]
@@ -578,8 +578,8 @@ function handleOrientation(event){
 
 //    redrawArrow(alpha,beta,gamma);
 
-	var diffX = (-1) *  Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 5 ;
-	var diffZ = Math.sin( (gamma - gamma_ini) * 2 * Math.PI /360) / 5 ;
+	var diffX = (-1) *  Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 10 ;
+	var diffZ = Math.sin( (gamma - gamma_ini) * 2 * Math.PI /360) / 10 ;
 
 	var tot_diffX = pre_diffX2 + pre_diffX + diffX;
 	var tot_diffZ = pre_diffZ2 + pre_diffZ + diffZ;

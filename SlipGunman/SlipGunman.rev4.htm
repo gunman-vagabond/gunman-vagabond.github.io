@@ -196,7 +196,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 	var renderer = new THREE.WebGLRenderer({antialias: true}); // アンチエイリアスを適用
 	var mmdLoader = new THREE.MMDLoader(); // MMDLoader作成 
 	var mmdHelper = new THREE.MMDHelper(renderer); // MMDHelper作成
-	var gunman;
+	var gunman = null;
 
 	function createGunman(scene, x, y, z ) {
 		// MMDデータの読み込み・オブジェクト生成・シーンへの配置
@@ -317,9 +317,13 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 	}
 
 	function moveGunman(x,y,z) {
+
+		if ( gunman == null ) { return; }
+
 		gunman.position.x += x;
 		gunman.position.y += y;
 		gunman.position.z += z;
+
 	}
 
 	function moveCubes(x,y,z) {
@@ -628,7 +632,10 @@ if ( diffZ > 0 ) //右に行く
 	document.getElementById('gunman_Z').value = gunman_Z;
 
 	var rotateY = Math.atan2(diffX, diffZ) + Math.PI;
-	gunman.rotation.set(0, rotateY,  0);
+
+	if ( gunman != null ) {
+		gunman.rotation.set(0, rotateY,  0);
+	}
 
 	pre_diffX2 = pre_diffX;
 	pre_diffZ2 = pre_diffZ;

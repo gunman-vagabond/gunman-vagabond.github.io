@@ -129,6 +129,16 @@ gamma: <input type="text" size="5" id="gamma" value="0">
 left: <input type="text" size="5" id="left" value="">
 up: <input type="text" size="5" id="up" value="">
 <p>
+<input type="text" size="1" id="cd0" value="">
+<input type="text" size="1" id="cd1" value="">
+<input type="text" size="1" id="cd2" value=""><br>
+<input type="text" size="1" id="cd3" value="">
+<input type="text" size="1" id="cd4" value="">
+<input type="text" size="1" id="cd5" value=""><br>
+<input type="text" size="1" id="cd6" value="">
+<input type="text" size="1" id="cd7" value="">
+<input type="text" size="1" id="cd8" value=""><br>
+<p>
 gunman_X: <input type="text" size="5" id="gunman_X" value="0">
 gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 <p>
@@ -688,6 +698,15 @@ try {
 		,cubeData[0][gx-1][gz]  , cubeData[0][gx][gz]  , cubeData[0][gx+1][gz]
 		,cubeData[0][gx-1][gz+1], cubeData[0][gx][gz+1], cubeData[0][gx+1][gz+1]
 	];
+	document.getElementById('cd0').value = cd0;
+	document.getElementById('cd1').value = cd1;
+	document.getElementById('cd2').value = cd2;
+	document.getElementById('cd3').value = cd3;
+	document.getElementById('cd4').value = cd4;
+	document.getElementById('cd5').value = cd5;
+	document.getElementById('cd6').value = cd6;
+	document.getElementById('cd7').value = cd7;
+	document.getElementById('cd8').value = cd8;
 
 	if ( ( cd[0]==0 && cd[1]==0 && cd[3]==0 && cd[4]==0 &&  left &&  up )
 	  || ( cd[1]==0 && cd[2]==0 && cd[4]==0 && cd[5]==0 && !left &&  up )

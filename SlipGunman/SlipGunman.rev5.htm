@@ -675,13 +675,15 @@ function handleOrientation(event){
 	var left = (gunman_X - floor_gunman_X <= 0.5)?true:false;
 	var up   = (gunman_Z - floor_gunman_Z <= 0.5)?true:false;
 
+	var gunmanDrop = false;
+
+try {
 	var cd = [ 
 		 cubeData[0][gx-1][gz-1], cubeData[0][gx][gz-1], cubeData[0][gx+1][gz-1]
 		,cubeData[0][gx-1][gz]  , cubeData[0][gx][gz]  , cubeData[0][gx+1][gz]
 		,cubeData[0][gx-1][gz+1], cubeData[0][gx][gz+1], cubeData[0][gx+1][gz+1]
 	];
 
-	var gunmanDrop = false;
 	if ( ( cd[0]==0 && cd[1]==0 && cd[3]==0 && cd[4]==0 &&  left &&  up )
 	  || ( cd[1]==0 && cd[2]==0 && cd[4]==0 && cd[5]==0 && !left &&  up )
 	  || ( cd[3]==0 && cd[4]==0 && cd[6]==0 && cd[7]==0 &&  left && !up )
@@ -689,6 +691,9 @@ function handleOrientation(event){
 	) {
 		gunmanDrop = true;
 	}
+} catch (exception) {
+	gunmanDrop = false;
+}
 
 //	moveCubes(tot_diffX, 0,  tot_diffZ);
 

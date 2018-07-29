@@ -708,11 +708,13 @@ try {
 	document.getElementById('cd7').value = cd[7];
 	document.getElementById('cd8').value = cd[8];
 
-	if ( ( cd[0]==0 && cd[1]==0 && cd[3]==0 && cd[4]==0 &&  left &&  up )
-	  || ( cd[1]==0 && cd[2]==0 && cd[4]==0 && cd[5]==0 && !left &&  up )
-	  || ( cd[3]==0 && cd[4]==0 && cd[6]==0 && cd[7]==0 &&  left && !up )
-	  || ( cd[4]==0 && cd[5]==0 && cd[7]==0 && cd[8]==0 && !left && !up )
-	) {
+//	if ( ( cd[0]==0 && cd[1]==0 && cd[3]==0 && cd[4]==0 &&  left &&  up )
+//	  || ( cd[1]==0 && cd[2]==0 && cd[4]==0 && cd[5]==0 && !left &&  up )
+//	  || ( cd[3]==0 && cd[4]==0 && cd[6]==0 && cd[7]==0 &&  left && !up )
+//	  || ( cd[4]==0 && cd[5]==0 && cd[7]==0 && cd[8]==0 && !left && !up )
+//	) {
+
+	if ( cd[4]==0 && cd[5]==0 && cd[7]==0 && cd[8]==0 ) {
 		gunmanDrop = true;
 	}
 } catch (exception) {

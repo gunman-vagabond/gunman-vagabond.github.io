@@ -448,6 +448,32 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		if ( beta_ini == -1 ) { beta_ini = beta; }
 		if ( gamma_ini == -1 ) { gamma_ini = gamma; }
 
+		var gunmanDrop = false;
+
+	try{
+		var cd = [ 
+			 [cubeData[0][gx-1][gz-1], cubeData[0][gx-1][gz], cubeData[0][gx-1][gz+1]]
+			,[cubeData[0][gx  ][gz-1], cubeData[0][gx  ][gz], cubeData[0][gx  ][gz+1]]
+			,[cubeData[0][gx+1][gz-1], cubeData[0][gx+1][gz], cubeData[0][gx+1][gz+1]]
+		];
+		document.getElementById('cd0').value = cd[0][0];
+		document.getElementById('cd1').value = cd[0][1];
+		document.getElementById('cd2').value = cd[0][2];
+		document.getElementById('cd3').value = cd[1][0];
+		document.getElementById('cd4').value = cd[1][1];
+		document.getElementById('cd5').value = cd[1][2];
+		document.getElementById('cd6').value = cd[2][0];
+		document.getElementById('cd7').value = cd[2][1];
+		document.getElementById('cd8').value = cd[2][2];
+
+		if ( cd[1][1]==0 && cd[1][2]==0 && cd[2][1]==0 && cd[2][2]==0 ) {
+			gunmanDrop = true;
+		}
+	} catch (exception) {
+		gunmanDrop = false;
+	}
+
+
 		var diffX = (-1) *  Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 5 ;
 		var diffZ = Math.sin( (gamma - gamma_ini) * 2 * Math.PI /360) / 5 ;
 
@@ -530,30 +556,30 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 //		document.getElementById('left').value = left;
 //		document.getElementById('up').value = up;
 	
-		var gunmanDrop = false;
-
-		try {
-			var cd = [ 
-				 cubeData[0][gx-1][gz-1], cubeData[0][gx-1][gz], cubeData[0][gx-1][gz+1]
-				,cubeData[0][gx  ][gz-1], cubeData[0][gx  ][gz], cubeData[0][gx  ][gz+1]
-				,cubeData[0][gx+1][gz-1], cubeData[0][gx+1][gz], cubeData[0][gx+1][gz+1]
-			];
-			document.getElementById('cd0').value = cd[0];
-			document.getElementById('cd1').value = cd[1];
-			document.getElementById('cd2').value = cd[2];
-			document.getElementById('cd3').value = cd[3];
-			document.getElementById('cd4').value = cd[4];
-			document.getElementById('cd5').value = cd[5];
-			document.getElementById('cd6').value = cd[6];
-			document.getElementById('cd7').value = cd[7];
-			document.getElementById('cd8').value = cd[8];
-
-			if ( cd[4]==0 && cd[5]==0 && cd[7]==0 && cd[8]==0 ) {
-				gunmanDrop = true;
-			}
-		} catch (exception) {
-			gunmanDrop = false;
-		}
+//		var gunmanDrop = false;
+//
+//		try {
+//			var cd = [ 
+//				 cubeData[0][gx-1][gz-1], cubeData[0][gx-1][gz], cubeData[0][gx-1][gz+1]
+//				,cubeData[0][gx  ][gz-1], cubeData[0][gx  ][gz], cubeData[0][gx  ][gz+1]
+//				,cubeData[0][gx+1][gz-1], cubeData[0][gx+1][gz], cubeData[0][gx+1][gz+1]
+//			];
+//			document.getElementById('cd0').value = cd[0];
+//			document.getElementById('cd1').value = cd[1];
+//			document.getElementById('cd2').value = cd[2];
+//			document.getElementById('cd3').value = cd[3];
+//			document.getElementById('cd4').value = cd[4];
+//			document.getElementById('cd5').value = cd[5];
+//			document.getElementById('cd6').value = cd[6];
+//			document.getElementById('cd7').value = cd[7];
+//			document.getElementById('cd8').value = cd[8];
+//
+//			if ( cd[4]==0 && cd[5]==0 && cd[7]==0 && cd[8]==0 ) {
+//				gunmanDrop = true;
+//			}
+//		} catch (exception) {
+//			gunmanDrop = false;
+//		}
 
 //		moveCubes(tot_diffX, 0,  tot_diffZ);
 

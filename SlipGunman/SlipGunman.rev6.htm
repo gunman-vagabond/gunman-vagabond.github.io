@@ -448,6 +448,10 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		if ( beta_ini == -1 ) { beta_ini = beta; }
 		if ( gamma_ini == -1 ) { gamma_ini = gamma; }
 
+
+		var gx = Math.floor(gunman_X);
+		var gz = Math.floor(gunman_Z);
+
 		var gunmanDrop = false;
 
 	try{
@@ -548,8 +552,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 			}
 		}
 
-		var gx = floor_gunman_X;
-		var gz = floor_gunman_Z;
+//		var gx = floor_gunman_X;
+//		var gz = floor_gunman_Z;
 
 //		var up   = (gunman_X - floor_gunman_X <= 0.5)?true:false;
 //		var left = (gunman_Z - floor_gunman_Z <= 0.5)?true:false;

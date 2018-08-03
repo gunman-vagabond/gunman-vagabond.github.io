@@ -128,13 +128,20 @@ gamma: <input type="text" size="5" id="gamma" value="0">
 <p>
 <input type="text" size="1" id="cd0" value="">
 <input type="text" size="1" id="cd1" value="">
-<input type="text" size="1" id="cd2" value=""><br>
-<input type="text" size="1" id="cd3" value="">
+<input type="text" size="1" id="cd2" value="">
+<input type="text" size="1" id="cd3" value=""><br>
 <input type="text" size="1" id="cd4" value="">
-<input type="text" size="1" id="cd5" value=""><br>
+<input type="text" size="1" id="cd5" value="">
 <input type="text" size="1" id="cd6" value="">
-<input type="text" size="1" id="cd7" value="">
-<input type="text" size="1" id="cd8" value=""><br>
+<input type="text" size="1" id="cd7" value=""><br>
+<input type="text" size="1" id="cd8" value="">
+<input type="text" size="1" id="cd9" value="">
+<input type="text" size="1" id="cdA" value="">
+<input type="text" size="1" id="cdB" value=""><br>
+<input type="text" size="1" id="cdC" value="">
+<input type="text" size="1" id="cdD" value="">
+<input type="text" size="1" id="cdE" value="">
+<input type="text" size="1" id="cdF" value=""><br>
 <p>
 gunman_X: <input type="text" size="5" id="gunman_X" value="0">
 gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
@@ -456,19 +463,27 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 	try{
 		var cd = [ 
-			 [cubeData[0][gx-1][gz-1], cubeData[0][gx-1][gz], cubeData[0][gx-1][gz+1]]
-			,[cubeData[0][gx  ][gz-1], cubeData[0][gx  ][gz], cubeData[0][gx  ][gz+1]]
-			,[cubeData[0][gx+1][gz-1], cubeData[0][gx+1][gz], cubeData[0][gx+1][gz+1]]
+			 [cubeData[0][gx-1][gz-1], cubeData[0][gx-1][gz], cubeData[0][gx-1][gz+1], cubeData[0][gx-1][gz+2]]
+			,[cubeData[0][gx  ][gz-1], cubeData[0][gx  ][gz], cubeData[0][gx  ][gz+1], cubeData[0][gx  ][gz+2]]
+			,[cubeData[0][gx+1][gz-1], cubeData[0][gx+1][gz], cubeData[0][gx+1][gz+1], cubeData[0][gx+1][gz+2]]
+			,[cubeData[0][gx+2][gz-1], cubeData[0][gx+2][gz], cubeData[0][gx+2][gz+1], cubeData[0][gx+2][gz+2]]
 		];
 		document.getElementById('cd0').value = cd[0][0];
 		document.getElementById('cd1').value = cd[0][1];
 		document.getElementById('cd2').value = cd[0][2];
-		document.getElementById('cd3').value = cd[1][0];
-		document.getElementById('cd4').value = cd[1][1];
-		document.getElementById('cd5').value = cd[1][2];
-		document.getElementById('cd6').value = cd[2][0];
-		document.getElementById('cd7').value = cd[2][1];
-		document.getElementById('cd8').value = cd[2][2];
+		document.getElementById('cd3').value = cd[0][3];
+		document.getElementById('cd4').value = cd[1][0];
+		document.getElementById('cd5').value = cd[1][1];
+		document.getElementById('cd6').value = cd[1][2];
+		document.getElementById('cd7').value = cd[1][3];
+		document.getElementById('cd8').value = cd[2][0];
+		document.getElementById('cd9').value = cd[2][1];
+		document.getElementById('cdA').value = cd[2][2];
+		document.getElementById('cdB').value = cd[2][3];
+		document.getElementById('cdC').value = cd[3][0];
+		document.getElementById('cdD').value = cd[3][1];
+		document.getElementById('cdE').value = cd[3][2];
+		document.getElementById('cdF').value = cd[3][3];
 
 		if ( cd[1][1]==0 && cd[1][2]==0 && cd[2][1]==0 && cd[2][2]==0 ) {
 			gunmanDrop = true;
@@ -497,6 +512,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		var ceil_tmp_gunman_Z = Math.ceil(tmp_gunman_Z);
 
 		if ( diffX >= 0 ) { //上に行く
+
 			if ( floor_gunman_X != floor_tmp_gunman_X ) {
 				//ブロックをまたがって移動
 				if ( cubeData[0][floor_tmp_gunman_X][floor_gunman_Z] == 9 

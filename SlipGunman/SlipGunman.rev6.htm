@@ -515,8 +515,11 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 			if ( floor_gunman_X != floor_tmp_gunman_X ) {
 				//ブロックをまたがって移動
-				if ( cubeData[0][floor_tmp_gunman_X][floor_gunman_Z] == 9 
-				  || cubeData[0][floor_tmp_gunman_X][ceil_gunman_Z] == 9
+//				if ( cubeData[0][floor_tmp_gunman_X][floor_gunman_Z] == 9 
+//				  || cubeData[0][floor_tmp_gunman_X][ceil_gunman_Z] == 9
+//				) {
+				if ( cd[0][1] == 9 
+				  || cd[0][2] == 9
 				) {
 					tot_diffX = 0;
 //					_tot_diffX = floor_gunman_X - gunman_X;
@@ -529,8 +532,11 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		if ( diffZ <= 0 ) { //左に行く
 			if ( floor_gunman_Z != floor_tmp_gunman_Z ) {
 				//ブロックをまたがって移動
-				if ( cubeData[0][floor_gunman_X][floor_tmp_gunman_Z] == 9
-				  || cubeData[0][ceil_gunman_X][floor_tmp_gunman_Z] == 9
+//				if ( cubeData[0][floor_gunman_X][floor_tmp_gunman_Z] == 9
+//				  || cubeData[0][ceil_gunman_X][floor_tmp_gunman_Z] == 9
+//				) {
+				if ( cd[1][0] == 9 
+				  || cd[2][0] == 9
 				) {
 					tot_diffZ = 0;
 //					_tot_diffZ = floor_gunman_Z - gunman_Z;
@@ -543,10 +549,13 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		if ( diffX < 0 ) { //下に行く
 			if ( ceil_gunman_X != ceil_tmp_gunman_X ) {
 				//ブロックをまたがって移動
-				if ( cubeData[0][ceil_tmp_gunman_X][ceil_gunman_Z] == 9
-				  || cubeData[0][ceil_tmp_gunman_X][floor_gunman_Z] == 9
+//				if ( cubeData[0][ceil_tmp_gunman_X][ceil_gunman_Z] == 9
+//				  || cubeData[0][ceil_tmp_gunman_X][floor_gunman_Z] == 9
+//				) {
+				if ( cd[3][1] == 9 
+				  || cd[3][2] == 9
 				) {
-				tot_diffX = 0;
+					tot_diffX = 0;
 //					_tot_diffX = ceil_gunman_X - gunman_X;
 //					diffX = _tot_diffX - pre_diffX2 - pre_diffX;
 //					tot_diffX = _tot_diffX;
@@ -557,10 +566,13 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		if ( diffZ > 0 ) { //右に行く
 			if ( ceil_gunman_Z != ceil_tmp_gunman_Z ) {
 				//ブロックをまたがって移動
-				if ( cubeData[0][ceil_gunman_X][ceil_tmp_gunman_Z] == 9
-				  || cubeData[0][floor_gunman_X][ceil_tmp_gunman_Z] == 9
+//				if ( cubeData[0][ceil_gunman_X][ceil_tmp_gunman_Z] == 9
+//				  || cubeData[0][floor_gunman_X][ceil_tmp_gunman_Z] == 9
+//				) {
+				if ( cd[1][3] == 9 
+				  || cd[2][3] == 9
 				) {
-				tot_diffZ = 0;
+					tot_diffZ = 0;
 //					tot_diffZ = ceil_gunman_Z - gunman_Z;
 //					diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
 //					tot_diffZ = _tot_diffZ;

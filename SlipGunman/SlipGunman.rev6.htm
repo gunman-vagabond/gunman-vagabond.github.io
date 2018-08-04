@@ -707,6 +707,11 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 	init();
 
 	var game = new Game(window.innerWidth, window.innerHeight / 2 );
+	var buttonJ = new Sprite(60,60);
+ 	var buttonG = new Sprite(60,60);
+
+	game.preload("buttonJ.png");
+	game.preload("buttonG.png");
 
 	game.fps = 60;
 	game.onload = function(){
@@ -810,7 +815,6 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 //			document.getElementById('time_limit').value = "time_limit: " + limit_time_str;
 //		});
 //		game.rootScene.addChild(time_label);
-
 
 		buttonJ.image = game.assets["buttonJ.png"];
 	        buttonJ.x = 100;

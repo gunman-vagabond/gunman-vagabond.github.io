@@ -249,12 +249,14 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 //	var buttonJ = null;
 // 	var buttonG = null;
 
+	var div_top;
+
 	function init() {
 		container = document.getElementById('div')
 
-		var offsetTop = container.offsetTop;
+		div_top = container.offsetTop;
 		el_time_label = document.getElementById('time_label');
-		el_time_label.style.top = offsetTop + 10;
+		el_time_label.style.top = div_top + 10;
 
 		camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
 		camera.aspect = window.innerWidth / window.innerHeight;
@@ -305,11 +307,11 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		if ( buttonJ == null ) return;
 
 	        buttonJ.x = 100;
-	        buttonJ.y = window.innerHeight-100;
+	        buttonJ.y = div_top + height - 100;
 	        buttonJ.scaleX = buttonJ.scaleY = 2;
 
 	        buttonG.x = width-160;
-	        buttonG.y = window.innerHeight-100;
+	        buttonG.y = div_top + height - 100;
 	        buttonG.scaleX = buttonG.scaleY = 2;
 
 	}

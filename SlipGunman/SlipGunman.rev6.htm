@@ -530,14 +530,16 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				// .xx.
 				// .,,.
 
-				if ( cd[0][1] == 9 
-				  || cd[0][2] == 9
-				) {
+				if ( cd[0][1] == 9  || cd[0][2] == 9 ) {
 					tot_diffX = 0;
 //					_tot_diffX = floor_gunman_X - gunman_X;
 //					diffX = _tot_diffX - pre_diffX2 - pre_diffX;
 //					tot_diffX = _tot_diffX;
 				}
+				if ( gunmanDrop && cd[0][1] != 0 || cd[0][2] != 0 ) {
+					tot_diffX = 0;
+				}
+
 			}
 		}
 
@@ -553,13 +555,14 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				// Oxx.
 				// .,,.
 
-				if ( cd[1][0] == 9 
-				  || cd[2][0] == 9
-				) {
+				if ( cd[1][0] == 9 || cd[2][0] == 9 ) {
 					tot_diffZ = 0;
 //					_tot_diffZ = floor_gunman_Z - gunman_Z;
 //					diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
 //					tot_diffZ = _tot_diffZ;
+				}
+				if ( gunmanDrop && cd[1][0] != 0 || cd[2][0] != 0 ) {
+					tot_diffZ = 0;
 				}
 			}
 		}
@@ -575,13 +578,14 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				// .xx.
 				// .xx.
 				// .OO.
-				if ( cd[3][1] == 9 
-				  || cd[3][2] == 9
-				) {
+				if ( cd[3][1] == 9 || cd[3][2] == 9 ) {
 					tot_diffX = 0;
 //					_tot_diffX = ceil_gunman_X - gunman_X;
 //					diffX = _tot_diffX - pre_diffX2 - pre_diffX;
 //					tot_diffX = _tot_diffX;
+				}
+				if ( gunmanDrop && cd[3][1] != 0 || cd[3][2] != 0 ) {
+					tot_diffX = 0;
 				}
 			}
 		}
@@ -598,13 +602,14 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				// .xxO
 				// ....
 
-				if ( cd[1][3] == 9 
-				  || cd[2][3] == 9
-				) {
+				if ( cd[1][3] == 9 || cd[2][3] == 9 ) {
 					tot_diffZ = 0;
 //					tot_diffZ = ceil_gunman_Z - gunman_Z;
 //					diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
 //					tot_diffZ = _tot_diffZ;
+				}
+				if ( gunmanDrop && cd[1][3] != 0 || cd[2][3] != 0 ) {
+					tot_diffZ = 0;
 				}
 			}
 		}

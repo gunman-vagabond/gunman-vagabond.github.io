@@ -246,6 +246,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		]
 	];
 
+	var buttonJ = null;
+ 	var buttonG = null;
 
 	function init() {
 		container = document.getElementById('div')
@@ -294,6 +296,16 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		camera.updateProjectionMatrix();
 
 		renderer.setSize( width, height );
+
+		if ( buttonJ == null ) return;
+
+	        buttonJ.x = 100;
+	        buttonJ.y = height-100;
+	        buttonJ.scaleX = buttonJ.scaleY = 2;
+
+	        buttonG.x = width-160;
+	        buttonG.y = height-100;
+	        buttonG.scaleX = buttonG.scaleY = 2;
 
 	}
 
@@ -707,8 +719,6 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 	init();
 
 	var game = new Game(window.innerWidth, window.innerHeight / 2 );
-	var buttonJ = new Sprite(60,60);
- 	var buttonG = new Sprite(60,60);
 
 	game.preload("buttonJ.png");
 	game.preload("buttonG.png");
@@ -816,17 +826,22 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 //		});
 //		game.rootScene.addChild(time_label);
 
+	buttonJ = new Sprite(60,60);
+ 	buttonG = new Sprite(60,60);
+
 		buttonJ.image = game.assets["buttonJ.png"];
-	        buttonJ.x = 100;
-	        buttonJ.y = window.innerHeight-100;
+//	        buttonJ.x = 100;
+//	        buttonJ.y = window.innerHeight-100;
 	        buttonJ.scaleX = buttonJ.scaleY = 2;
 		game.rootScene.addChild(buttonJ);
 
 		buttonG.image = game.assets["buttonG.png"];
-	        buttonG.x = window.innerWidth-160;
-	        buttonG.y = window.innerHeight-100;
+//	        buttonG.x = window.innerWidth-160;
+//	        buttonG.y = window.innerHeight-100;
 	        buttonG.scaleX = buttonG.scaleY = 2;
 		game.rootScene.addChild(buttonG);
+
+		onWindowResize();
 
 	};
 

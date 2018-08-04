@@ -105,12 +105,12 @@ if ( p == "on" ) {
 <p>
 
 <style>
-#__div {height:50px; background-color:#00ff00; font-weight:bold; position:relative }
-#___div {position:relative }
 span.time_label {position:absolute; top:10px; left:10px; }
 </style>
-<div id="div" _style="width:100px; height:100px">
-<span class="time_label" id="time_label" style="display:none;"><input type="text" size="9" id="progress_time" style=" color:#ffffff; background-color:rgba(128,128,128,0.2); font-size:40px; text-align:center; "></span>
+<div id="div">
+<span class="time_label" id="time_label" style="display:none;">
+<input type="text" size="9" id="progress_time" style=" color:#ffffff; background-color:rgba(128,128,128,0.2); font-size:40px; text-align:center; ">
+</span>
 </div>
 
 <p>
@@ -246,11 +246,15 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		]
 	];
 
-	var buttonJ = null;
- 	var buttonG = null;
+//	var buttonJ = null;
+// 	var buttonG = null;
 
 	function init() {
 		container = document.getElementById('div')
+
+		var offsetTop = container.offsetTop;
+		el_time_label = document.getElementById('time_label');
+		el_time_label.style.top = offsetTop + 10;
 
 		camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
 		camera.aspect = window.innerWidth / window.innerHeight;
@@ -275,6 +279,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		renderer.setSize( window.innerWidth, window.innerHeight );
 		renderer.setClearColor( 0x888888 );
 //                                renderer.setFaceCulling (true);
+
 		container.appendChild( renderer.domElement );
 
 //				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
@@ -300,11 +305,11 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		if ( buttonJ == null ) return;
 
 	        buttonJ.x = 100;
-	        buttonJ.y = height-100;
+	        buttonJ.y = window.innerHeight-100;
 	        buttonJ.scaleX = buttonJ.scaleY = 2;
 
 	        buttonG.x = width-160;
-	        buttonG.y = height-100;
+	        buttonG.y = window.innerHeight-100;
 	        buttonG.scaleX = buttonG.scaleY = 2;
 
 	}
@@ -715,17 +720,22 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 	var cubes  = new Array(500);
 	var cubeNum = 0;
  	var camera, scene, renderer;
+	var buttonJ,buttonG;
+
+	buttonJ = new Sprite(60,60);
+	buttonG = new Sprite(60,60);
+
 
 	init();
 
-	var game = new Game(window.innerWidth, window.innerHeight / 2 );
+	var game = new Game( window.innerWidth, window.innerHeight );
 
 	game.preload("buttonJ.png");
 	game.preload("buttonG.png");
 
 	game.fps = 60;
 	game.onload = function(){
-		document.getElementById("div").style.position="relative";
+//		document.getElementById("div").style.position="relative";
 		document.getElementById("time_label").style.display="block";
 
 	        var gunmanSpriteDummy = new Sprite(10, 10);
@@ -826,9 +836,6 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 //		});
 //		game.rootScene.addChild(time_label);
 
-	buttonJ = new Sprite(60,60);
- 	buttonG = new Sprite(60,60);
-
 		buttonJ.image = game.assets["buttonJ.png"];
 //	        buttonJ.x = 100;
 //	        buttonJ.y = window.innerHeight-100;
@@ -841,7 +848,10 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 	        buttonG.scaleX = buttonG.scaleY = 2;
 		game.rootScene.addChild(buttonG);
 
+
 		onWindowResize();
+
+
 
 	};
 

@@ -437,23 +437,23 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 	}
 
-	function doMoveGunman(x,y,z, dropGunman) {
+	function doMoveGunman(diffx,diffy,diffz, dropGunman, gunJumpHeight) {
 
 		if ( gunman != null && cylinder != null ) {
-			gunman.position.x += x;
-			gunman.position.y += y;
-			gunman.position.z += z;
+			gunman.position.x += diffx;
+			gunman.position.y += diffy;
+			gunman.position.z += diffz;
 
-			cylinder.position.x += x;
-			cylinder.position.y += y;
-			cylinder.position.z += z;
+			cylinder.position.x += diffx;
+			cylinder.position.y += diffy;
+			cylinder.position.z += diffz;
 
 			if ( dropGunman == true ) {
-				gunman.position.y   = 0.1;
-				cylinder.position.y = 0.0;
+				gunman.position.y   = 0.1 + gunJumpHeight;
+				cylinder.position.y = 0.0 + gunJumpHeight;
 			} else {
-				gunman.position.y   = 0.6;
-				cylinder.position.y = 0.5;
+				gunman.position.y   = 0.6 + gunJumpHeight;
+				cylinder.position.y = 0.5 + gunJumpHeight;
 			}
 		}
 	}
@@ -467,6 +467,12 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 	var gunman_X=0;
 	var gunman_Z=0;
+
+	var gunJump = false;
+	var gunJumpCount = 0;
+        var GUNJUMPCOUNTMAX = 50;
+	var gunJumpHeight = 0;
+        var GUNJUMPHEIGHTMAX   = 3;
 
 	function moveGunman(alpha,beta,gamma){
 
@@ -633,6 +639,19 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 			}
 		}
 
+		var gunJumpHeight = 0;
+		if ( gunJump ) {
+			gunJumpCount--;
+//mySleep(0.1);
+			if ( gunJumpCount == 0 ) {
+				gunJump = false;
+			} else {
+				var A = GUNJUMPCOUNTMAX;
+				var B = -GUNJUMPHEIGHTMAX;
+				gunJumpHeight = (-1)* (gunJumpCount-A/2)*(gunJumpCount-A/2)* B /(A/2)/(A/2) + B;
+			}
+		}
+
 //		var gx = floor_gunman_X;
 //		var gz = floor_gunman_Z;
 
@@ -668,7 +687,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 //		moveCubes(tot_diffX, 0,  tot_diffZ);
 
-		doMoveGunman(-1 * tot_diffX, 0, -1 * tot_diffZ, gunmanDrop);
+		doMoveGunman(-1 * tot_diffX, 0, -1 * tot_diffZ, gunmanDrop, gunJumpHeight);
 
 		//gunmanの座標。左上のボックスを(0,0)とする。diffXの方向と逆になってる。
 		gunman_X -= tot_diffX;
@@ -850,6 +869,25 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 	        buttonG.scaleX = buttonG.scaleY = 2;
 		game.rootScene.addChild(buttonG);
 
+		//「Ｇ」ボタン
+		buttonG.addEventListener("touchstart", function(e) { 
+			try{
+//				gunFire = true;
+//				createTama(scene, 0.8, 0.2 - (gunJumpHeight*1), 0.2, 0.1, 0x333333);
+			} catch (exception) {
+document.getElementById('debug').value = exception;
+			}
+		}); // タッチ開始
+
+		//「Ｊ」ボタン
+		buttonJ.addEventListener("touchstart", function(e) { 
+			try{
+				gunJump = true;
+				gunJumpCount = GUNJUMPCOUNTMAX;
+			} catch (exception) {
+document.getElementById('debug').value = exception;
+			}
+		}); // タッチ開始
 
 		onWindowResize();
 

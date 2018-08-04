@@ -110,7 +110,7 @@ if ( p == "on" ) {
 span.time_label {position:absolute; top:10px; left:10px; }
 </style>
 <div id="div" _style="width:100px; height:100px">
-<span class="time_label" id="time_label" style="display:none;"><input type="text" size="20" id="time_limit" style=" background-color:rgba(0,0,0,0); font-size:20px;"></span>
+<span class="time_label" id="time_label" style="display:none;"><input type="text" size="8" id="progress_time" style=" color:#ffffff; background-color:rgba(128,128,128,0.2); font-size:40px; text-align:center; "></span>
 </div>
 
 <p>
@@ -781,8 +781,10 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 //				var progress_time = game.frame/game.fps;
 //				var limit_time_str = (10000 - progress_time + "").slice(0,-11);   //9999.1xxxxxxxxxxx
 				var progress_time = game.frame/game.fps;
+				var progress_time_str = ("00000" + progress_time.toFixed(3)).slice(-9);   //9999.12xxxxxxxxxx
 				var limit_time_str = (10000 - progress_time).toFixed(3);   //9999.12xxxxxxxxxx
-				document.getElementById('time_limit').value = "time_limit: " + limit_time_str;
+//				document.getElementById('time_limit').value = "" + limit_time_str;
+				document.getElementById('progress_time').value = "" + progress_time_str;
 
 				render();
 			} catch (exception) {

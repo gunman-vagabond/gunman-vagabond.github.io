@@ -536,7 +536,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 //					diffX = _tot_diffX - pre_diffX2 - pre_diffX;
 //					tot_diffX = _tot_diffX;
 				}
-				if ( gunmanDrop && cd[0][1] != 0 || cd[0][2] != 0 ) {
+				if ( gunmanDrop && ( cd[0][1] != 0 || cd[0][2] != 0 ) ) {
 					tot_diffX = 0;
 				}
 
@@ -561,7 +561,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 //					diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
 //					tot_diffZ = _tot_diffZ;
 				}
-				if ( gunmanDrop && cd[1][0] != 0 || cd[2][0] != 0 ) {
+				if ( gunmanDrop && ( cd[1][0] != 0 || cd[2][0] != 0 ) ) {
 					tot_diffZ = 0;
 				}
 			}
@@ -584,7 +584,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 //					diffX = _tot_diffX - pre_diffX2 - pre_diffX;
 //					tot_diffX = _tot_diffX;
 				}
-				if ( gunmanDrop && cd[3][1] != 0 || cd[3][2] != 0 ) {
+				if ( gunmanDrop && ( cd[3][1] != 0 || cd[3][2] != 0 ) ) {
 					tot_diffX = 0;
 				}
 			}
@@ -608,7 +608,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 //					diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
 //					tot_diffZ = _tot_diffZ;
 				}
-				if ( gunmanDrop && cd[1][3] != 0 || cd[2][3] != 0 ) {
+				if ( gunmanDrop && ( cd[1][3] != 0 || cd[2][3] != 0 ) ) {
 					tot_diffZ = 0;
 				}
 			}

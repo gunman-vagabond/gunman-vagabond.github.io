@@ -443,7 +443,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 	}
 
-	function doMoveGunman(diffx,diffy,diffz, dropGunman, gunJumpHeight) {
+	function doMoveGunman(diffx,diffy,diffz, dropGunman, gunJumpHeight ) {
 
 		if ( gunman != null && cylinder != null ) {
 			gunman.position.x += diffx;
@@ -491,6 +491,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		var gz = Math.floor(gunman_Z);
 
 		var gunmanDrop = false;
+		var gunmanGoal = false;
 
 		var cd;
 		try{
@@ -528,6 +529,11 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 		if ( cd[1][1]==0 && cd[1][2]==0 && cd[2][1]==0 && cd[2][2]==0 ) {
 			gunmanDrop = true;
+		}
+
+
+		if ( cd[1][1]==7 && cd[1][2]==7 && cd[2][1]==7 && cd[2][2]==7 ) {
+			gunmanGoal = true;
 		}
 
 		gunJumpHeight = 0;
@@ -658,43 +664,16 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 			}
 		}
 
-
-//		var gx = floor_gunman_X;
-//		var gz = floor_gunman_Z;
-
-//		var up   = (gunman_X - floor_gunman_X <= 0.5)?true:false;
-//		var left = (gunman_Z - floor_gunman_Z <= 0.5)?true:false;
-//		document.getElementById('left').value = left;
-//		document.getElementById('up').value = up;
-	
-//		var gunmanDrop = false;
-//
-//		try {
-//			var cd = [ 
-//				 cubeData[0][gx-1][gz-1], cubeData[0][gx-1][gz], cubeData[0][gx-1][gz+1]
-//				,cubeData[0][gx  ][gz-1], cubeData[0][gx  ][gz], cubeData[0][gx  ][gz+1]
-//				,cubeData[0][gx+1][gz-1], cubeData[0][gx+1][gz], cubeData[0][gx+1][gz+1]
-//			];
-//			document.getElementById('cd0').value = cd[0];
-//			document.getElementById('cd1').value = cd[1];
-//			document.getElementById('cd2').value = cd[2];
-//			document.getElementById('cd3').value = cd[3];
-//			document.getElementById('cd4').value = cd[4];
-//			document.getElementById('cd5').value = cd[5];
-//			document.getElementById('cd6').value = cd[6];
-//			document.getElementById('cd7').value = cd[7];
-//			document.getElementById('cd8').value = cd[8];
-//
-//			if ( cd[4]==0 && cd[5]==0 && cd[7]==0 && cd[8]==0 ) {
-//				gunmanDrop = true;
-//			}
-//		} catch (exception) {
-//			gunmanDrop = false;
-//		}
-
 //		moveCubes(tot_diffX, 0,  tot_diffZ);
 
-		doMoveGunman(-1 * tot_diffX, 0, -1 * tot_diffZ, gunmanDrop, gunJumpHeight);
+		if ( !gumnanGoal ) {
+			doMoveGunman(-1 * tot_diffX, 0, -1 * tot_diffZ, gunmanDrop, gunJumpHeight);
+		} else {
+			//ガンマンがゴールしたら、もう、動かない
+
+			//don't call doMoveGunman()
+
+		}
 
 		//gunmanの座標。左上のボックスを(0,0)とする。diffXの方向と逆になってる。
 		gunman_X -= tot_diffX;
@@ -706,7 +685,12 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		var rotateY = Math.atan2(diffX, diffZ) + Math.PI;
 
 		if ( gunman != null ) {
-			gunman.rotation.set(0, rotateY,  0);
+			if ( ! gunmanGoal ) {
+				gunman.rotation.set(0, rotateY,  0);
+			} else {
+				// ガンマンがゴールした (クルクル回る)
+				gunman.rotation.set(0, 10,  0);
+			}
 		}
 
 		pre_diffX2 = pre_diffX;
@@ -943,176 +927,6 @@ document.getElementById('debug').value = exception;
 
 		moveGunman(alpha, beta, gamma);
 	}
-
-</script>
-
-<script>
-//var alpha_ini = -1;
-//var beta_ini = -1;
-//var gamma_ini = -1;
-
-//window.addEventListener("deviceorientation", handleOrientation, true);
-//
-//
-//var pre_diffX = 0, pre_diffX2 = 0;
-//var pre_diffZ = 0, pre_diffZ2 = 0;
-//
-//var gunman_X=0;
-//var gunman_Z=0;
-
-function _handleOrientation(event){
-
-	var alpha    = event.alpha;
-	var beta     = event.beta;
-	var gamma    = event.gamma;
-
-	if ( alpha_ini == -1 ) { alpha_ini = alpha; }
-	if ( beta_ini == -1 ) { beta_ini = beta; }
-	if ( gamma_ini == -1 ) { gamma_ini = gamma; }
-
-	document.getElementById('alpha').value = alpha;
-	document.getElementById('beta').value = beta;
-	document.getElementById('gamma').value = gamma;
-
-//    redrawArrow(alpha,beta,gamma);
-
-	var diffX = (-1) *  Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 5 ;
-	var diffZ = Math.sin( (gamma - gamma_ini) * 2 * Math.PI /360) / 5 ;
-
-	var tot_diffX = pre_diffX2 + pre_diffX + diffX;
-	var tot_diffZ = pre_diffZ2 + pre_diffZ + diffZ;
-
-	var tmp_gunman_X = gunman_X - tot_diffX;
-	var tmp_gunman_Z = gunman_Z + tot_diffZ;
-	var floor_gunman_X = Math.floor(gunman_X);
-	var floor_tmp_gunman_X = Math.floor(tmp_gunman_X);
-	var floor_gunman_Z = Math.floor(gunman_Z);
-	var floor_tmp_gunman_Z = Math.floor(tmp_gunman_Z);
-
-	var ceil_gunman_X = Math.ceil(gunman_X);
-	var ceil_tmp_gunman_X = Math.ceil(tmp_gunman_X);
-	var ceil_gunman_Z = Math.ceil(gunman_Z);
-	var ceil_tmp_gunman_Z = Math.ceil(tmp_gunman_Z);
-
-	if ( diffX >= 0 ) { //上に行く
-		if ( floor_gunman_X != floor_tmp_gunman_X ) {
-			//ブロックをまたがって移動
-			if ( cubeData[0][floor_tmp_gunman_X][floor_gunman_Z] == 9 
-			  || cubeData[0][floor_tmp_gunman_X][ceil_gunman_Z] == 9
-			) {
-				tot_diffX = 0;
-//				_tot_diffX = floor_gunman_X - gunman_X;
-//				diffX = _tot_diffX - pre_diffX2 - pre_diffX;
-//				tot_diffX = _tot_diffX;
-			}
-		}
-	}
-
-	if ( diffZ <= 0 ) { //左に行く
-		if ( floor_gunman_Z != floor_tmp_gunman_Z ) {
-			//ブロックをまたがって移動
-			if ( cubeData[0][floor_gunman_X][floor_tmp_gunman_Z] == 9
-			  || cubeData[0][ceil_gunman_X][floor_tmp_gunman_Z] == 9
-			) {
-				tot_diffZ = 0;
-//				_tot_diffZ = floor_gunman_Z - gunman_Z;
-//				diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
-//				tot_diffZ = _tot_diffZ;
-			}
-		}
-	}
-
-	if ( diffX < 0 ) { //下に行く
-		if ( ceil_gunman_X != ceil_tmp_gunman_X ) {
-			//ブロックをまたがって移動
-			if ( cubeData[0][ceil_tmp_gunman_X][ceil_gunman_Z] == 9
-			  || cubeData[0][ceil_tmp_gunman_X][floor_gunman_Z] == 9
-			) {
-				tot_diffX = 0;
-//				_tot_diffX = ceil_gunman_X - gunman_X;
-//				diffX = _tot_diffX - pre_diffX2 - pre_diffX;
-//				tot_diffX = _tot_diffX;
-			}
-		}
-	}
-
-	if ( diffZ > 0 ) { //右に行く
-		if ( ceil_gunman_Z != ceil_tmp_gunman_Z ) {
-			//ブロックをまたがって移動
-			if ( cubeData[0][ceil_gunman_X][ceil_tmp_gunman_Z] == 9
-			  || cubeData[0][floor_gunman_X][ceil_tmp_gunman_Z] == 9
-			) {
-				tot_diffZ = 0;
-//				tot_diffZ = ceil_gunman_Z - gunman_Z;
-//				diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
-//				tot_diffZ = _tot_diffZ;
-			}
-		}
-	}
-
-	var gx = floor_gunman_X;
-	var gz = floor_gunman_Z;
-
-	var up   = (gunman_X - floor_gunman_X <= 0.5)?true:false;
-	var left = (gunman_Z - floor_gunman_Z <= 0.5)?true:false;
-	document.getElementById('left').value = left;
-	document.getElementById('up').value = up;
-
-	var gunmanDrop = false;
-
-try {
-	var cd = [ 
-		 cubeData[0][gx-1][gz-1], cubeData[0][gx-1][gz], cubeData[0][gx-1][gz+1]
-		,cubeData[0][gx  ][gz-1], cubeData[0][gx  ][gz], cubeData[0][gx  ][gz+1]
-		,cubeData[0][gx+1][gz-1], cubeData[0][gx+1][gz], cubeData[0][gx+1][gz+1]
-	];
-	document.getElementById('cd0').value = cd[0];
-	document.getElementById('cd1').value = cd[1];
-	document.getElementById('cd2').value = cd[2];
-	document.getElementById('cd3').value = cd[3];
-	document.getElementById('cd4').value = cd[4];
-	document.getElementById('cd5').value = cd[5];
-	document.getElementById('cd6').value = cd[6];
-	document.getElementById('cd7').value = cd[7];
-	document.getElementById('cd8').value = cd[8];
-
-//	if ( ( cd[0]==0 && cd[1]==0 && cd[3]==0 && cd[4]==0 &&  left &&  up )
-//	  || ( cd[1]==0 && cd[2]==0 && cd[4]==0 && cd[5]==0 && !left &&  up )
-//	  || ( cd[3]==0 && cd[4]==0 && cd[6]==0 && cd[7]==0 &&  left && !up )
-//	  || ( cd[4]==0 && cd[5]==0 && cd[7]==0 && cd[8]==0 && !left && !up )
-//	) {
-
-	if ( cd[4]==0 && cd[5]==0 && cd[7]==0 && cd[8]==0 ) {
-		gunmanDrop = true;
-	}
-} catch (exception) {
-	gunmanDrop = false;
-}
-
-//	moveCubes(tot_diffX, 0,  tot_diffZ);
-
-	moveGunman(-1 * tot_diffX, 0, -1 * tot_diffZ, gunmanDrop);
-
-	//gunmanの座標。左上のボックスを(0,0)とする。diffXの方向と逆になってる。
-	gunman_X -= tot_diffX;
-	gunman_Z += tot_diffZ;
-
-	document.getElementById('gunman_X').value = gunman_X;
-	document.getElementById('gunman_Z').value = gunman_Z;
-
-	var rotateY = Math.atan2(diffX, diffZ) + Math.PI;
-
-	if ( gunman != null ) {
-		gunman.rotation.set(0, rotateY,  0);
-	}
-
-	pre_diffX2 = pre_diffX;
-	pre_diffZ2 = pre_diffZ;
-
-	pre_diffX = diffX;
-	pre_diffZ = diffZ;
-
-}
 
 </script>
 

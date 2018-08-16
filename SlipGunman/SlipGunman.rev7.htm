@@ -478,6 +478,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 	var gunJumpHeight = 0;
         var GUNJUMPHEIGHTMAX   = 1.5;
 
+	var gunmanGoalRotateY = 0;
+
 	function moveGunman(alpha,beta,gamma){
 
 		if ( alpha_ini == -1 ) { alpha_ini = alpha; }
@@ -688,7 +690,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				gunman.rotation.set(0, rotateY,  0);
 			} else {
 				// ガンマンがゴールした (クルクル回る)
-				gunman.rotation.set(0, 10,  0);
+				gunmanGoalRotateY += 10;
+				gunman.rotation.set(0, gunmanGoalRotateY,  0);
 			}
 		}
 

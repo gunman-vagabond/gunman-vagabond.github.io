@@ -113,7 +113,7 @@ span.time_label {position:absolute; top:10px; left:10px; }
 </style>
 <div id="div">
 <span class="time_label" id="time_label" style="display:none;">
-<input type="text" size="9" id="progress_time" style=" color:#ffffff; background-color:rgba(128,128,128,0.8); font-size:40px; text-align:center; ">
+<input type="text" size="13" id="progress_time" style=" color:#ffffff; background-color:rgba(128,128,128,0.8); font-size:40px; text-align:center; ">
 </span>
 </div>
 
@@ -409,14 +409,55 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		sphere.position.set(x, y, z);
 	}
 
-	function createCube(scene, sx, sy, sz, x, y, z, color) {
+	function goalTexture(textureString) {
+
+		canvas = document.createElement( 'canvas' );
+//canvas = document.getElementById('canvas1');
+		canvas.width = 128;
+		canvas.height = 128;
+
+		context = canvas.getContext('2d');
+
+////		context.beginPath();
+//		context.strokeStyle = "#ffff00";
+//		context.lineWidth = 4.0;
+////		context.clearRect(0,0,100,100);
+//		context.strokeRect(0,0,128,128);
+//			context.stroke();
+////			context.fill();
+
+//		context.fillStyle = "#ffff00";
+		context.fillStyle = 'red';
+		context.font = "64px 'ＭＳ Ｐゴシック'";
+		context.textAlign = "center";
+		context.textBaseline = "middle";
+		context.fillText(textureString, canvas.width/2, canvas.height/2, 128);
+//		context.fillText("GOAL", 20,20);
+//		context.strokeText("GOAL", 0,0);
+
+		texture = new THREE.Texture( canvas ) ;
+		texture.needsUpdate = true;
+
+		return texture;
+	}
+
+	function createCube(scene, sx, sy, sz, x, y, z, color, textureString ) {
 //		var geometry = new THREE.BoxGeometry(sx, sy, sz);
 		var geometry = new THREE.CubeGeometry(sx, sy, sz);
 //				var material = new THREE.MeshBasicMaterial({color: 0x333333, wireframe: true});
 //		var material = new THREE.MeshBasicMaterial({color: color} );
 //		var material = new THREE.MeshPhongMaterial({color: color, metal: true, shininess:30} );
 //		var material = new THREE.MeshLambertMaterial({color: color, metal: true, shininess:30, transparent: true} );
-		var material = new THREE.MeshLambertMaterial({color: color} );
+		var material;
+		if ( textureString == "" ) {
+			material = new THREE.MeshLambertMaterial({color: color} );
+		} else {
+
+			material = new THREE.MeshBasicMaterial({map: goalTexture(textureString)} );
+
+//			material = new THREE.MeshLambertMaterial({color: color} );
+		}
+
 		var cube = new THREE.Mesh(geometry, material);
 		cube.position.x = x;
 		cube.position.y = y;
@@ -426,18 +467,13 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		//影の設定　　　　　　　　
 		cube.receiveShadow = true;
 
+		if ( textureString ) {
+			cube.rotation.set(0,Math.PI/2,0);
+		}
+
 		scene.add(cube);
 
 		cubes[cubeNum++] = cube;
-
-//		var geometry = new THREE.CubeGeometry(sx, sy, sz);
-//		var material = new THREE.MeshBasicMaterial({color: (0x444444), wireframe:true} );
-//		var cube2 = new THREE.Mesh(geometry, material);
-//		cube2.position.x = x;
-//		cube2.position.y = y;
-//		cube2.position.z = z;
-//		scene.add(cube2);
-//		cubes[cubeNum++] = cube2;
 
 	}
 
@@ -479,6 +515,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
         var GUNJUMPHEIGHTMAX   = 1.5;
 
 	var gunmanGoalRotateY = 0;
+	var gunmanGoal = false;
 
 	function moveGunman(alpha,beta,gamma){
 
@@ -491,7 +528,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		var gz = Math.floor(gunman_Z);
 
 		var gunmanDrop = false;
-		var gunmanGoal = false;
+//		gunmanGoal = false;
 
 		var cd;
 		try{
@@ -736,6 +773,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
  	var camera, scene, renderer;
 	var buttonJ,buttonG;
 
+	var gunmanGoalTimeStr = "";
+
 	buttonJ = new Sprite(60,60);
 	buttonG = new Sprite(60,60);
 
@@ -781,20 +820,22 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 				if ( cubeData[0][i][j] == 1 || cubeData[0][i][j] == 8 ) {
 					if ( (i + j) % 2 == 0 ) {
-						createCube(scene, 1,1,1, x,y,z, 0x884444);
+						createCube(scene, 1,1,1, x,y,z, 0x884444, "");
 					} else {
-						createCube(scene, 1,1,1, x,y,z, 0x444488);
+						createCube(scene, 1,1,1, x,y,z, 0x444488, "");
 					}
 				}
 				else if ( cubeData[0][i][j] == 9 ) {   // 壁
 					if ( (i + j) % 2 == 0 ) {
-						createCube(scene, 1, 2.1, 1, x,y+(2.1 - 1.0)/2, z, 0x777777);
+						createCube(scene, 1, 2.1, 1, x,y+(2.1 - 1.0)/2, z, 0x777777, "");
 					} else {
-						createCube(scene, 1, 2.1, 1, x,y+(2.1 - 1.0)/2, z, 0x77cc77);
+						createCube(scene, 1, 2.1, 1, x,y+(2.1 - 1.0)/2, z, 0x77cc77, "");
 					}
 				}
 				else if ( cubeData[0][i][j] == 7 ) {   // ゴール
-						createCube(scene, 1,1.5,1, x,y+(1.5 - 1.0)/2, z, 0x0000ff);
+//						createCube(scene, 1,1.5,1, x,y+(1.5 - 1.0)/2, z, 0x0000ff, "GOAL");
+//						createCube(scene, 1,1.5,1, x,3, z, 0x0000ff, "GOAL");
+						createCube(scene, 1,1,1, x, y, z, 0x0000ff, " GOAL ");
 				}
 
 				if ( cubeData[0][i][j] == 8 ) {
@@ -828,10 +869,19 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 //				var progress_time = game.frame/game.fps;
 //				var limit_time_str = (10000 - progress_time + "").slice(0,-11);   //9999.1xxxxxxxxxxx
 				var progress_time = game.frame/game.fps;
-				var progress_time_str = ("00000" + progress_time.toFixed(3)).slice(-9);   //9999.12xxxxxxxxxx
+				var progress_time_str = "Time : " + ("0000" + progress_time.toFixed(3)).slice(-8);   //9999.12xxxxxxxxxx
 				var limit_time_str = (10000 - progress_time).toFixed(3);   //9999.12xxxxxxxxxx
-//				document.getElementById('time_limit').value = "" + limit_time_str;
-				document.getElementById('progress_time').value = "" + progress_time_str;
+
+				if ( gunmanGoal && gunmanGoalTimeStr == "" ) {
+					gunmanGoalTimeStr = progress_time_str;
+				}
+				if ( gunmanGoalTimeStr == "" ) {
+
+//					document.getElementById('time_limit').value = "" + limit_time_str;
+					document.getElementById('progress_time').value = "" + progress_time_str;
+				} else {
+					document.getElementById('progress_time').value = "" + gunmanGoalTimeStr;
+				}
 
 				render();
 			} catch (exception) {

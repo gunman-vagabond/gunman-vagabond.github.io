@@ -610,8 +610,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		if ( cubeData[0][gtx][gtz] == 9 || cubeData[0][gtx][gtz+1] == 9 
                   || cubeData[0][gtx+1][gtz] == 9 || cubeData[0][gtx+1][gtz+1] == 9
                 ) {
-			tot_diffX = 0;
-			tot_diffZ = 0;
+			if ( gtx != gx ) { tot_diffX = 0; }
+			if ( gtz != gz ) { tot_diffZ = 0; }
 		}
 
 
@@ -620,8 +620,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 	                  || cubeData[0][gtx+1][gtz] != 0 || cubeData[0][gtx+1][gtz+1] != 0 ) 
 			&& ( gunJumpHeight < 1.0 )
 		) {
-			tot_diffX = 0;
-			tot_diffZ = 0;
+			if ( gtx != gx ) { tot_diffX = 0; }
+			if ( gtz != gz ) { tot_diffZ = 0; }
 		}
 
 //		moveCubes(tot_diffX, 0,  tot_diffZ);

@@ -74,7 +74,7 @@ li {
 
 
 <div id="ttt">
-スイスイガンマンです。<p>
+スイスイ-ガンマンです。<p>
 
 ホーム画面に追加をしてみてください。<br>
 アプリのように起動できるはず。<p>
@@ -643,7 +643,9 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				// Oxx.
 				// .,,.
 
-				if ( cd[1][0] == 9 || cd[2][0] == 9 || cd[1][0] == undefined || cd[2][0] == undefined ) {
+				if ( cd[1][0] == 9 || cd[2][0] == 9 || cd[1][1] == 9 || cd[2][1] == 9
+                                    // cd[1][0] == undefined || cd[2][0] == undefined 
+                                ) {
 					tot_diffZ = 0;
 //					_tot_diffZ = floor_gunman_Z - gunman_Z;
 //					diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;
@@ -666,7 +668,9 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				// .xx.
 				// .xx.
 				// .OO.
-				if ( cd[3][1] == 9 || cd[3][2] == 9 || cd[3][1] == undefined || cd[3][2] == undefined ) {
+				if ( cd[3][1] == 9 || cd[3][2] == 9
+                                    // || cd[3][1] == undefined || cd[3][2] == undefined 
+                                ) {
 					tot_diffX = 0;
 //					_tot_diffX = ceil_gunman_X - gunman_X;
 //					diffX = _tot_diffX - pre_diffX2 - pre_diffX;
@@ -691,7 +695,9 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				// .xxO
 				// ....
 
-				if ( cd[1][3] == 9 || cd[2][3] == 9 || cd[1][3] == undefined || cd[2][3] == undefined ) {
+				if ( cd[1][3] == 9 || cd[2][3] == 9 || cd[1][2] == 9 || cd[2][2] == 9
+                                    // || cd[1][3] == undefined || cd[2][3] == undefined 
+                                ) {
 					tot_diffZ = 0;
 //					tot_diffZ = ceil_gunman_Z - gunman_Z;
 //					diffZ = _tot_diffZ - pre_diffZ2 - pre_diffZ;

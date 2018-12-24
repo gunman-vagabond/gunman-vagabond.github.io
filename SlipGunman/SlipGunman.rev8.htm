@@ -74,7 +74,7 @@ li {
 
 
 <div id="ttt">
-スイスイ-ガンマンです。<p>
+スイスイガンマンです。<p>
 
 ホーム画面に追加をしてみてください。<br>
 アプリのように起動できるはず。<p>
@@ -631,8 +631,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		}
 
 		if ( diffZ < 0 ) { //左に行く
-			if ( //floor_gunman_Z != floor_tmp_gunman_Z
-                             ceil_gunman_Z != ceil_tmp_gunman_Z ) {
+//			if ( //floor_gunman_Z != floor_tmp_gunman_Z
+//                             ceil_gunman_Z != ceil_tmp_gunman_Z ) {
 				//ブロックをまたがって移動
 //				if ( cubeData[0][floor_gunman_X][floor_tmp_gunman_Z] == 9
 //				  || cubeData[0][ceil_gunman_X][floor_tmp_gunman_Z] == 9
@@ -654,7 +654,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				if ( gunmanDrop && ( cd[1][0] != 0 || cd[2][0] != 0 ) && ( gunJumpHeight < 1.0 ) ) {
 					tot_diffZ = 0;
 				}
-			}
+//			}
 		}
 
 		if ( diffX < 0 ) { //下に行く
@@ -683,8 +683,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		}
 
 		if ( diffZ > 0 ) { //右に行く
-			if ( //ceil_gunman_Z != ceil_tmp_gunman_Z 
-                             floor_gunman_Z != floor_tmp_gunman_Z ) {
+//			if ( //ceil_gunman_Z != ceil_tmp_gunman_Z 
+//                             floor_gunman_Z != floor_tmp_gunman_Z ) {
 				//ブロックをまたがって移動
 //				if ( cubeData[0][ceil_gunman_X][ceil_tmp_gunman_Z] == 9
 //				  || cubeData[0][floor_gunman_X][ceil_tmp_gunman_Z] == 9
@@ -706,7 +706,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				if ( gunmanDrop && ( cd[1][3] != 0 || cd[2][3] != 0 ) && ( gunJumpHeight < 1.0 ) ) {
 					tot_diffZ = 0;
 				}
-			}
+//			}
 		}
 
 //		moveCubes(tot_diffX, 0,  tot_diffZ);

@@ -604,7 +604,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		var ceil_gunman_Z = Math.ceil(gunman_Z);
 		var ceil_tmp_gunman_Z = Math.ceil(tmp_gunman_Z);
 
-		if ( diffX >= 0 ) { //上に行く
+		if ( diffX > 0 ) { //上に行く
 
 			if ( floor_gunman_X != floor_tmp_gunman_X ) {
 				//ブロックをまたがって移動
@@ -630,7 +630,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 			}
 		}
 
-		if ( diffZ <= 0 ) { //左に行く
+		if ( diffZ < 0 ) { //左に行く
 			if ( floor_gunman_Z != floor_tmp_gunman_Z ) {
 				//ブロックをまたがって移動
 //				if ( cubeData[0][floor_gunman_X][floor_tmp_gunman_Z] == 9

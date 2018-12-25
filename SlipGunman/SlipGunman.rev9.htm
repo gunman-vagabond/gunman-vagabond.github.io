@@ -607,12 +607,28 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		var gtx = floor_tmp_gunman_X;
 		var gtz = floor_tmp_gunman_Z;
 
-		if ( cubeData[0][gtx][gtz] == 9 || cubeData[0][gtx][gtz+1] == 9 
-                  || cubeData[0][gtx+1][gtz] == 9 || cubeData[0][gtx+1][gtz+1] == 9
-                ) {
+		if ( diffX > 0 && (cubeData[0][gtx][gtz] == 9 || cubeData[0][gtx][gtz+1] == 9 ) ) {
 			if ( gtx != gx ) { tot_diffX = 0; }
+		}
+
+		if ( diffX < 0 && (cubeData[0][gtx+1][gtz] == 9 || cubeData[0][gtx+1][gtz+1] == 9 ) ) {
+			if ( gtx != gx ) { tot_diffX = 0; }
+		}
+
+		if ( diffZ > 0 && (cubeData[0][gtx][gtz+1] == 9 || cubeData[0][gtx+1][gtz+1] == 9 ) ) {
 			if ( gtz != gz ) { tot_diffZ = 0; }
 		}
+
+		if ( diffZ < 0 && (cubeData[0][gtx][gtz] == 9 || cubeData[0][gtx+1][gtz] == 9 ) ) {
+			if ( gtz != gz ) { tot_diffZ = 0; }
+		}
+
+//		if ( cubeData[0][gtx][gtz] == 9 || cubeData[0][gtx][gtz+1] == 9 
+//                  || cubeData[0][gtx+1][gtz] == 9 || cubeData[0][gtx+1][gtz+1] == 9
+//                ) {
+//			if ( gtx != gx ) { tot_diffX = 0; }
+//			if ( gtz != gz ) { tot_diffZ = 0; }
+//		}
 
 
 		if ( gunmanDrop 

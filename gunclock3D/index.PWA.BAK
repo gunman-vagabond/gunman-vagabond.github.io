@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | GunClock3D</title>
+    <style>
+    /* a style sheet needs to be present for cursor hiding and custom cursors to work. */
+    </style>
+  </head>
+  <body>
+
+    <div id="loading" style="font-size: 30pt;">Loading</div>
+
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" height="600px" width="960px"></canvas>
+
+    <script type='text/javascript'>
+  var Module = {
+    TOTAL_MEMORY: 268435456,
+    errorhandler: null,			// arguments: err, url, line. This function must return 'true' if the error is handled, otherwise 'false'
+    compatibilitycheck: null,
+    dataUrl: "http://fc.jpn.org/ryuba/gunman/Unity/WebGL/Release/WebGL.data",
+    codeUrl: "http://fc.jpn.org/ryuba/gunman/Unity/WebGL/Release/WebGL.js",
+    memUrl: "http://fc.jpn.org/ryuba/gunman/Unity/WebGL/Release/WebGL.mem",
+  };
+</script>
+<script src="http://fc.jpn.org/ryuba/gunman/Unity/WebGL/Release/UnityLoader.js"></script>
+
+
+<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+<script>
+$("#canvas").attr("width",  $(window).width()  + "px");
+$("#canvas").attr("height", $(window).height() + "px");
+
+$(window).resize(function(e)
+{
+        $("#canvas").attr("width",  $(window).width()  + "px");
+        $("#canvas").attr("height", $(window).height() + "px");
+});
+
+</script>
+<script>
+  var checkDisplay = setInterval(function(){
+    if(Module.finishedDataFileDownloads == 1) {
+      var str = $("#loading").text() + "<br>Initializing..." ;
+      $("#loading").html(str);
+      $("#loading").hide(5000);
+      clearInterval(checkDisplay);
+    } else {
+      var str = $("#loading").text() + "." ;
+      $("#loading").text(str);
+    }
+  },100)
+</script>
+
+  </body>
+</html>

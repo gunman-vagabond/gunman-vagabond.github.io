@@ -640,6 +640,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 	var gunmanGoalRotateY = 0;
 	var gunmanGoal = false;
+	var gunShootPoseCount = 0;
 
 	function moveGunman(alpha,beta,gamma){
 
@@ -952,6 +953,12 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 				moveTama(scene, 0.1, 0, 0);
 
+				if ( gunShootPoseCount > 0 ) {
+					if (--gunShootPoseCount == 0 ) {
+						loadVpdStandard()
+					}
+				}
+
 				render();
 			} catch (exception) {
 				document.getElementById('debug').value = exception;
@@ -994,6 +1001,7 @@ document.getElementById('debug').value = "G touched";
 
 //				loadVpdStandard()
 				loadVpdShoot()
+				gunShootPoseCount=3;
 
 			} catch (exception) {
 document.getElementById('debug').value = exception;

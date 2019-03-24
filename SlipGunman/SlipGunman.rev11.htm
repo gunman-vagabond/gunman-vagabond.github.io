@@ -594,7 +594,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				tan = Math.tan(tamaArray[i].rotation.y)
 
 				diffx = Math.sqrt( 1 / (1+tan*tan));
-				diffy = diffx * tan;
+				diffz = diffx * tan;
 
 //x2 + y2 = 1
 //y2 = 1-x2
@@ -607,8 +607,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 //				tamaArray[i].position.y += y;
 //				tamaArray[i].position.z += z;
 				tamaArray[i].position.x += diffx;
-				tamaArray[i].position.y += diffy;
-				tamaArray[i].position.z += 0	;
+				tamaArray[i].position.y += 0;
+				tamaArray[i].position.z += diffz;
 				if ( tamaArray[i].position.x >= 10 ) {
 					scene.remove(tamaArray[i]);
 					delete tamaArray[i];

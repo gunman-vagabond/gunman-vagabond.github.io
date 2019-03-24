@@ -417,6 +417,12 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 			gunman.position.set(x, y, z);
 			gunman.rotation.set(0, -Math.PI/2,  0);
 
+
+gunman.distance.x = x;
+gunman.distance.y = y;
+gunman.distance.z = z;
+
+
 			loadVpdStandard()
 //			loadVpdShoot()
 //			loadVpdShoot2()
@@ -571,6 +577,12 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				tama.position.x = x;
 				tama.position.y = y;
 				tama.position.z = z;
+
+tama.distance.x = x;
+tama.distance.y = y;
+tama.distance.z = z;
+
+
 				scene.add(tama);
 
 				tamaArray[i] = tama;
@@ -951,7 +963,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 					document.getElementById('progress_time').value = "" + gunmanGoalTimeStr;
 				}
 
-				moveTama(scene, 0.5, 0, 0);
+				moveTama(scene, 0.3, 0, 0);
 
 				if ( gunShootPoseCount > 0 ) {
 					if (--gunShootPoseCount == 0 ) {

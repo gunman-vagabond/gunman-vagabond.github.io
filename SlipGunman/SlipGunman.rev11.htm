@@ -576,6 +576,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 				tama.rotation.y = gunman.rotation.y;
 				tama.rotation.z = gunman.rotation.z;
 
+document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + gunman.rotation.y;
+
 				scene.add(tama);
 
 				tamaArray[i] = tama;

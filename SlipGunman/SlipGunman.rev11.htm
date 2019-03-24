@@ -616,7 +616,13 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 				tamaArray[i].position.x += diffx;
 				tamaArray[i].position.y += 0;
 				tamaArray[i].position.z += diffz;
-				if ( tamaArray[i].position.x >= 10 ) {
+
+
+				if ( tamaArray[i].position.x > 30
+                                  || tamaArray[i].position.x < -30
+                                  || tamaArray[i].position.z > 30
+                                  || tamaArray[i].position.z < -30
+                                ) {
 					scene.remove(tamaArray[i]);
 					delete tamaArray[i];
 					tamaArray[i] = null;

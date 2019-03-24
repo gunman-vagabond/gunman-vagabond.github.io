@@ -382,6 +382,16 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 			gunman.position.set(x, y, z);
 			gunman.rotation.set(0, -Math.PI/2,  0);
 
+			var onProgress = function ( xhr ) {
+				if ( xhr.lengthComputable ) {
+					var percentComplete = xhr.loaded / xhr.total * 100;
+					console.log( Math.round(percentComplete, 2) + '% downloaded' );
+				}
+			};
+
+			var onError = function ( xhr ) {
+			};
+
 			function loadVpd () {
 				mmdLoader.loadVpd( ['MMD/Gunman.GunShootPose.vpd' ][0], function ( vpd ) {
 					mmdHelper.poseAsVpd( object, vpd );

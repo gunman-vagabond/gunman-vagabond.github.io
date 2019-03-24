@@ -418,8 +418,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 			gunman.rotation.set(0, -Math.PI/2,  0);
 
 			loadVpdStandard()
-			loadVpdShoot()
-			loadVpdShoot2()
+//			loadVpdShoot()
+//			loadVpdShoot2()
 
 		});	
 		mmdHelper.render(scene, camera); // HHDHelperから呼び出す（ラッパーメソッド）
@@ -991,6 +991,9 @@ document.getElementById('debug').value = "G touched";
 //				gunFire = true;
 //				createTama(scene, 0.8, 0.2 - (gunJumpHeight*1), 0.2, 0.1, 0x333333);
 				createTama(scene, gunman.position.x + 0.1, gunman.position.y + 2, gunman.position.z + 0.1 , 0.1, 0x333333);
+
+//				loadVpdStandard()
+				loadVpdShoot()
 
 			} catch (exception) {
 document.getElementById('debug').value = exception;

@@ -369,16 +369,23 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 	var gunman = null;
 	var cylinder = null;
 
+	var vpdFiles = [
+		'MMD/Gunman.StandardPose.vpd',
+		'MMD/Gunman.GunShootPose.vpd',
+		'MMD/Gunman.GunShootPose.2.vpd'
+	];
+
 	function createGunman(scene, x, y, z ) {
 		// MMDデータの読み込み・オブジェクト生成・シーンへの配置
 //		mmdLoader.setDefaultTexturePath('MMD/');
 		mmdLoader.loadModel('MMD/Gunman.HatsuneVer2.pmd', function(object) {
-			object.scale.set(0.1, 0.1, 0.1);
-			object.castShadow = true;
-			scene.add(object);
+			gunman = object;
+			gunman.scale.set(0.1, 0.1, 0.1);
+			gunman.castShadow = true;
+			scene.add(gunman);
 
-			mmdHelper.add(object); // メッシュオブジェクトをヘルパーに登録
-		   	gunman = object;
+			mmdHelper.add(gunman); // メッシュオブジェクトをヘルパーに登録
+
 			gunman.position.set(x, y, z);
 			gunman.rotation.set(0, -Math.PI/2,  0);
 
@@ -393,8 +400,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 			};
 
 			function loadVpd () {
-				mmdLoader.loadVpd( ['MMD/Gunman.GunShootPose.vpd' ][0], function ( vpd ) {
-					mmdHelper.poseAsVpd( object, vpd );
+				mmdLoader.loadVpd( vpdFiles[0], function ( vpd ) {
+					mmdHelper.poseAsVpd( gunman, vpd );
 				}, onProgress, onError );
 			}
 			loadVpd()

@@ -595,8 +595,13 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 
 				tan = Math.tan(Math.PI/2 - tamaArray[i].rotation.y)
 
-				diffx = Math.sqrt( 1 / (1+tan*tan));
-				diffz = diffx * tan;
+				if ( tamaArray[i].rotation.y < Math.PI ) {
+					diffx = Math.sqrt( 1 / (1+tan*tan));
+					diffz = diffx * tan;
+				} else {
+					diffx = (-1) * Math.sqrt( 1 / (1+tan*tan));
+					diffz = (-1) * diffx * tan;
+				}
 
 //x2 + y2 = 1
 //y2 = 1-x2

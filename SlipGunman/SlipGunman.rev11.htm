@@ -164,6 +164,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 
 <script type="text/javascript">
+ 	var camera, scene, renderer;
+
 	cubeData = [
 		[
 			 [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]
@@ -791,7 +793,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 	var cubes  = new Array(500);
 	var cubeNum = 0;
- 	var camera, scene, renderer;
+// 	var camera, scene, renderer;
 	var buttonJ,buttonG;
 
 	var gunmanGoalTimeStr = "";
@@ -904,6 +906,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 					document.getElementById('progress_time').value = "" + gunmanGoalTimeStr;
 				}
 
+		moveTama(scene, 0.1, 0, 0);
+
 				render();
 			} catch (exception) {
 				document.getElementById('debug').value = exception;
@@ -1001,8 +1005,6 @@ document.getElementById('debug').value = exception;
 		document.getElementById('gamma').value = gamma;
 
 		moveGunman(alpha, beta, gamma);
-		moveTama(scene, 0.1, 0, 0);
-
 	}
 
 </script>

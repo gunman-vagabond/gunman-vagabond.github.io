@@ -904,6 +904,8 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 					document.getElementById('progress_time').value = "" + gunmanGoalTimeStr;
 				}
 
+				moveTama(scene, 0.1, 0, 0);
+
 				render();
 			} catch (exception) {
 				document.getElementById('debug').value = exception;

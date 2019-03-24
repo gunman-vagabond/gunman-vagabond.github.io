@@ -375,6 +375,34 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		'MMD/Gunman.GunShootPose.2.vpd'
 	];
 
+	var onProgress = function ( xhr ) {
+		if ( xhr.lengthComputable ) {
+			var percentComplete = xhr.loaded / xhr.total * 100;
+			console.log( Math.round(percentComplete, 2) + '% downloaded' );
+		}
+	};
+
+	var onError = function ( xhr ) {
+	};
+
+	function loadVpdStandard () {
+		mmdLoader.loadVpd( vpdFiles[0], function ( vpd ) {
+			mmdHelper.poseAsVpd( gunman, vpd );
+		}, onProgress, onError );
+	}
+
+	function loadVpdShoot () {
+		mmdLoader.loadVpd( vpdFiles[1], function ( vpd ) {
+			mmdHelper.poseAsVpd( gunman, vpd );
+		}, onProgress, onError );
+	}
+
+	function loadVpdShoot2 () {
+		mmdLoader.loadVpd( vpdFiles[2], function ( vpd ) {
+			mmdHelper.poseAsVpd( gunman, vpd );
+		}, onProgress, onError );
+	}
+
 	function createGunman(scene, x, y, z ) {
 		// MMDデータの読み込み・オブジェクト生成・シーンへの配置
 //		mmdLoader.setDefaultTexturePath('MMD/');
@@ -389,22 +417,9 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 			gunman.position.set(x, y, z);
 			gunman.rotation.set(0, -Math.PI/2,  0);
 
-			var onProgress = function ( xhr ) {
-				if ( xhr.lengthComputable ) {
-					var percentComplete = xhr.loaded / xhr.total * 100;
-					console.log( Math.round(percentComplete, 2) + '% downloaded' );
-				}
-			};
-
-			var onError = function ( xhr ) {
-			};
-
-			function loadVpd () {
-				mmdLoader.loadVpd( vpdFiles[0], function ( vpd ) {
-					mmdHelper.poseAsVpd( gunman, vpd );
-				}, onProgress, onError );
-			}
-			loadVpd()
+			loadVpdStandard()
+			loadVpdShoot()
+			loadVpdShoot2()
 
 		});	
 		mmdHelper.render(scene, camera); // HHDHelperから呼び出す（ラッパーメソッド）

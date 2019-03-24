@@ -381,6 +381,14 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		   	gunman = object;
 			gunman.position.set(x, y, z);
 			gunman.rotation.set(0, -Math.PI/2,  0);
+
+			function loadVpd () {
+				mmdLoader.loadVpd( ['MMD/Gunman.GunShootPose.vpd' ][0], function ( vpd ) {
+					mmdHelper.poseAsVpd( object, vpd );
+				}, onProgress, onError );
+			}
+			loadVpd()
+
 		});	
 		mmdHelper.render(scene, camera); // HHDHelperから呼び出す（ラッパーメソッド）
 

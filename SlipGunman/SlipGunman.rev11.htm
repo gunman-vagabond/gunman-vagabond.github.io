@@ -599,8 +599,8 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 					diffx = Math.sqrt( 1 / (1+tan*tan));
 					diffz = diffx * tan;
 				} else {
-					diffx = Math.sqrt( 1 / (1+tan*tan));
-					diffz = (-1) * diffx * tan;
+					diffx = (-1) * Math.sqrt( 1 / (1+tan*tan));
+					diffz = diffx * tan;
 				}
 
 //x2 + y2 = 1

@@ -417,12 +417,6 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 			gunman.position.set(x, y, z);
 			gunman.rotation.set(0, -Math.PI/2,  0);
 
-
-gunman.distance.x = x;
-gunman.distance.y = y;
-gunman.distance.z = z;
-
-
 			loadVpdStandard()
 //			loadVpdShoot()
 //			loadVpdShoot2()
@@ -578,10 +572,9 @@ gunman.distance.z = z;
 				tama.position.y = y;
 				tama.position.z = z;
 
-tama.distance.x = x;
-tama.distance.y = y;
-tama.distance.z = z;
-
+				tama.rotation.x = gunman.rotation.x;
+				tama.rotation.y = gunman.rotation.y;
+				tama.rotation.z = gunman.rotatiln.z;
 
 				scene.add(tama);
 
@@ -597,10 +590,25 @@ tama.distance.z = z;
 //document.getElementById('debug').value = "moveTama():";
 		for ( i=0; i<30; i++ ) {
 			if ( tamaArray[i] != null ) {
+
+				tan = Math.tan(tamaArray[i].rotation.y)
+
+				diffx = Math.sqrt( 1 / (1+tan*tan));
+				diffy = diffx * tan;
+
+//x2 + y2 = 1
+//y2 = 1-x2
+//y/x = TAN
+//x2 * TAN2 = 1-x2
+//x2(1 + TAN2) = 1 
+
 //document.getElementById('debug').value += ", " + i;
-				tamaArray[i].position.x += x;
-				tamaArray[i].position.y += y;
-				tamaArray[i].position.z += z;
+//				tamaArray[i].position.x += x;
+//				tamaArray[i].position.y += y;
+//				tamaArray[i].position.z += z;
+				tamaArray[i].position.x += diffx;
+				tamaArray[i].position.y += diffy;
+				tamaArray[i].position.z += 0	;
 				if ( tamaArray[i].position.x >= 10 ) {
 					scene.remove(tamaArray[i]);
 					delete tamaArray[i];

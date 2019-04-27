@@ -732,7 +732,7 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 
 		if ( cd[1][1]==7 && cd[1][2]==7 && cd[2][1]==7 && cd[2][2]==7 ) {
 			gunmanGoal = true;
-//			game.end(100, "ゲームオーバ");
+			game.end(100, "ゲームオーバ");
 		}
 
 		gunJumpHeight = 0;
@@ -1081,11 +1081,11 @@ document.getElementById('debug').value = exception;
 //game.rootScene.addChild(label1);
 //------------------------
 
-		game.rootScene.onenterframe = function() {
-			if (gunmanGoal) {
-				game.end(1000, 1000 + "point!!");
-			}
-		};
+//		game.rootScene.onenterframe = function() {
+//			if (gunmanGoal) {
+//				game.end(1000, 1000 + "point!!");
+//			}
+//		};
 
 		onWindowResize();
 

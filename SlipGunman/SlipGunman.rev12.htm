@@ -297,6 +297,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 // 	var buttonG = null;
 
 	var div_top;
+	var el_time_label;
 
 	function init() {
 		container = document.getElementById('div')
@@ -732,6 +733,8 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 
 		if ( cd[1][1]==7 && cd[1][2]==7 && cd[2][1]==7 && cd[2][2]==7 ) {
 			gunmanGoal = true;
+			el_time_label.style.top = div_top + 50;
+
 			game.end(100, "ゲームオーバ");
 		}
 
@@ -1004,17 +1007,22 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
  
 	        game.rootScene.addChild(gunmanSpriteDummy);
 
-		var time_label = new Label("aaa");
-		time_label.x = 3;
-		time_label.y = 3;
-		time_label.font = "16px monospace";
-		time_label.addEventListener(enchant.Event.ENTER_FRAME, function(){
-			var progress_time = parseInt(game.frame/game.fps);
-			var limit_time_str = 10000 - progress_time + "";
-//			this.text = "time_limit: " + limit_time_str;
-			document.getElementById('time_limit').value = "time_limit: " + limit_time_str;
-		});
-		game.rootScene.addChild(time_label);
+//		var time_label = new Label("aaa");
+//		time_label.x = 30;
+//		time_label.y = 400;
+//		time_label.font = "16px monospace";
+//		time_label.backgroundColor = "rgba(128,128,128,0.8)";
+////                time_label.opacity = 0.5;
+//		time_label.color = "#888888";
+////		time_label.text="bbbbb";
+
+////		time_label.addEventListener(enchant.Event.ENTER_FRAME, function(){
+////			var progress_time = parseInt(game.frame/game.fps);
+////			var limit_time_str = 10000 - progress_time + "";
+//////			this.text = "time_limit: " + limit_time_str;
+////			document.getElementById('time_limit').value = "time_limit: " + limit_time_str;
+////		});
+//		game.rootScene.addChild(time_label);
 
 		buttonJ.image = game.assets["buttonJ.png"];
 //	        buttonJ.x = 100;

@@ -5,8 +5,10 @@
 <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="enchant.min.js"></script>
 
+<!--
 <script type="text/javascript" src="nineleap.enchant.js"></script>
 <script type="text/javascript" src="ui.enchant.js"></script>
+-->
 
 <script type="text/javascript" src="three.min.js"></script>
 <script type="text/javascript" src="MMDLoader.js"></script>
@@ -733,9 +735,8 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 
 		if ( cd[1][1]==7 && cd[1][2]==7 && cd[2][1]==7 && cd[2][2]==7 ) {
 			gunmanGoal = true;
-			el_time_label.style.top = div_top + 50;
-
-			game.end(100, "ゲームオーバ");
+//			el_time_label.style.top = div_top + 50;
+//			game.end(100, "ゲームオーバ");
 		}
 
 		gunJumpHeight = 0;
@@ -988,7 +989,7 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 //					document.getElementById('time_limit').value = "" + limit_time_str;
 					document.getElementById('progress_time').value = "" + progress_time_str;
 				} else {
-					document.getElementById('progress_time').value = "" + gunmanGoalTimeStr;
+					document.getElementById('progress_time').value = "" + gunmanGoalTimeStr + "\nGoooooooal!!!!";
 				}
 
 				moveTama(scene, 0.3, 0, 0);

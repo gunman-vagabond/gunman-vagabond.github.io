@@ -1,0 +1,1154 @@
+<html>
+<head>
+<title>スイスイガンマン</title>
+
+<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="enchant.min.js"></script>
+
+<!--
+<script type="text/javascript" src="nineleap.enchant.js"></script>
+<script type="text/javascript" src="ui.enchant.js"></script>
+-->
+
+<script type="text/javascript" src="three.min.js"></script>
+<script type="text/javascript" src="MMDLoader.js"></script>
+<script type="text/javascript" src="TGALoader.js"></script>
+<script type="text/javascript" src="charsetencoder.min.js"></script>
+
+<link rel="manifest" href="manifest.json"></link>
+<!--<script src="pwabuilder-sw-register.js"></script>-->
+
+<meta http-equiv="Content-type"
+         content="text/html; charset=UTF-8">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="gunman">
+<link rel="apple-touch-icon" href="icon/gun_eyes.72x72.png" sizes="72x72">
+<link rel="apple-touch-icon" href="icon/gun_eyes.114x114.png" sizes="114x114">
+<link rel="apple-touch-icon" href="icon/gun_eyes.120x120.png" sizes="120x120">
+<link rel="apple-touch-icon" href="icon/gun_eyes.144x144.png" sizes="144x144">
+<link rel="apple-touch-icon" href="icon/gun_eyes.192x192.png" sizes="192x192">
+
+<script>
+var cv_width;
+var cv_height;
+</script>
+
+<script type="text/javascript">
+</script>
+
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+    color: white;
+    font-size: 40px;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+</style>
+
+</head>
+
+<body>
+<center>
+<!--<h1 style="color: #ffffff; background-color: #0000cc; padding: 30px" align="left">スイスイガンマン</h1>-->
+<ul>
+<li>スイスイガンマン</li>
+</ul>
+
+
+<div id="ttt">
+スイスイガンマンです。<p>
+
+ホーム画面に追加をしてみてください。<br>
+アプリのように起動できるはず。<p>
+端末の回転センサーも使ってみました。<p>
+<hr width=80%>
+</div>
+<div id="ttt2">
+&nbsp;<p>&nbsp;<p>&nbsp;<p>
+</div>
+
+<script type="text/javascript">
+function getParam(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+p = getParam('PWA');
+if ( p == "on" ) {
+  document.getElementById("ttt").style.display="none";
+  document.getElementById("ttt2").style.display="block";
+} else {
+  document.getElementById("ttt").style.display="block";
+  document.getElementById("ttt2").style.display="none";
+}
+</script>
+
+<p>
+
+<style>
+span.time_label {position:absolute; top:10px; left:10px; }
+span.goal_message_span {position:absolute; top:50px; left:100px; }
+</style>
+<div id="div">
+<span class="time_label" id="time_label" style="display:none;">
+<input type="text" size="13" id="progress_time" style=" color:#ffffff; background-color:rgba(128,128,128,0.8); font-size:40px; text-align:center; ">
+</span>
+</div>
+
+<div id="textarea1">
+<!--<span class="goal_message_span" id="goal_message_span" style="display:none;overflow:auto;">-->
+<span class="goal_message_span" id="goal_message_span" style="display:block;overflow:auto;">
+<table  style=" color:#ffffff; background-color:rgba(128,128,128,0.8); font-size:40px; text-align:center; ">
+<tr>
+<td  id="goal_message">
+abcde
+</td></tr>
+<tr>
+<td>
+<textarea id="__goal_message" style=" color:#ffffff; background-color:rgba(128,128,128,0.8); font-size:40px; text-align:center; ">
+goal
+Time : xxx.xxx
+</textarea>
+</td></tr>
+<tr><td>
+<button>restart</button>
+</td></tr>
+</table>
+</span>
+</div>
+
+<p>
+
+<hr>
+
+<textarea id="debug" rows="2" cols="50">
+debug
+</textarea>
+
+<p>
+alpha: <input type="text" size="5" id="alpha" value="0">
+beta: <input type="text" size="5" id="beta" value="0">
+gamma: <input type="text" size="5" id="gamma" value="0">
+<p>
+<input type="text" size="1" id="cd0" value="">
+<input type="text" size="1" id="cd1" value="">
+<input type="text" size="1" id="cd2" value="">
+<input type="text" size="1" id="cd3" value=""><br>
+<input type="text" size="1" id="cd4" value="">
+<input type="text" size="1" id="cd5" value="">
+<input type="text" size="1" id="cd6" value="">
+<input type="text" size="1" id="cd7" value=""><br>
+<input type="text" size="1" id="cd8" value="">
+<input type="text" size="1" id="cd9" value="">
+<input type="text" size="1" id="cdA" value="">
+<input type="text" size="1" id="cdB" value=""><br>
+<input type="text" size="1" id="cdC" value="">
+<input type="text" size="1" id="cdD" value="">
+<input type="text" size="1" id="cdE" value="">
+<input type="text" size="1" id="cdF" value=""><br>
+<p>
+gunman_X: <input type="text" size="5" id="gunman_X" value="0">
+gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
+<p>
+
+
+
+<hr width=80%>
+
+<!--
+[ <a href="../index.html">ガンマンのページへ戻る</a> ]
+-->
+[ <a href="http://fc.jpn.org/ryuba/gunman/index.html">ガンマンのページへ戻る</a> ]
+
+</center>
+
+
+<script type="text/javascript">
+        var game;
+ 	var camera, scene, renderer;
+	var tamaArray  = new Array(30);
+	for ( i=0; i<30; i++) {
+		tamaArray[i] = null;
+	}
+
+	cubeData = [
+		[
+			 [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,9,9,9,9,9,9,9,9,9,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,0,0,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,0,0,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,9,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,9,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,8,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,9,9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,9,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,9,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,0,0,1,1,9,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,0,0,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,0,0,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,0,0,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,9,9,9,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,9,7,7,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,9,7,7,1,9,1,1,9,1,1,9]
+			,[9,1,1,9,9,1,1,9,9,9,9,9,9,9,9,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]
+		],
+		[
+			 [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,9,9,9,9,9,9,9,9,9,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,0,0,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,0,0,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,9,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,7,7,1,1,1,9,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,7,7,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,8,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,9,9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,9,9,9,9,9,9,9,9,9,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,0,0,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,0,0,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,9,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,9,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,7,7,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,7,7,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]
+		],
+		[
+			 [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,9,9,9,9,9,9,9,9,9,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,0,0,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,0,0,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,9,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,9,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,1,1,1,1,1,8,1,1,1,1,9,1,1,9]
+			,[9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]
+		],
+		[
+			 [9,9,9,9,9,9,9,9,9,9,9,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,0,0,1,1,1,1,1,1,9]
+			,[9,1,1,0,0,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,9,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,9,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,1,1,1,1,1,9]
+			,[9,1,1,1,1,1,8,1,1,1,1,9]
+			,[9,9,9,9,9,9,9,9,9,9,9,9]
+		],
+		[
+			 [1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1]
+		]
+	];
+
+//	var buttonJ = null;
+// 	var buttonG = null;
+
+	var div_top;
+	var el_time_label;
+
+	function init() {
+		container = document.getElementById('div')
+
+		div_top = container.offsetTop;
+		el_time_label = document.getElementById('time_label');
+		el_time_label.style.top = div_top + 10;
+
+		el_goal_message_span = document.getElementById('goal_message_span');
+		el_goal_message_span.style.top = div_top + 10;
+		el_goal_message_span.style.left = 20;
+
+		camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.position.z = 10;
+
+		// scene
+
+		scene = new THREE.Scene();
+
+//		var ambient = new THREE.AmbientLight( 0x444444 );
+		var ambient = new THREE.AmbientLight( 0x888888 );
+		scene.add( ambient );
+
+		var directionalLight = new THREE.DirectionalLight( 0xffeedd );
+//		directionalLight.position.set( 100, 100, 200).normalize();
+		directionalLight.position.set( -1, 10, 3);
+		directionalLight.castShadow = true;
+		scene.add( directionalLight );
+
+		renderer = new THREE.WebGLRenderer();
+		renderer.setPixelRatio( window.devicePixelRatio );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.setClearColor( 0x888888 );
+//                                renderer.setFaceCulling (true);
+
+		container.appendChild( renderer.domElement );
+
+//				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		window.addEventListener( 'resize', onWindowResize, false );
+
+		onWindowResize()
+
+	}
+
+	function onWindowResize() {
+
+		windowHalfX = window.innerWidth / 2;
+		windowHalfY = window.innerHeight / 2;
+
+		var width = window.innerWidth;
+		var height = window.innerHeight/2;
+
+		camera.aspect = width / height ;
+		camera.updateProjectionMatrix();
+
+		renderer.setSize( width, height );
+
+		if ( buttonJ == null ) return;
+
+	        buttonJ.x = 100;
+	        buttonJ.y = div_top + height - 100;
+	        buttonJ.scaleX = buttonJ.scaleY = 2;
+
+	        buttonG.x = width-160;
+	        buttonG.y = div_top + height - 100;
+	        buttonG.scaleX = buttonG.scaleY = 2;
+
+	}
+
+	var renderer = new THREE.WebGLRenderer({antialias: true}); // アンチエイリアスを適用
+	var mmdLoader = new THREE.MMDLoader(); // MMDLoader作成 
+	var mmdHelper = new THREE.MMDHelper(renderer); // MMDHelper作成
+	var gunman = null;
+	var cylinder = null;
+
+	var vpdFiles = [
+		'MMD/Gunman.StandardPose.vpd',
+		'MMD/Gunman.GunShootPose.vpd',
+		'MMD/Gunman.GunShootPose.2.vpd'
+	];
+
+	var onProgress = function ( xhr ) {
+		if ( xhr.lengthComputable ) {
+			var percentComplete = xhr.loaded / xhr.total * 100;
+			console.log( Math.round(percentComplete, 2) + '% downloaded' );
+		}
+	};
+
+	var onError = function ( xhr ) {
+	};
+
+	function loadVpdStandard () {
+		mmdLoader.loadVpd( vpdFiles[0], function ( vpd ) {
+			mmdHelper.poseAsVpd( gunman, vpd );
+		}, onProgress, onError );
+	}
+
+	function loadVpdShoot () {
+		mmdLoader.loadVpd( vpdFiles[1], function ( vpd ) {
+			mmdHelper.poseAsVpd( gunman, vpd );
+		}, onProgress, onError );
+	}
+
+	function loadVpdShoot2 () {
+		mmdLoader.loadVpd( vpdFiles[2], function ( vpd ) {
+			mmdHelper.poseAsVpd( gunman, vpd );
+		}, onProgress, onError );
+	}
+
+	function createGunman(scene, x, y, z ) {
+		// MMDデータの読み込み・オブジェクト生成・シーンへの配置
+//		mmdLoader.setDefaultTexturePath('MMD/');
+		mmdLoader.loadModel('MMD/Gunman.HatsuneVer2.pmd', function(object) {
+			gunman = object;
+			gunman.scale.set(0.1, 0.1, 0.1);
+			gunman.castShadow = true;
+			scene.add(gunman);
+
+			mmdHelper.add(gunman); // メッシュオブジェクトをヘルパーに登録
+
+			gunman.position.set(x, y, z);
+			gunman.rotation.set(0, -Math.PI/2,  0);
+
+			loadVpdStandard()
+//			loadVpdShoot()
+//			loadVpdShoot2()
+
+		});	
+		mmdHelper.render(scene, camera); // HHDHelperから呼び出す（ラッパーメソッド）
+
+//		// アニメーション処理
+//		(function render() {
+//			requestAnimationFrame(render);
+//			trackballControls.update(); // フレームごとにトラックボールコントロールを更新
+//			mmdHelper.render(scene, camera); // HHDHelperから呼び出す（ラッパーメソッド）
+//		})();
+
+//		var loader = new THREE.MMDLoader();
+//		// Load a MMD model
+//		loader.load(
+//			// path to PMD/PMX file
+//			'MMD/Gunman.HatsuneVer2.pmd',
+//			// called when the resource is loaded
+//			function ( mesh ) {	
+//				scene.add( mesh );
+//			},
+//			// called when loading is in progresses
+//			function ( xhr ) {
+//				console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+//			},
+//			// called when loading has errors
+//			function ( error ) {
+//				console.log( 'An error happened' );
+//				document.getElementById('debug').value = error;
+//			}
+//		);
+
+	}
+
+
+	function createCylinder(scene, size,height, x, y, z, color ) {
+		cylinder = new THREE.Mesh(
+			//球のジオメトリ(size:半径, 垂直分割数:20, 水平分割数:20)
+			new THREE.CylinderGeometry(size, size, height, 20, 20),
+			//マテリアル （材質）
+			new THREE.MeshPhongMaterial({
+				//色（１６進数）
+				color: color,
+				metal: true,
+				shininess: 30
+			})
+		);
+		cylinder.castShadow = true;
+		cylinder.receiveShadow = true;
+		scene.add(cylinder);
+		cylinder.position.set(x, y, z);
+	}
+
+	function createSphere(scene, size , x, y, z, color ) {
+		sphere = new THREE.Mesh(
+			//球のジオメトリ(size:半径, 垂直分割数:20, 水平分割数:20)
+			new THREE.SphereGeometry(size, 20, 20),
+			//マテリアル （材質）
+			new THREE.MeshPhongMaterial({
+				//色（１６進数）
+				color: color,
+				metal: true,
+				shininess: 30
+			})
+		);
+		//影の設定
+		sphere.castShadow = true;
+		//影の設定　　　　　　　　
+		sphere.receiveShadow = true;
+		scene.add(sphere);                           
+		sphere.position.set(x, y, z);
+	}
+
+	function goalTexture(textureString) {
+
+		canvas = document.createElement( 'canvas' );
+//canvas = document.getElementById('canvas1');
+		canvas.width = 128;
+		canvas.height = 128;
+
+		context = canvas.getContext('2d');
+
+////		context.beginPath();
+//		context.strokeStyle = "#ffff00";
+//		context.lineWidth = 4.0;
+////		context.clearRect(0,0,100,100);
+//		context.strokeRect(0,0,128,128);
+//			context.stroke();
+////			context.fill();
+
+//		context.fillStyle = "#ffff00";
+		context.fillStyle = 'red';
+		context.font = "64px 'ＭＳ Ｐゴシック'";
+		context.textAlign = "center";
+		context.textBaseline = "middle";
+		context.fillText(textureString, canvas.width/2, canvas.height/2, 128);
+//		context.fillText("GOAL", 20,20);
+//		context.strokeText("GOAL", 0,0);
+
+		texture = new THREE.Texture( canvas ) ;
+		texture.needsUpdate = true;
+
+		return texture;
+	}
+
+	function createCube(scene, sx, sy, sz, x, y, z, color, textureString ) {
+//		var geometry = new THREE.BoxGeometry(sx, sy, sz);
+		var geometry = new THREE.CubeGeometry(sx, sy, sz);
+//				var material = new THREE.MeshBasicMaterial({color: 0x333333, wireframe: true});
+//		var material = new THREE.MeshBasicMaterial({color: color} );
+//		var material = new THREE.MeshPhongMaterial({color: color, metal: true, shininess:30} );
+//		var material = new THREE.MeshLambertMaterial({color: color, metal: true, shininess:30, transparent: true} );
+		var material;
+		if ( textureString == "" ) {
+			material = new THREE.MeshLambertMaterial({color: color} );
+		} else {
+
+			material = new THREE.MeshBasicMaterial({map: goalTexture(textureString)} );
+
+//			material = new THREE.MeshLambertMaterial({color: color} );
+		}
+
+		var cube = new THREE.Mesh(geometry, material);
+		cube.position.x = x;
+		cube.position.y = y;
+		cube.position.z = z;
+		//影の設定
+		cube.castShadow = true;
+		//影の設定　　　　　　　　
+		cube.receiveShadow = true;
+
+		if ( textureString ) {
+			cube.rotation.set(0,Math.PI/2,0);
+		}
+
+		scene.add(cube);
+
+		cubes[cubeNum++] = cube;
+
+	}
+
+	function createTama(scene, x, y, z, size, color) {
+
+		var i;
+		for ( i=0; i<30; i++ ){
+			if ( tamaArray[i] == null ) {
+				var geometry = new THREE.SphereGeometry(size);
+				var material = new THREE.MeshBasicMaterial({color: color} );
+				var tama = new THREE.Mesh(geometry, material);
+				tama.position.x = x;
+				tama.position.y = y;
+				tama.position.z = z;
+
+				tama.rotation.x = gunman.rotation.x;
+				tama.rotation.y = gunman.rotation.y;
+				tama.rotation.z = gunman.rotation.z;
+
+document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + gunman.rotation.y;
+
+				scene.add(tama);
+
+				tamaArray[i] = tama;
+				break;
+			}
+		}
+	}
+
+	function moveTama(scene, x,y,z) {
+		var i;
+		gunFire = false;
+//document.getElementById('debug').value = "moveTama():";
+		for ( i=0; i<30; i++ ) {
+			if ( tamaArray[i] != null ) {
+
+				tan = Math.tan(Math.PI/2 - tamaArray[i].rotation.y)
+
+				if ( tamaArray[i].rotation.y < Math.PI ) {
+					diffx = Math.sqrt( 1 / (1+tan*tan));
+					diffz = diffx * tan;
+				} else {
+					diffx = (-1) * Math.sqrt( 1 / (1+tan*tan));
+					diffz = diffx * tan;
+				}
+
+//diffx *= 0.1;
+//diffz *= 0.1;
+
+//x2 + y2 = 1
+//y2 = 1-x2
+//y/x = TAN
+//x2 * TAN2 = 1-x2
+//x2(1 + TAN2) = 1 
+
+//document.getElementById('debug').value += ", " + i;
+//				tamaArray[i].position.x += x;
+//				tamaArray[i].position.y += y;
+//				tamaArray[i].position.z += z;
+				tamaArray[i].position.x += diffx;
+				tamaArray[i].position.y += 0;
+				tamaArray[i].position.z += diffz;
+
+
+				if ( tamaArray[i].position.x > 30
+                                  || tamaArray[i].position.x < -30
+                                  || tamaArray[i].position.z > 30
+                                  || tamaArray[i].position.z < -30
+                                ) {
+					scene.remove(tamaArray[i]);
+					delete tamaArray[i];
+					tamaArray[i] = null;
+				} else {
+					gunFire = true;
+				}
+			}
+		}
+	}
+
+
+	function doMoveGunman(diffx,diffy,diffz, dropGunman, gunJumpHeight ) {
+
+		if ( gunman != null && cylinder != null ) {
+			gunman.position.x += diffx;
+			gunman.position.y += diffy;
+			gunman.position.z += diffz;
+
+			cylinder.position.x += diffx;
+			cylinder.position.y += diffy;
+			cylinder.position.z += diffz;
+
+			if ( dropGunman == true ) {
+				gunman.position.y   = 0.1 + gunJumpHeight;
+				cylinder.position.y = 0.0 + gunJumpHeight;
+			} else {
+				gunman.position.y   = 0.6 + gunJumpHeight;
+				cylinder.position.y = 0.5 + gunJumpHeight;
+			}
+		}
+	}
+
+	var alpha_ini = -1;
+	var beta_ini = -1;
+	var gamma_ini = -1;
+
+	var pre_diffX = 0, pre_diffX2 = 0;
+	var pre_diffZ = 0, pre_diffZ2 = 0;
+
+	var gunman_X=0;
+	var gunman_Z=0;
+
+	var gunJump = false;
+	var gunJumpCount = 0;
+        var GUNJUMPCOUNTMAX = 10;
+	var gunJumpHeight = 0;
+        var GUNJUMPHEIGHTMAX   = 1.5;
+
+	var gunmanGoalRotateY = 0;
+	var gunmanGoal = false;
+	var gunShootPoseCount = 0;
+
+	function moveGunman(alpha,beta,gamma){
+
+		if ( alpha_ini == -1 ) { alpha_ini = alpha; }
+		if ( beta_ini == -1 ) { beta_ini = beta; }
+		if ( gamma_ini == -1 ) { gamma_ini = gamma; }
+
+
+		var gx = Math.floor(gunman_X);
+		var gz = Math.floor(gunman_Z);
+
+		var gunmanDrop = false;
+//		gunmanGoal = false;
+
+		var cd;
+		try{
+			cd = [ 
+				 [cubeData[0][gx-1][gz-1], cubeData[0][gx-1][gz], cubeData[0][gx-1][gz+1], cubeData[0][gx-1][gz+2]]
+				,[cubeData[0][gx  ][gz-1], cubeData[0][gx  ][gz], cubeData[0][gx  ][gz+1], cubeData[0][gx  ][gz+2]]
+				,[cubeData[0][gx+1][gz-1], cubeData[0][gx+1][gz], cubeData[0][gx+1][gz+1], cubeData[0][gx+1][gz+2]]
+				,[cubeData[0][gx+2][gz-1], cubeData[0][gx+2][gz], cubeData[0][gx+2][gz+1], cubeData[0][gx+2][gz+2]]
+			];
+			document.getElementById('cd0').value = cd[0][0];
+			document.getElementById('cd1').value = cd[0][1];
+			document.getElementById('cd2').value = cd[0][2];
+			document.getElementById('cd3').value = cd[0][3];
+			document.getElementById('cd4').value = cd[1][0];
+			document.getElementById('cd5').value = cd[1][1];
+			document.getElementById('cd6').value = cd[1][2];
+			document.getElementById('cd7').value = cd[1][3];
+			document.getElementById('cd8').value = cd[2][0];
+			document.getElementById('cd9').value = cd[2][1];
+			document.getElementById('cdA').value = cd[2][2];
+			document.getElementById('cdB').value = cd[2][3];
+			document.getElementById('cdC').value = cd[3][0];
+			document.getElementById('cdD').value = cd[3][1];
+			document.getElementById('cdE').value = cd[3][2];
+			document.getElementById('cdF').value = cd[3][3];
+
+		} catch (exception) {
+			cd = [ [-1,-1,-1,-1]
+			      ,[-1,-1,-1,-1]
+			      ,[-1,-1,-1,-1]
+			      ,[-1,-1,-1,-1]
+			];
+
+		}
+
+		if ( cd[1][1]==0 && cd[1][2]==0 && cd[2][1]==0 && cd[2][2]==0 ) {
+			gunmanDrop = true;
+		}
+
+
+		if ( cd[1][1]==7 && cd[1][2]==7 && cd[2][1]==7 && cd[2][2]==7 ) {
+			gunmanGoal = true;
+//			el_time_label.style.top = div_top + 50;
+//			game.end(100, "ゲームオーバ");
+		}
+
+		gunJumpHeight = 0;
+		if ( gunJump ) {
+			gunJumpCount--;
+//mySleep(0.1);
+			if ( gunJumpCount == 0 ) {
+				gunJump = false;
+			} else {
+				var A = GUNJUMPCOUNTMAX;
+				var B = GUNJUMPHEIGHTMAX;
+				gunJumpHeight = (-1) * (gunJumpCount-A/2)*(gunJumpCount-A/2)* B /(A/2)/(A/2) + B;
+			}
+		}
+
+		var diffX = (-1) *  Math.sin( (beta - beta_ini) * 2 * Math.PI /360) / 5 ;
+		var diffZ = Math.sin( (gamma - gamma_ini) * 2 * Math.PI /360) / 5 ;
+
+		var tot_diffX = pre_diffX2 + pre_diffX + diffX;
+		var tot_diffZ = pre_diffZ2 + pre_diffZ + diffZ;
+
+		var tmp_gunman_X = gunman_X - tot_diffX;
+		var tmp_gunman_Z = gunman_Z + tot_diffZ;
+		var floor_gunman_X = Math.floor(gunman_X);
+		var floor_tmp_gunman_X = Math.floor(tmp_gunman_X);
+		var floor_gunman_Z = Math.floor(gunman_Z);
+		var floor_tmp_gunman_Z = Math.floor(tmp_gunman_Z);
+
+		var ceil_gunman_X = Math.ceil(gunman_X);
+		var ceil_tmp_gunman_X = Math.ceil(tmp_gunman_X);
+		var ceil_gunman_Z = Math.ceil(gunman_Z);
+		var ceil_tmp_gunman_Z = Math.ceil(tmp_gunman_Z);
+
+		var gtx = floor_tmp_gunman_X;
+		var gtz = floor_tmp_gunman_Z;
+
+//		if ( diffX > 0 && (cubeData[0][gtx][gtz] == 9 || cubeData[0][gtx][gtz+1] == 9 ) ) {
+		if ( diffX > 0 && (cubeData[0][gx-1][gz] == 9 || cubeData[0][gx-1][gz+1] == 9 ) ) {
+			if ( gtx != gx ) { tot_diffX = 0; }
+		}
+
+//		if ( diffX < 0 && (cubeData[0][gtx+1][gtz] == 9 || cubeData[0][gtx+1][gtz+1] == 9 ) ) {
+		if ( diffX < 0 && (cubeData[0][gx+2][gz] == 9 || cubeData[0][gx+2][gz+1] == 9 ) ) {
+			if ( gtx != gx ) { tot_diffX = 0; }
+		}
+
+//		if ( diffZ > 0 && (cubeData[0][gtx][gtz+1] == 9 || cubeData[0][gtx+1][gtz+1] == 9 ) ) {
+		if ( diffZ > 0 && (cubeData[0][gx][gz+2] == 9 || cubeData[0][gx+1][gz+2] == 9 ) ) {
+			if ( gtz != gz ) { tot_diffZ = 0; }
+		}
+
+//		if ( diffZ < 0 && (cubeData[0][gtx][gtz] == 9 || cubeData[0][gtx+1][gtz] == 9 ) ) {
+		if ( diffZ < 0 && (cubeData[0][gx][gz-1] == 9 || cubeData[0][gx+1][gz-1] == 9 ) ) {
+			if ( gtz != gz ) { tot_diffZ = 0; }
+		}
+
+//		if ( cubeData[0][gtx][gtz] == 9 || cubeData[0][gtx][gtz+1] == 9 
+//                  || cubeData[0][gtx+1][gtz] == 9 || cubeData[0][gtx+1][gtz+1] == 9
+//                ) {
+//			if ( gtx != gx ) { tot_diffX = 0; }
+//			if ( gtz != gz ) { tot_diffZ = 0; }
+//		}
+
+
+		if ( gunmanDrop 
+			&& ( cubeData[0][gtx][gtz] != 0 || cubeData[0][gtx][gtz+1] != 0 
+	                  || cubeData[0][gtx+1][gtz] != 0 || cubeData[0][gtx+1][gtz+1] != 0 ) 
+			&& ( gunJumpHeight < 1.0 )
+		) {
+			if ( gtx != gx ) { tot_diffX = 0; }
+			if ( gtz != gz ) { tot_diffZ = 0; }
+		}
+
+//		moveCubes(tot_diffX, 0,  tot_diffZ);
+
+		if ( !gunmanGoal ) {
+			doMoveGunman(-1 * tot_diffX, 0, -1 * tot_diffZ, gunmanDrop, gunJumpHeight);
+		} else {
+			//ガンマンがゴールしたら、もう、動かない
+
+			diffX = diffY = 0;
+			tot_diffX = tot_diffZ = 0;
+
+		}
+
+		//gunmanの座標。左上のボックスを(0,0)とする。diffXの方向と逆になってる。
+		gunman_X -= tot_diffX;
+		gunman_Z += tot_diffZ;
+
+		document.getElementById('gunman_X').value = gunman_X;
+		document.getElementById('gunman_Z').value = gunman_Z;
+
+		var rotateY = Math.atan2(diffX, diffZ) + Math.PI;
+
+		if ( gunman != null ) {
+			if ( ! gunmanGoal ) {
+				gunman.rotation.set(0, rotateY,  0);
+			} else {
+				// ガンマンがゴールした (クルクル回る)
+				gunmanGoalRotateY += 10;
+				gunman.rotation.set(0, gunmanGoalRotateY,  0);
+			}
+		}
+
+		pre_diffX2 = pre_diffX;
+		pre_diffZ2 = pre_diffZ;
+
+		pre_diffX = diffX;
+		pre_diffZ = diffZ;
+
+	}
+
+	function moveCubes(x,y,z) {
+		var i;
+		for ( i=0; i<cubeNum; i++ ) {
+			cubes[i].position.x += x;
+			cubes[i].position.y += y;
+			cubes[i].position.z += z;
+		}
+	}
+
+	function render() {
+
+		if ( gunman != null ) {
+	            	camera.position.x = gunman.position.x + 10;
+	             	camera.position.y = 10;
+	             	camera.position.z = gunman.position.z + 0;
+			camera.lookAt( {x: gunman.position.x , y: 0, z: gunman.position.z} );
+		} else {
+	            	camera.position.x = 10;
+	             	camera.position.y = 10;
+	             	camera.position.z = 0;
+			camera.lookAt( {x: 0 , y: 0, z: 0} );
+		}
+
+		renderer.render( scene, camera );
+	}
+
+	enchant();
+
+	var cubes  = new Array(500);
+	var cubeNum = 0;
+// 	var camera, scene, renderer;
+	var buttonJ,buttonG;
+
+	var gunmanGoalTimeStr = "";
+
+	buttonJ = new Sprite(60,60);
+	buttonG = new Sprite(60,60);
+
+
+	init();
+
+	game = new Game( window.innerWidth, window.innerHeight );
+
+	game.preload("buttonJ.png");
+	game.preload("buttonG.png");
+
+	game.fps = 60;
+	game.onload = function(){
+//		document.getElementById("div").style.position="relative";
+		document.getElementById("time_label").style.display="block";
+
+	        var gunmanSpriteDummy = new Sprite(10, 10);
+
+		for (i=0; i<cubeData[0].length; i++) {
+			for (j=0; j<cubeData[0][i].length; j++) {
+				if ( cubeData[0][i][j] == 8 ) {
+					//gunman Start Position
+					//gunmanの座標。左上のボックスを(0,0)とする
+					gunman_X = i;
+					gunman_Z = j;
+				}
+			}
+		}
+
+		for (i=0; i<cubeData[0].length; i++) {
+			for (j=0; j<cubeData[0][i].length; j++) {
+
+				//THREE.js の座標軸(x,y,z)に換算。
+				//  x : 縦軸。下方向がプラス
+				//  y : 画面に垂直な軸。手前がプラス
+				//  z : 横軸。右方向がプラス
+//				x = -cubeData[0].length + i;
+//				y = 0;
+//				z = cubeData[0][i].length/2 -j;
+				x = -gunman_X + i;
+				y = 0;
+				z = gunman_Z -j;
+
+				if ( cubeData[0][i][j] == 1 || cubeData[0][i][j] == 8 ) {
+					if ( (i + j) % 2 == 0 ) {
+						createCube(scene, 1,1,1, x,y,z, 0x884444, "");
+					} else {
+						createCube(scene, 1,1,1, x,y,z, 0x444488, "");
+					}
+				}
+				else if ( cubeData[0][i][j] == 9 ) {   // 壁
+					if ( (i + j) % 2 == 0 ) {
+						createCube(scene, 1, 2.1, 1, x,y+(2.1 - 1.0)/2, z, 0x777777, "");
+					} else {
+						createCube(scene, 1, 2.1, 1, x,y+(2.1 - 1.0)/2, z, 0x77cc77, "");
+					}
+				}
+				else if ( cubeData[0][i][j] == 7 ) {   // ゴール
+//						createCube(scene, 1,1.5,1, x,y+(1.5 - 1.0)/2, z, 0x0000ff, "GOAL");
+//						createCube(scene, 1,1.5,1, x,3, z, 0x0000ff, "GOAL");
+						createCube(scene, 1,1,1, x, y, z, 0x0000ff, " GOAL ");
+				}
+
+				if ( cubeData[0][i][j] == 8 ) {
+					//gunman Start Position
+					createCylinder(scene, 0.5,0.1, x,0.5,z, 0xff0000);
+					createGunman(scene, x,0.6,z);
+
+					//gunmanの座標。左上のボックスを(0,0)とする
+					gunman_X = i;
+					gunman_Z = j;
+					document.getElementById('gunman_X').value = gunman_X;
+					document.getElementById('gunman_Z').value = gunman_Z;
+				}
+			}
+		}
+
+
+//		var pre_rotateY = -Math.PI/2;
+
+		gunmanSpriteDummy.addEventListener(enchant.Event.ENTER_FRAME, function(){
+
+			try {
+//				moveCubes(0, 0, 0);
+
+//				rotateY = (pre_rotateY + 0.01);
+//				gunman.rotation.set(0, rotateY,  0);
+//				pre_rotateY = rotateY
+
+//				var progress_time = parseInt(game.frame/game.fps);
+//				var limit_time_str = (10000 - progress_time + "");
+//				var progress_time = game.frame/game.fps;
+//				var limit_time_str = (10000 - progress_time + "").slice(0,-11);   //9999.1xxxxxxxxxxx
+				var progress_time = game.frame/game.fps;
+				var progress_time_str = "Time : " + ("0000" + progress_time.toFixed(3)).slice(-8);   //9999.12xxxxxxxxxx
+				var limit_time_str = (10000 - progress_time).toFixed(3);   //9999.12xxxxxxxxxx
+
+				if ( gunmanGoal && gunmanGoalTimeStr == "" ) {
+					gunmanGoalTimeStr = progress_time_str;
+				}
+				if ( gunmanGoalTimeStr == "" ) {
+
+//					document.getElementById('time_limit').value = "" + limit_time_str;
+					document.getElementById('progress_time').value = "" + progress_time_str;
+				} else {
+//					document.getElementById('progress_time').value = "goal!! " + gunmanGoalTimeStr + "Goooooooal!!!!";
+					document.getElementById('progress_time').value = "" + gunmanGoalTimeStr;
+					document.getElementById("time_label").style.display="none";
+
+					document.getElementById('goal_message').value = "goal!!\n" + gunmanGoalTimeStr + "\nabcde";
+					document.getElementById("goal_message_span").style.display="block";
+
+				}
+
+				moveTama(scene, 0.3, 0, 0);
+
+				if ( gunShootPoseCount > 0 ) {
+					if (--gunShootPoseCount == 0 ) {
+						loadVpdStandard()
+					}
+				}
+
+				render();
+			} catch (exception) {
+				document.getElementById('debug').value = exception;
+			}
+		});
+ 
+	        game.rootScene.addChild(gunmanSpriteDummy);
+
+//		var time_label = new Label("aaa");
+//		time_label.x = 30;
+//		time_label.y = 400;
+//		time_label.font = "16px monospace";
+//		time_label.backgroundColor = "rgba(128,128,128,0.8)";
+////                time_label.opacity = 0.5;
+//		time_label.color = "#888888";
+////		time_label.text="bbbbb";
+
+////		time_label.addEventListener(enchant.Event.ENTER_FRAME, function(){
+////			var progress_time = parseInt(game.frame/game.fps);
+////			var limit_time_str = 10000 - progress_time + "";
+//////			this.text = "time_limit: " + limit_time_str;
+////			document.getElementById('time_limit').value = "time_limit: " + limit_time_str;
+////		});
+//		game.rootScene.addChild(time_label);
+
+		buttonJ.image = game.assets["buttonJ.png"];
+//	        buttonJ.x = 100;
+//	        buttonJ.y = window.innerHeight-100;
+	        buttonJ.scaleX = buttonJ.scaleY = 2;
+		game.rootScene.addChild(buttonJ);
+
+		buttonG.image = game.assets["buttonG.png"];
+//	        buttonG.x = window.innerWidth-160;
+//	        buttonG.y = window.innerHeight-100;
+	        buttonG.scaleX = buttonG.scaleY = 2;
+		game.rootScene.addChild(buttonG);
+
+		//「Ｇ」ボタン
+		buttonG.addEventListener("touchstart", function(e) { 
+			try{
+document.getElementById('debug').value = "G touched";
+//				gunFire = true;
+//				createTama(scene, 0.8, 0.2 - (gunJumpHeight*1), 0.2, 0.1, 0x333333);
+				createTama(scene, gunman.position.x + 0.1, gunman.position.y + 2, gunman.position.z + 0.1 , 0.1, 0x333333);
+
+//				loadVpdStandard()
+				loadVpdShoot()
+				gunShootPoseCount=40;
+
+			} catch (exception) {
+document.getElementById('debug').value = exception;
+			}
+		}); // タッチ開始
+
+		//「Ｊ」ボタン
+		buttonJ.addEventListener("touchstart", function(e) { 
+			try{
+				gunJump = true;
+				gunJumpCount = GUNJUMPCOUNTMAX;
+			} catch (exception) {
+document.getElementById('debug').value = exception;
+			}
+		}); // タッチ開始
+
+
+//-------------------------------------
+// ui.enchant.js を使ったタイマの例
+//
+//var timeLabelUp = null;
+//var timeLabelDown = null;
+//    
+//timeLabelUp = new TimeLabel(10,10);
+//timeLabelUp.time = 0;
+//game.rootScene.addChild(timeLabelUp);
+// 
+//timeLabelDown = new TimeLabel(10,40, "countdown");
+//timeLabelDown.time = 60;
+//game.rootScene.addChild(timeLabelDown);
+//-------------------------------------
+
+//------------------------
+// div_top(window.getElementById('div').offsetTop)でオフセット調整すれば、表示可能
+//
+//var label1 = new Label("aaaa");
+//label1.x = 100;
+//label1.y = div_top + 50;
+//label1.font = "16px Palatino"
+//game.rootScene.addChild(label1);
+//------------------------
+
+//		game.rootScene.onenterframe = function() {
+//			if (gunmanGoal) {
+//				game.end(1000, 1000 + "point!!");
+//			}
+//		};
+
+		onWindowResize();
+
+	};
+
+	game.start();
+
+	window.addEventListener("deviceorientation", handleOrientation, true);
+
+	function handleOrientation(event){
+		var alpha    = event.alpha;
+		var beta     = event.beta;
+		var gamma    = event.gamma;
+		document.getElementById('alpha').value = alpha;
+		document.getElementById('beta').value = beta;
+		document.getElementById('gamma').value = gamma;
+
+		moveGunman(alpha, beta, gamma);
+	}
+
+</script>
+
+</body>
+</html>

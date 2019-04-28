@@ -111,10 +111,19 @@ if ( p == "on" ) {
 
 <style>
 span.time_label {position:absolute; top:10px; left:10px; }
+span.goal_message_span {position:absolute; top:50px; left:100px; }
 </style>
 <div id="div">
 <span class="time_label" id="time_label" style="display:none;">
 <input type="text" size="13" id="progress_time" style=" color:#ffffff; background-color:rgba(128,128,128,0.8); font-size:40px; text-align:center; ">
+</span>
+</div>
+
+<div id="textarea1">
+<span class="goal_message_span" id="goal_message_span" style="display:none;overflow:auto;">
+<textarea id="goal_message" style=" color:#ffffff; background-color:rgba(128,128,128,0.8); font-size:40px; text-align:center; ">
+textarea for goal message
+</textarea>
 </span>
 </div>
 
@@ -307,6 +316,10 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 		div_top = container.offsetTop;
 		el_time_label = document.getElementById('time_label');
 		el_time_label.style.top = div_top + 10;
+
+		el_goal_message_span = document.getElementById('goal_message_span');
+		el_goal_message_span.style.top = div_top + 10;
+		el_goal_message_span.style.left = 20;
 
 		camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
 		camera.aspect = window.innerWidth / window.innerHeight;
@@ -989,7 +1002,13 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 //					document.getElementById('time_limit').value = "" + limit_time_str;
 					document.getElementById('progress_time').value = "" + progress_time_str;
 				} else {
-					document.getElementById('progress_time').value = "goal!! " + gunmanGoalTimeStr + "Goooooooal!!!!";
+//					document.getElementById('progress_time').value = "goal!! " + gunmanGoalTimeStr + "Goooooooal!!!!";
+					document.getElementById('progress_time').value = "" + gunmanGoalTimeStr;
+					document.getElementById("time_label").style.display="none";
+
+					document.getElementById('goal_message').value = "goal!!\n Time : " + gunmanGoalTimeStr + "\nabcde";
+					document.getElementById("goal_message_span").style.display="block";
+
 				}
 
 				moveTama(scene, 0.3, 0, 0);

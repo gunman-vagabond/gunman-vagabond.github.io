@@ -189,6 +189,14 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 
 </center>
 
+<script>
+						$.ajax({
+							type: "POST",
+							url: "http://fc.jpn.org/ryuba/gunman/enchant.js/SlipGunman/score/score.php",
+							async: true,
+							data:"score="+"100"
+						});
+</script>
 
 <script type="text/javascript">
         var game;
@@ -1057,7 +1065,7 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 
 						$.ajax({
 							type: "POST",
-							url: "http://fc.jpn.org/ryuba/gunman/score/score.php",
+							url: "http://fc.jpn.org/ryuba/gunman/enchant.js/SlipGunman/score/score.php",
 							async: true,
 							data:"score="+gunmanGoalTimeStr
 						});

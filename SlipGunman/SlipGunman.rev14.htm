@@ -707,6 +707,30 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 	var gunmanGoal = false;
 	var gunShootPoseCount = 0;
 
+	function initParams() {
+		alpha_ini = -1;
+		beta_ini = -1;
+		gamma_ini = -1;
+
+		pre_diffX = 0;
+		pre_diffX2 = 0;
+		pre_diffZ = 0;
+		pre_diffZ2 = 0;
+
+		gunman_X=0;
+		gunman_Z=0;
+
+		gunJump = false;
+		gunJumpCount = 0;
+        	GUNJUMPCOUNTMAX = 10;
+		gunJumpHeight = 0;
+        	GUNJUMPHEIGHTMAX   = 1.5;
+
+		gunmanGoalRotateY = 0;
+		gunmanGoal = false;
+		gunShootPoseCount = 0;
+	}
+
 	function moveGunman(alpha,beta,gamma){
 
 		if ( alpha_ini == -1 ) { alpha_ini = alpha; }
@@ -921,6 +945,11 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 	window.addEventListener( 'resize', onWindowResize, false );
 	onWindowResize()
 
+	initParams();
+
+
+function startGame() {
+
 	game = new Game( window.innerWidth, window.innerHeight );
 
 	game.preload("buttonJ.png");
@@ -994,22 +1023,9 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 			}
 		}
 
-
-//		var pre_rotateY = -Math.PI/2;
-
 		gunmanSpriteDummy.addEventListener(enchant.Event.ENTER_FRAME, function(){
 
 			try {
-//				moveCubes(0, 0, 0);
-
-//				rotateY = (pre_rotateY + 0.01);
-//				gunman.rotation.set(0, rotateY,  0);
-//				pre_rotateY = rotateY
-
-//				var progress_time = parseInt(game.frame/game.fps);
-//				var limit_time_str = (10000 - progress_time + "");
-//				var progress_time = game.frame/game.fps;
-//				var limit_time_str = (10000 - progress_time + "").slice(0,-11);   //9999.1xxxxxxxxxxx
 				var progress_time = game.frame/game.fps;
 				var progress_time_str = "Time : " + ("0000" + progress_time.toFixed(3)).slice(-8);   //9999.12xxxxxxxxxx
 				var limit_time_str = (10000 - progress_time).toFixed(3);   //9999.12xxxxxxxxxx
@@ -1017,7 +1033,7 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 				if ( gunmanGoal && gunmanGoalTimeStr == "" ) {
 					gunmanGoalTimeStr = progress_time_str;
 				}
-				if ( gunmanGoalTimeStr == "" ) {
+				if ( ! gunmanGoal ) {
 
 //					document.getElementById('time_limit').value = "" + limit_time_str;
 					document.getElementById('progress_time').value = "" + progress_time_str;
@@ -1051,23 +1067,6 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
  
 	        game.rootScene.addChild(gunmanSpriteDummy);
 
-//		var time_label = new Label("aaa");
-//		time_label.x = 30;
-//		time_label.y = 400;
-//		time_label.font = "16px monospace";
-//		time_label.backgroundColor = "rgba(128,128,128,0.8)";
-////                time_label.opacity = 0.5;
-//		time_label.color = "#888888";
-////		time_label.text="bbbbb";
-
-////		time_label.addEventListener(enchant.Event.ENTER_FRAME, function(){
-////			var progress_time = parseInt(game.frame/game.fps);
-////			var limit_time_str = 10000 - progress_time + "";
-//////			this.text = "time_limit: " + limit_time_str;
-////			document.getElementById('time_limit').value = "time_limit: " + limit_time_str;
-////		});
-//		game.rootScene.addChild(time_label);
-
 		buttonJ.image = game.assets["buttonJ.png"];
 //	        buttonJ.x = 100;
 //	        buttonJ.y = window.innerHeight-100;
@@ -1084,8 +1083,6 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 		buttonG.addEventListener("touchstart", function(e) { 
 			try{
 document.getElementById('debug').value = "G touched";
-//				gunFire = true;
-//				createTama(scene, 0.8, 0.2 - (gunJumpHeight*1), 0.2, 0.1, 0x333333);
 				createTama(scene, gunman.position.x + 0.1, gunman.position.y + 2, gunman.position.z + 0.1 , 0.1, 0x333333);
 
 //				loadVpdStandard()
@@ -1107,43 +1104,15 @@ document.getElementById('debug').value = exception;
 			}
 		}); // タッチ開始
 
-
-//-------------------------------------
-// ui.enchant.js を使ったタイマの例
-//
-//var timeLabelUp = null;
-//var timeLabelDown = null;
-//    
-//timeLabelUp = new TimeLabel(10,10);
-//timeLabelUp.time = 0;
-//game.rootScene.addChild(timeLabelUp);
-// 
-//timeLabelDown = new TimeLabel(10,40, "countdown");
-//timeLabelDown.time = 60;
-//game.rootScene.addChild(timeLabelDown);
-//-------------------------------------
-
-//------------------------
-// div_top(window.getElementById('div').offsetTop)でオフセット調整すれば、表示可能
-//
-//var label1 = new Label("aaaa");
-//label1.x = 100;
-//label1.y = div_top + 50;
-//label1.font = "16px Palatino"
-//game.rootScene.addChild(label1);
-//------------------------
-
-//		game.rootScene.onenterframe = function() {
-//			if (gunmanGoal) {
-//				game.end(1000, 1000 + "point!!");
-//			}
-//		};
-
 		onWindowResize();
 
 	};
 
 	game.start();
+
+}
+
+	startGame();
 
 	window.addEventListener("deviceorientation", handleOrientation, true);
 

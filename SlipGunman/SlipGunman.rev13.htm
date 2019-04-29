@@ -194,7 +194,7 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
         var game;
  	var camera, scene, renderer;
 	var tamaArray  = new Array(30);
-	var init_gunman_x, init_gunman_y;
+	var init_gunman_X, init_gunman_Z;
 
 	for ( i=0; i<30; i++) {
 		tamaArray[i] = null;
@@ -982,12 +982,12 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 					//gunman Start Position
 					createCylinder(scene, 0.5,0.1, x,0.5,z, 0xff0000);
 					createGunman(scene, x,0.6,z);
-					init_gunman_x = x;
-					init_gunman_y = y;
 
 					//gunmanの座標。左上のボックスを(0,0)とする
 					gunman_X = i;
 					gunman_Z = j;
+					init_gunman_X = gunman_X;
+					init_gunman_Z = gunman_Z;
 					document.getElementById('gunman_X').value = gunman_X;
 					document.getElementById('gunman_Z').value = gunman_Z;
 				}
@@ -1161,7 +1161,8 @@ document.getElementById('debug').value = exception;
 	function restart(){
 		gunmanGoal = false;
 		game.frame = 0;
-		gunman.position.set(init_gunman_x, 0.6, init_gunman_z)
+		gunman_X = init_gunman_X;
+		gunman_Z = init_gunman_Z;
 	}
 
 </script>

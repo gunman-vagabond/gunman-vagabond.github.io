@@ -122,7 +122,7 @@ span.goal_message_span {position:absolute; top:50px; left:100px; }
 <div id="textarea1">
 <!--<span class="goal_message_span" id="goal_message_span" style="display:none;overflow:auto;">-->
 <span class="goal_message_span" id="goal_message_span" style="display:block;overflow:auto;">
-<table  style=" color:#ffffff; background-color:rgba(128,128,128,0.8); font-size:40px; text-align:center; ">
+<table  style=" color:#ffffff; background-color:rgba(128,128,128,0.8); font-size:40px monospace; text-align:center; ">
 <tr>
 <td  id="goal_message">
 abcde
@@ -1022,7 +1022,7 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 
 					document.getElementById('goal_message').value = "goal!!\n" + gunmanGoalTimeStr + "\nabcde";
 
-					document.getElementById('goal_message').innerHTML = "goal!!\n" + gunmanGoalTimeStr + "\nabcde";
+					document.getElementById('goal_message').innerHTML = "goal!!<br>" + gunmanGoalTimeStr + "<br>abcde";
 
 
 					document.getElementById("goal_message_span").style.display="block";

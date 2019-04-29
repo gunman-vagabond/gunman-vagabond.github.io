@@ -1034,7 +1034,7 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 
 				try {
 					var progress_time = game.frame/game.fps;
-					var progress_time_str = "Time : " + ("0000" + progress_time.toFixed(3)).slice(-8);   //9999.12xxxxxxxxxx
+					var progress_time_str = "" + ("0000" + progress_time.toFixed(3)).slice(-8);   //9999.12xxxxxxxxxx
 					var limit_time_str = (10000 - progress_time).toFixed(3);   //9999.12xxxxxxxxxx
 
 					if ( gunmanGoal && gunmanGoalTimeStr == "" ) {
@@ -1043,7 +1043,7 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 					if ( ! gunmanGoal ) {
 
 //						document.getElementById('time_limit').value = "" + limit_time_str;
-						document.getElementById('progress_time').value = "" + progress_time_str;
+						document.getElementById('progress_time').value = "Time : " + progress_time_str;
 					} else {
 //						document.getElementById('progress_time').value = "goal!! " + gunmanGoalTimeStr + "Goooooooal!!!!";
 						document.getElementById('progress_time').value = "" + gunmanGoalTimeStr;
@@ -1051,9 +1051,16 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 
 //						document.getElementById('goal_message').value = "goal!!\n" + gunmanGoalTimeStr;
 
-						document.getElementById('goal_message').innerHTML = "goal!!<br>" + gunmanGoalTimeStr;
+						document.getElementById('goal_message').innerHTML = "goal!!<br>Time : " + gunmanGoalTimeStr;
 
 						document.getElementById("goal_message_span").style.display="block";
+
+						$.ajax({
+							type: "POST",
+							url: "http://fc.jpn.org/ryuba/gunman/score/score.php",
+							async: true,
+							data:"score="+gunmanGoalTimeStr;
+						});
 
 					}
 

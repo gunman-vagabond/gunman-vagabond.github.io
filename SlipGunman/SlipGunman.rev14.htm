@@ -121,7 +121,7 @@ span.goal_message_span {position:absolute; top:50px; left:100px; }
 
 <div id="textarea1">
 <!--<span class="goal_message_span" id="goal_message_span" style="display:none;overflow:auto;">-->
-<span class="goal_message_span" id="goal_message_span" style="display:block;overflow:auto;">
+<span class="goal_message_span" id="goal_message_span" style="display:none;overflow:auto;">
 <table  style=" color:#ffffff; background-color:rgba(128,128,128,0.8); font-size:40px; font-family:sans-serif;">
 <tr>
 <td  id="goal_message">
@@ -708,6 +708,8 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 	var gunmanGoal = false;
 	var gunShootPoseCount = 0;
 
+	var gunmanGoalTimeStr = "";
+
 	function initParams() {
 		alpha_ini = -1;
 		beta_ini = -1;
@@ -730,6 +732,8 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 		gunmanGoalRotateY = 0;
 		gunmanGoal = false;
 		gunShootPoseCount = 0;
+
+		gunmanGoalTimeStr = "";
 	}
 
 	function moveGunman(alpha,beta,gamma){
@@ -935,7 +939,6 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 // 	var camera, scene, renderer;
 	var buttonJ,buttonG;
 
-	var gunmanGoalTimeStr = "";
 
 	buttonJ = new Sprite(60,60);
 	buttonG = new Sprite(60,60);
@@ -1046,9 +1049,9 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 						document.getElementById('progress_time').value = "" + gunmanGoalTimeStr;
 						document.getElementById("time_label").style.display="none";
 
-						document.getElementById('goal_message').value = "goal!!\n" + gunmanGoalTimeStr + "\nabcde";
+//						document.getElementById('goal_message').value = "goal!!\n" + gunmanGoalTimeStr;
 
-						document.getElementById('goal_message').innerHTML = "goal!!<br>" + gunmanGoalTimeStr + "<br>abcde";
+						document.getElementById('goal_message').innerHTML = "goal!!<br>" + gunmanGoalTimeStr;
 
 						document.getElementById("goal_message_span").style.display="block";
 
@@ -1144,6 +1147,7 @@ document.getElementById('debug').value = exception;
 		gunman.position.set(init_gunman_position_x, init_gunman_position_y, init_gunman_position_z);
 		gunman_X = init_gunman_X;
 		gunman_Z = init_gunman_Z;
+		cylinder.position.set(init_gunman_position_x, init_gunman_position_y - 0.1, init_gunman_position_z);
 
 		game.frame = 0;
 		document.getElementById("time_label").style.display="block";

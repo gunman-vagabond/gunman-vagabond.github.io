@@ -1107,11 +1107,13 @@ document.getElementById('debug').value = exception;
 
 		};
 
-		game.start();
+//		game.start();
 
 	}  // end of function startGame()
 
 	startGame();
+
+	game.start();
 
 	window.addEventListener("deviceorientation", handleOrientation, true);
 
@@ -1132,8 +1134,8 @@ document.getElementById('debug').value = exception;
 
 		initParams();
 
-		game.end();
-		satrtGame()
+//		game.end();
+//		startGame()
 
 		game.frame = 0;
 		document.getElementById("time_label").style.display="block";

@@ -948,169 +948,168 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 	initParams();
 
 
-function startGame() {
+	function startGame() {
 
-	game = new Game( window.innerWidth, window.innerHeight );
+		game = new Game( window.innerWidth, window.innerHeight );
 
-	game.preload("buttonJ.png");
-	game.preload("buttonG.png");
+		game.preload("buttonJ.png");
+		game.preload("buttonG.png");
 
-	game.fps = 60;
-	game.onload = function(){
-//		document.getElementById("div").style.position="relative";
-		document.getElementById("time_label").style.display="block";
+		game.fps = 60;
+		game.onload = function(){
+//			document.getElementById("div").style.position="relative";
+			document.getElementById("time_label").style.display="block";
 
-	        var gunmanSpriteDummy = new Sprite(10, 10);
+	        	var gunmanSpriteDummy = new Sprite(10, 10);
 
-		for (i=0; i<cubeData[0].length; i++) {
-			for (j=0; j<cubeData[0][i].length; j++) {
-				if ( cubeData[0][i][j] == 8 ) {
-					//gunman Start Position
-					//gunmanの座標。左上のボックスを(0,0)とする
-					gunman_X = i;
-					gunman_Z = j;
+			for (i=0; i<cubeData[0].length; i++) {
+				for (j=0; j<cubeData[0][i].length; j++) {
+					if ( cubeData[0][i][j] == 8 ) {
+						//gunman Start Position
+						//gunmanの座標。左上のボックスを(0,0)とする
+						gunman_X = i;
+						gunman_Z = j;
+					}
 				}
 			}
-		}
 
-		for (i=0; i<cubeData[0].length; i++) {
-			for (j=0; j<cubeData[0][i].length; j++) {
+			for (i=0; i<cubeData[0].length; i++) {
+				for (j=0; j<cubeData[0][i].length; j++) {
 
-				//THREE.js の座標軸(x,y,z)に換算。
-				//  x : 縦軸。下方向がプラス
-				//  y : 画面に垂直な軸。手前がプラス
-				//  z : 横軸。右方向がプラス
-//				x = -cubeData[0].length + i;
-//				y = 0;
-//				z = cubeData[0][i].length/2 -j;
-				x = -gunman_X + i;
-				y = 0;
-				z = gunman_Z -j;
+					//THREE.js の座標軸(x,y,z)に換算。
+					//  x : 縦軸。下方向がプラス
+					//  y : 画面に垂直な軸。手前がプラス
+					//  z : 横軸。右方向がプラス
+//					x = -cubeData[0].length + i;
+//					y = 0;
+//					z = cubeData[0][i].length/2 -j;
+					x = -gunman_X + i;
+					y = 0;
+					z = gunman_Z -j;
 
-				if ( cubeData[0][i][j] == 1 || cubeData[0][i][j] == 8 ) {
-					if ( (i + j) % 2 == 0 ) {
-						createCube(scene, 1,1,1, x,y,z, 0x884444, "");
+					if ( cubeData[0][i][j] == 1 || cubeData[0][i][j] == 8 ) {
+						if ( (i + j) % 2 == 0 ) {
+							createCube(scene, 1,1,1, x,y,z, 0x884444, "");
+						} else {
+							createCube(scene, 1,1,1, x,y,z, 0x444488, "");
+						}
+					}
+					else if ( cubeData[0][i][j] == 9 ) {   // 壁
+						if ( (i + j) % 2 == 0 ) {
+							createCube(scene, 1, 2.1, 1, x,y+(2.1 - 1.0)/2, z, 0x777777, "");
+						} else {
+							createCube(scene, 1, 2.1, 1, x,y+(2.1 - 1.0)/2, z, 0x77cc77, "");
+						}
+					}
+					else if ( cubeData[0][i][j] == 7 ) {   // ゴール
+//							createCube(scene, 1,1.5,1, x,y+(1.5 - 1.0)/2, z, 0x0000ff, "GOAL");
+//							createCube(scene, 1,1.5,1, x,3, z, 0x0000ff, "GOAL");
+							createCube(scene, 1,1,1, x, y, z, 0x0000ff, " GOAL ");
+					}
+
+					if ( cubeData[0][i][j] == 8 ) {
+						//gunman Start Position
+						createCylinder(scene, 0.5,0.1, x,0.5,z, 0xff0000);
+						createGunman(scene, x,0.6,z);
+
+						//gunmanの座標。左上のボックスを(0,0)とする
+						gunman_X = i;
+						gunman_Z = j;
+						init_gunman_X = gunman_X;
+						init_gunman_Z = gunman_Z;
+						document.getElementById('gunman_X').value = gunman_X;
+						document.getElementById('gunman_Z').value = gunman_Z;
+					}
+				}
+			}
+
+			gunmanSpriteDummy.addEventListener(enchant.Event.ENTER_FRAME, function(){
+
+				try {
+					var progress_time = game.frame/game.fps;
+					var progress_time_str = "Time : " + ("0000" + progress_time.toFixed(3)).slice(-8);   //9999.12xxxxxxxxxx
+					var limit_time_str = (10000 - progress_time).toFixed(3);   //9999.12xxxxxxxxxx
+
+					if ( gunmanGoal && gunmanGoalTimeStr == "" ) {
+						gunmanGoalTimeStr = progress_time_str;
+					}
+					if ( ! gunmanGoal ) {
+
+//						document.getElementById('time_limit').value = "" + limit_time_str;
+						document.getElementById('progress_time').value = "" + progress_time_str;
 					} else {
-						createCube(scene, 1,1,1, x,y,z, 0x444488, "");
+//						document.getElementById('progress_time').value = "goal!! " + gunmanGoalTimeStr + "Goooooooal!!!!";
+						document.getElementById('progress_time').value = "" + gunmanGoalTimeStr;
+						document.getElementById("time_label").style.display="none";
+
+						document.getElementById('goal_message').value = "goal!!\n" + gunmanGoalTimeStr + "\nabcde";
+
+						document.getElementById('goal_message').innerHTML = "goal!!<br>" + gunmanGoalTimeStr + "<br>abcde";
+
+						document.getElementById("goal_message_span").style.display="block";
+
 					}
-				}
-				else if ( cubeData[0][i][j] == 9 ) {   // 壁
-					if ( (i + j) % 2 == 0 ) {
-						createCube(scene, 1, 2.1, 1, x,y+(2.1 - 1.0)/2, z, 0x777777, "");
-					} else {
-						createCube(scene, 1, 2.1, 1, x,y+(2.1 - 1.0)/2, z, 0x77cc77, "");
+
+					moveTama(scene, 0.3, 0, 0);
+
+					if ( gunShootPoseCount > 0 ) {
+						if (--gunShootPoseCount == 0 ) {
+							loadVpdStandard()
+						}
 					}
+
+					render();
+				} catch (exception) {
+					document.getElementById('debug').value = exception;
 				}
-				else if ( cubeData[0][i][j] == 7 ) {   // ゴール
-//						createCube(scene, 1,1.5,1, x,y+(1.5 - 1.0)/2, z, 0x0000ff, "GOAL");
-//						createCube(scene, 1,1.5,1, x,3, z, 0x0000ff, "GOAL");
-						createCube(scene, 1,1,1, x, y, z, 0x0000ff, " GOAL ");
-				}
-
-				if ( cubeData[0][i][j] == 8 ) {
-					//gunman Start Position
-					createCylinder(scene, 0.5,0.1, x,0.5,z, 0xff0000);
-					createGunman(scene, x,0.6,z);
-
-					//gunmanの座標。左上のボックスを(0,0)とする
-					gunman_X = i;
-					gunman_Z = j;
-					init_gunman_X = gunman_X;
-					init_gunman_Z = gunman_Z;
-					document.getElementById('gunman_X').value = gunman_X;
-					document.getElementById('gunman_Z').value = gunman_Z;
-				}
-			}
-		}
-
-		gunmanSpriteDummy.addEventListener(enchant.Event.ENTER_FRAME, function(){
-
-			try {
-				var progress_time = game.frame/game.fps;
-				var progress_time_str = "Time : " + ("0000" + progress_time.toFixed(3)).slice(-8);   //9999.12xxxxxxxxxx
-				var limit_time_str = (10000 - progress_time).toFixed(3);   //9999.12xxxxxxxxxx
-
-				if ( gunmanGoal && gunmanGoalTimeStr == "" ) {
-					gunmanGoalTimeStr = progress_time_str;
-				}
-				if ( ! gunmanGoal ) {
-
-//					document.getElementById('time_limit').value = "" + limit_time_str;
-					document.getElementById('progress_time').value = "" + progress_time_str;
-				} else {
-//					document.getElementById('progress_time').value = "goal!! " + gunmanGoalTimeStr + "Goooooooal!!!!";
-					document.getElementById('progress_time').value = "" + gunmanGoalTimeStr;
-					document.getElementById("time_label").style.display="none";
-
-					document.getElementById('goal_message').value = "goal!!\n" + gunmanGoalTimeStr + "\nabcde";
-
-					document.getElementById('goal_message').innerHTML = "goal!!<br>" + gunmanGoalTimeStr + "<br>abcde";
-
-
-					document.getElementById("goal_message_span").style.display="block";
-
-				}
-
-				moveTama(scene, 0.3, 0, 0);
-
-				if ( gunShootPoseCount > 0 ) {
-					if (--gunShootPoseCount == 0 ) {
-						loadVpdStandard()
-					}
-				}
-
-				render();
-			} catch (exception) {
-				document.getElementById('debug').value = exception;
-			}
-		});
+			});
  
-	        game.rootScene.addChild(gunmanSpriteDummy);
+		        game.rootScene.addChild(gunmanSpriteDummy);
 
-		buttonJ.image = game.assets["buttonJ.png"];
+			buttonJ.image = game.assets["buttonJ.png"];
 //	        buttonJ.x = 100;
 //	        buttonJ.y = window.innerHeight-100;
-	        buttonJ.scaleX = buttonJ.scaleY = 2;
-		game.rootScene.addChild(buttonJ);
+	        	buttonJ.scaleX = buttonJ.scaleY = 2;
+			game.rootScene.addChild(buttonJ);
 
-		buttonG.image = game.assets["buttonG.png"];
+			buttonG.image = game.assets["buttonG.png"];
 //	        buttonG.x = window.innerWidth-160;
 //	        buttonG.y = window.innerHeight-100;
-	        buttonG.scaleX = buttonG.scaleY = 2;
-		game.rootScene.addChild(buttonG);
+	        	buttonG.scaleX = buttonG.scaleY = 2;
+			game.rootScene.addChild(buttonG);
 
-		//「Ｇ」ボタン
-		buttonG.addEventListener("touchstart", function(e) { 
-			try{
+			//「Ｇ」ボタン
+			buttonG.addEventListener("touchstart", function(e) { 
+				try{
 document.getElementById('debug').value = "G touched";
-				createTama(scene, gunman.position.x + 0.1, gunman.position.y + 2, gunman.position.z + 0.1 , 0.1, 0x333333);
+					createTama(scene, gunman.position.x + 0.1, gunman.position.y + 2, gunman.position.z + 0.1 , 0.1, 0x333333);
 
-//				loadVpdStandard()
-				loadVpdShoot()
-				gunShootPoseCount=40;
+//					loadVpdStandard()
+					loadVpdShoot()
+					gunShootPoseCount=40;
 
-			} catch (exception) {
+				} catch (exception) {
 document.getElementById('debug').value = exception;
-			}
-		}); // タッチ開始
+				}
+			}); // タッチ開始
 
-		//「Ｊ」ボタン
-		buttonJ.addEventListener("touchstart", function(e) { 
-			try{
-				gunJump = true;
-				gunJumpCount = GUNJUMPCOUNTMAX;
-			} catch (exception) {
+			//「Ｊ」ボタン
+			buttonJ.addEventListener("touchstart", function(e) { 
+				try{
+					gunJump = true;
+					gunJumpCount = GUNJUMPCOUNTMAX;
+				} catch (exception) {
 document.getElementById('debug').value = exception;
-			}
-		}); // タッチ開始
+				}
+			}); // タッチ開始
 
-		onWindowResize();
+			onWindowResize();
 
-	};
+		};
 
-	game.start();
+		game.start();
 
-}
+	}  // end of function startGame()
 
 	startGame();
 
@@ -1128,6 +1127,21 @@ document.getElementById('debug').value = exception;
 	}
 
 	function restart(){
+
+		initTHREE();
+
+		initParams();
+
+		game.frame = 0;
+		document.getElementById("time_label").style.display="block";
+		document.getElementById("goal_message_span").style.display="none";
+
+//		game.end();
+		satrtGame()
+
+	}
+
+	function _restart(){
 		gunmanGoal = false;
 		game.frame = 0;
 		gunman_X = init_gunman_X;

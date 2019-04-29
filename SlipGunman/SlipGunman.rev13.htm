@@ -136,7 +136,7 @@ Time : xxx.xxx
 </td></tr>
 -->
 <tr><td>
-<button style="font-size:40px;">
+<button style="font-size:40px;" onclick="restart()" >
 もう一度
 </button>
 </td></tr>
@@ -194,10 +194,11 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
         var game;
  	var camera, scene, renderer;
 	var tamaArray  = new Array(30);
+	var init_gunman_x, init_gunman_y;
+
 	for ( i=0; i<30; i++) {
 		tamaArray[i] = null;
 	}
-
 	cubeData = [
 		[
 			 [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]
@@ -981,6 +982,8 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 					//gunman Start Position
 					createCylinder(scene, 0.5,0.1, x,0.5,z, 0xff0000);
 					createGunman(scene, x,0.6,z);
+					init_gunman_x = x;
+					init_gunman_y = y;
 
 					//gunmanの座標。左上のボックスを(0,0)とする
 					gunman_X = i;
@@ -1153,6 +1156,12 @@ document.getElementById('debug').value = exception;
 		document.getElementById('gamma').value = gamma;
 
 		moveGunman(alpha, beta, gamma);
+	}
+
+	function restart(){
+		gunmanGoal = false;
+		game.frame = 0;
+		gunman.position.set(init_gunman_x, 0.6, init_gunman_z)
 	}
 
 </script>

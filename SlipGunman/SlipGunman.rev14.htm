@@ -1072,11 +1072,15 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 								type: "POST",
 								url: "https://gunman-php-server.herokuapp.com/SlipGunman/score/score.top10.php",
 								async: true,
-								data:"score="+gunmanGoalTimeStr,
-								success: function(data){
+								data:"score="+gunmanGoalTimeStr
+							})
+							.then(
+								function(data){
 document.getElementById('debug').value = data;
-							        }
-							});
+						        	}
+							);
+
+
 							scorePost = true;
 						}
 

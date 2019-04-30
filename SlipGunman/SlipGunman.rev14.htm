@@ -717,6 +717,7 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 	var gunShootPoseCount = 0;
 
 	var gunmanGoalTimeStr = "";
+	var scorePost = false;
 
 	function initParams() {
 		alpha_ini = -1;
@@ -742,6 +743,8 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 		gunShootPoseCount = 0;
 
 		gunmanGoalTimeStr = "";
+		scorePost = false;
+
 	}
 
 	function moveGunman(alpha,beta,gamma){
@@ -1063,12 +1066,16 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 
 						document.getElementById("goal_message_span").style.display="block";
 
-						$.ajax({
-							type: "POST",
-							url: "https://gunman-php-server.herokuapp.com/SlipGunman/score/score.php",
-							async: true,
-							data:"score="+gunmanGoalTimeStr
-						});
+						if ( ! scorePost ) {
+
+							$.ajax({
+								type: "POST",
+								url: "https://gunman-php-server.herokuapp.com/SlipGunman/score/score.php",
+								async: true,
+								data:"score="+gunmanGoalTimeStr
+							});
+							scorePost = true;
+						}
 
 					}
 

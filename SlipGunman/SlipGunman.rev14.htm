@@ -192,9 +192,9 @@ gunman_Z: <input type="text" size="5" id="gunman_Z" value="0">
 <script>
 						$.ajax({
 							type: "POST",
-							url: "http://fc.jpn.org/ryuba/gunman/enchant.js/SlipGunman/score/score.php",
+							url: "https://gunman-php-server.herokuapp.com/SlipGunman/score/dummy.php",
 							async: true,
-							data:"score="+"100"
+							data:""
 						});
 </script>
 
@@ -1065,7 +1065,7 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 
 						$.ajax({
 							type: "POST",
-							url: "http://fc.jpn.org/ryuba/gunman/enchant.js/SlipGunman/score/score.php",
+							url: "https://gunman-php-server.herokuapp.com/SlipGunman/score/score.php",
 							async: true,
 							data:"score="+gunmanGoalTimeStr
 						});

@@ -1070,9 +1070,12 @@ document.getElementById('debug').value = "createTama(): gunman.rotation.y = " + 
 
 							$.ajax({
 								type: "POST",
-								url: "https://gunman-php-server.herokuapp.com/SlipGunman/score/score.php",
+								url: "https://gunman-php-server.herokuapp.com/SlipGunman/score/score.top10.php",
 								async: true,
-								data:"score="+gunmanGoalTimeStr
+								data:"score="+gunmanGoalTimeStr,
+								success: function(data){
+document.getElementById('debug').value = data;
+							        }
 							});
 							scorePost = true;
 						}

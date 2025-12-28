@@ -39,6 +39,7 @@
 
   $score_top10_highscore = @file_get_contents($filename);
 
+  header('Access-Control-Allow-Origin: *');
   $out = fopen('php://output', 'w');
   fwrite($out, $score_top10_today);
   fwrite($out, $score_top10_highscore);
